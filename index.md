@@ -1,3 +1,6 @@
-<h1> This is a test <h1>
-<h2> This is another test </h2>
-<h3> This is yet another test </h3>
+---
+# Feel free to add content and custom Front Matter to this file.
+# To modify the layout, see https://jekyllrb.com/docs/themes/#overriding-theme-defaults
+
+layout: home
+---
