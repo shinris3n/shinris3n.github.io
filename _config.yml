@@ -25,7 +25,8 @@ github_username:  shinris3n
 
 # Build settings
 markdown: kramdown
-theme: jekyll-theme-midnight
+#theme: minima
+theme: jekyll-theme-hacker
 plugins:
   - jekyll-feed
 
