@@ -13,11 +13,10 @@
 # you will see them accessed via {{ site.title }}, {{ site.email }}, and so on.
 # You can create any custom variable you would like, and they will be accessible
 # in the templates via {{ site.myvariable }}.
-title: Atemi
+title: 当て身 Atemi
 description: >- # this means to ignore newlines until "baseurl:"
-  A Cybersecurity blog by Shinris3n
-  - Writeups - News - Musings - 
-  Part of the Ninpwn Network
+  A Cybersecurity blog by shinris3n <br>
+  👊 Writeups 👊 News 👊 Resources <br>
 baseurl: "/" # the subpath of your site, e.g. /blog
 url: "https://shinris3n.github.io" # the base hostname & protocol for your site, e.g. http://example.com
 twitter_username: shinris3n
@@ -29,6 +28,12 @@ markdown: kramdown
 theme: jekyll-theme-hacker
 plugins:
   - jekyll-feed
+
+defaults:
+  - scope:
+      path: "_assets/_images"
+    values:
+      image: true
 
 # Exclude from processing.
 # The following items will not be processed, by default. Create a custom list
