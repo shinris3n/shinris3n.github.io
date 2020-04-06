@@ -16,7 +16,7 @@
 title: 当て身 Atemi
 description: >- # this means to ignore newlines until "baseurl:"
   A Cybersecurity blog by shinris3n <br>
-  👊 Writeups 👊 News 👊 Resources <br>
+  👊 <a href = "/writeups">Writeups</a> 👊 <a href = "/news">News</a> 👊 <a href = "/resources">Resources</a> <br>
 baseurl: "/" # the subpath of your site, e.g. /blog
 url: "https://shinris3n.github.io" # the base hostname & protocol for your site, e.g. http://example.com
 twitter_username: shinris3n

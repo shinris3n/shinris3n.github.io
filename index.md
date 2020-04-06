@@ -4,4 +4,6 @@
 
 layout: home
 title: Post History
+list_title: 'By Date:'
+list2_title: 'By Tag:'
 ---
