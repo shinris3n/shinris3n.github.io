@@ -8,18 +8,24 @@ author: shinris3n
 <p></p>
 
 # Resources
-{% for tag in site.tags %}
-  {% assign t = tag | first %}
-  {% assign posts = tag | last %}
+{% for post in site.posts %}
+  	{% if post.category contains 'resources' %}
+  		{% assign resrc_list_str = resrc_list_str | append: post.title | append: " ,,, " %}
+  	{% endif %}
+{% endfor %}
+
+{% assign resrc_list = resrc_list_str | split: " ,,, " %}
+
+{% assign resrc_list = resrc_list | uniq | sort_natural %} 
 
 <ul>
-{% for post in posts %}
-  {% if post.tags contains 'resources' %}
+{% for resource in resrc_list %}
+{% for post in site.posts %}
+  {% if post.title == resource %}
   <li>
     <a href="{{ post.url }}">{{ post.title }}</a>
-    <span class="date" style="font-size:0.75em;">({{ post.date | date: "%b %-d, %Y" }})</span>
   </li>
   {% endif %}
 {% endfor %}
-</ul>
 {% endfor %}
+</ul>

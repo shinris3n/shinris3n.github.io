@@ -8,8 +8,16 @@ layout: default
 
 <p class="view">by {{ page.author | default: site.author }}</p>
 
+{% if page.challenge-source %}
+  <small>Challenge Source: <em>{{ page.challenge-source | join: "</em>, <em>" }}</em></small>
+{% endif %}
+<br>
+{% if page.challenge-category %}
+  <small>Challenge Category: <em>{{ page.challenge-category | join: "</em>, <em>" }}</em></small>
+{% endif %}
+
 {{content}}
 
 {% if page.tags %}
-  <small>tags: <em>{{ page.tags | join: "</em> - <em>" }}</em></small>
+  <small>Tags: <em>{{ page.tags | join: "</em>, <em>" }}</em></small>
 {% endif %}

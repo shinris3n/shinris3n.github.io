@@ -8,13 +8,10 @@ author: shinris3n
 <p></p>
 
 # News
-{% for tag in site.tags %}
-  {% assign t = tag | first %}
-  {% assign posts = tag | last %}
 
 <ul>
-{% for post in posts %}
-  {% if post.tags contains 'news' %}
+{% for post in site.posts %}
+  {% if post.categories contains 'news' %}
   <li>
     <a href="{{ post.url }}">{{ post.title }}</a>
     <span class="date" style="font-size:0.75em;">({{ post.date | date: "%b %-d, %Y" }})</span>
@@ -22,4 +19,3 @@ author: shinris3n
   {% endif %}
 {% endfor %}
 </ul>
-{% endfor %}
