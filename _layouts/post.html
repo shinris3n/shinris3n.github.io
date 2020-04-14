@@ -6,14 +6,16 @@ layout: default
 <small>{{ page.date | date: "%-d %B %Y" }}</small>
 <h1>{{ page.title }}</h1>
 
+{% comment %}
 <p class="view">by {{ page.author | default: site.author }}</p>
+{% endcomment %}
 
 {% if page.challenge-source %}
-  <small>Challenge Source: <em>{{ page.challenge-source | join: "</em>, <em>" }}</em></small>
+ <small><font color="b5e853">Challenge Source: <em>{{ page.challenge-source | join: "</em>, <em>" }}</em></font></small>
 {% endif %}
 <br>
 {% if page.challenge-category %}
-  <small>Challenge Category: <em>{{ page.challenge-category | join: "</em>, <em>" }}</em></small>
+  <small><font color="b5e853">Challenge Category: <em>{{ page.challenge-category | join: "</em>, <em>" }}</em></font></small>
 {% endif %}
 
 {{content}}

@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="/assets/css/style.css?v=6e81afc5b6df557c1038e549ce0bd856eb50b6ae">
+    <link rel="shortcut icon" type="image/png" href="http://localhost:4000/assets/images/shinris3n.png">
+
+<!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>2048 | 当て身 Atemi</title>
+<meta name="generator" content="Jekyll v3.8.5" />
+<meta property="og:title" content="2048" />
+<meta name="author" content="shinris3n" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="There were a couple of hints upfront to get you started:" />
+<meta property="og:description" content="There were a couple of hints upfront to get you started:" />
+<link rel="canonical" href="http://localhost:4000/writeups/2020/04/14/VirSecCon2020-2048.html" />
+<meta property="og:url" content="http://localhost:4000/writeups/2020/04/14/VirSecCon2020-2048.html" />
+<meta property="og:site_name" content="当て身 Atemi" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2020-04-14T10:48:21-04:00" />
+<script type="application/ld+json">
+{"url":"http://localhost:4000/writeups/2020/04/14/VirSecCon2020-2048.html","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/writeups/2020/04/14/VirSecCon2020-2048.html"},"author":{"@type":"Person","name":"shinris3n"},"headline":"2048","description":"There were a couple of hints upfront to get you started:","datePublished":"2020-04-14T10:48:21-04:00","dateModified":"2020-04-14T10:48:21-04:00","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+  </head>
+
+  <body>
+
+    <header>
+      <div class="container">
+        <h1>当て身 Atemi</h1>
+        <h2>A Cybersecurity blog by shinris3n <br> 👊 <a href = "/writeups">Writeups</a> 👊 <a href = "/news">News</a> 👊 <a href = "/resources">Resources</a> <br></h2>
+        <h5>Part of the <a href="https://www.ninpwn.com" target="_blank">Ninpwn</a> Network</h5>
+      </div>
+    </header>
+
+    <div class="container">
+      <a href="http://localhost:4000" title="shinris3n"><img src="http://localhost:4000/assets/images/shinris3n_banner_transparent.png" width="25%" height="25%"></a>
+      <section id="main_content">
+        <h5><a href="http://localhost:4000"> &lt;&lt; home </a></h5><br>
+
+<small>14 April 2020</small>
+<h1>2048</h1>
+
+
+
+
+ <small><font color="b5e853">Challenge Source: <em>VirSecCon2020</em></font></small>
+
+<br>
+
+  <small><font color="b5e853">Challenge Category: <em>Scripting</em></font></small>
+
+
+<p>There were a couple of hints upfront to get you started:</p>
+
+<ul>
+  <li>
+    <p>2048 is a puzzle game where you keep combining pairs of tiles.</p>
+  </li>
+  <li>
+    <p>The challenge text was a b64 encoded message that decoded to something to the effect of “plzhelpme”.</p>
+  </li>
+</ul>
+
+<p>Since the attached file was a large encoded message, with hints given it was safe to assume that the flag was 64 encoded over and over again.</p>
+
+<p>A Python3 script can be written to solve this:</p>
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="kn">import</span> <span class="nn">base64</span>
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s">'2048'</span><span class="p">)</span> <span class="k">as</span> <span class="n">b64file</span><span class="p">:</span>
+	<span class="n">b64input</span> <span class="o">=</span> <span class="n">b64file</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+
+<span class="n">decoded_output</span> <span class="o">=</span> <span class="n">base64</span><span class="o">.</span><span class="n">urlsafe_b64decode</span><span class="p">(</span><span class="n">b64input</span><span class="p">)</span>
+<span class="k">print</span> <span class="p">(</span><span class="n">decoded_output</span><span class="p">)</span>
+<span class="n">iterations</span> <span class="o">=</span> <span class="mi">1</span>
+
+<span class="k">while</span> <span class="n">iterations</span> <span class="o">&lt;</span> <span class="mi">50</span><span class="p">:</span>
+	<span class="n">decoded_output</span> <span class="o">=</span> <span class="n">base64</span><span class="o">.</span><span class="n">urlsafe_b64decode</span><span class="p">(</span><span class="n">decoded_output</span><span class="p">)</span>
+	<span class="k">print</span> <span class="p">(</span><span class="n">decoded_output</span><span class="p">)</span>
+	<span class="k">print</span> <span class="p">(</span><span class="n">iterations</span><span class="p">)</span>
+	<span class="n">iterations</span> <span class="o">=</span> <span class="n">iterations</span> <span class="o">+</span> <span class="mi">1</span></code></pre></figure>
+
+<p>    <img src="/assets/writeups/VirSecCon2020/2048/04-14-2020-123258.png" alt="Python Script Output" /></p>
+
+<p>Alternatively, <a href="https://gchq.github.io/CyberChef/" target="_blank">CyberChef</a> is a great resource for problems like this.</p>
+
+<p>Using a loop in CyberChef and loading the file as an input:</p>
+
+<p><img src="/assets/writeups/VirSecCon2020/2048/04-14-2020-122633.png" alt="CyberChef Output" /></p>
+
+<p>As a side note, there’s a function called “Magic” in CyberChef that works really well if you don’t know the encoding, or different types were utilized.  It didn’t work for this problem, however, probably because of the depth.</p>
+
+
+
+  <small>Tags: <em>VirSecCon</em>, <em>ctf</em>, <em>scripting</em></small>
+
+
+      </section>
+    </div>
+
+    
+  </body>
+</html>
