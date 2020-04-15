@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2020-04-14T12:40:07-04:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">当て身 Atemi</title><subtitle>A Cybersecurity blog by shinris3n &lt;br&gt; 👊 &lt;a href = &quot;/writeups&quot;&gt;Writeups&lt;/a&gt; 👊 &lt;a href = &quot;/news&quot;&gt;News&lt;/a&gt; 👊 &lt;a href = &quot;/resources&quot;&gt;Resources&lt;/a&gt; &lt;br&gt;</subtitle><entry><title type="html">2048</title><link href="http://localhost:4000/writeups/2020/04/14/VirSecCon2020-2048.html" rel="alternate" type="text/html" title="2048" /><published>2020-04-14T10:48:21-04:00</published><updated>2020-04-14T10:48:21-04:00</updated><id>http://localhost:4000/writeups/2020/04/14/VirSecCon2020-2048</id><content type="html" xml:base="http://localhost:4000/writeups/2020/04/14/VirSecCon2020-2048.html">&lt;p&gt;There were a couple of hints upfront to get you started:&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2020-04-15T14:14:08-04:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">&lt;a href=&quot;/&quot; style=&quot;text-decoration:none;color:#b5e853;&quot;&gt;当て身 Atemi&lt;/a&gt;</title><subtitle>A Cybersecurity blog by shinris3n &lt;br&gt; 👊 &lt;a href = &quot;/writeups&quot;&gt;Writeups&lt;/a&gt; 👊 &lt;a href = &quot;/news&quot;&gt;News&lt;/a&gt; 👊 &lt;a href = &quot;/resources&quot;&gt;Resources&lt;/a&gt; &lt;br&gt;</subtitle><entry><title type="html">2048</title><link href="http://localhost:4000/writeups/2020/04/14/VirSecCon2020-2048.html" rel="alternate" type="text/html" title="2048" /><published>2020-04-14T10:48:21-04:00</published><updated>2020-04-14T10:48:21-04:00</updated><id>http://localhost:4000/writeups/2020/04/14/VirSecCon2020-2048</id><content type="html" xml:base="http://localhost:4000/writeups/2020/04/14/VirSecCon2020-2048.html">&lt;p&gt;There were a couple of hints upfront to get you started:&lt;/p&gt;
 
 &lt;ul&gt;
   &lt;li&gt;
@@ -9,7 +9,7 @@
   &lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;Since the attached file was a large encoded message, with hints given it was safe to assume that the flag was 64 encoded over and over again.&lt;/p&gt;
+&lt;p&gt;Since the attached file was a large encoded message, with the hints given it was safe to assume that the flag was b64 encoded over and over again.&lt;/p&gt;
 
 &lt;p&gt;A Python3 script can be written to solve this:&lt;/p&gt;
 

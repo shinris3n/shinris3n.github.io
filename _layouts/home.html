@@ -19,17 +19,23 @@ layout: default
 
   {%- if posts.size > 0 -%}
     {%- if page.list_title -%}
-      <h2 class="post-list-heading"><u>{{ page.list_title }}</u></h2>
+      <h3 class="post-list-heading"><u>{{ page.list_title }}</u></h3>
     {%- endif -%}
     <ul class="post-list">
       {%- assign date_format = site.minima.date_format | default: "%b %-d, %Y" -%}
       {%- for post in posts -%}
       <li>
-        <span class="post-meta">{{ post.date | date: date_format }}</span>
+        <span class="post-meta"><font size="2" style="font-variant: small-caps;">{{ post.date | date: date_format }}</font></span>
         <h3>
           <a class="post-link" href="{{ post.url | relative_url }}">
             {{ post.title | escape }}
           </a>
+          {% if post.category %}
+            {% assign category_name = post.category %}
+          {% else %}
+            {% assign category_name = 'n/a' %}
+          {% endif %}
+          <br><font size="2" style="font-variant: small-caps;">category: {{category_name}}</font>
         </h3>
         {%- if site.show_excerpts -%}
           {{ post.excerpt }}
@@ -59,6 +65,7 @@ layout: default
   {%- endif -%}
 
 
+{% comment %}
 <h2 class="post-list-heading"><u>{{ page.list2_title }}</u></h2>
 {% for tag in site.tags %}
   {% assign t = tag | first %}
@@ -76,5 +83,6 @@ layout: default
 {% endfor %}
 </ul>
 {% endfor %}
+{% endcomment %}
 
 </div>
