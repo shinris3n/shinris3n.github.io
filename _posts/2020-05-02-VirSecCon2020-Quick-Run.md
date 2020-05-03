@@ -29,7 +29,7 @@ $ zbarimg 0.png
 
 &nbsp;&nbsp;&nbsp; ![zbarimg output](/assets/writeups/VirSecCon2020/Quick_Run/05-02-2020-232327.png)
 
-We can guess that if this is a character in flag, it is likely an ASCII encoded character.  We can check a table:  
+We can guess that if this is a character in the flag, it is likely an ASCII encoded character.  We can check a table:  
 
 ![ASCII Table](/assets/writeups/VirSecCon2020/Quick_Run/ASCII.png)
 
