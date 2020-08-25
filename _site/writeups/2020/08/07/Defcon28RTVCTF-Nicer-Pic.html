@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="/assets/css/style.css?v=920a33609e62d59f7b5245bb80ea31c05c3776c4">
+    <link rel="shortcut icon" type="image/png" href="http://localhost:4000/assets/images/shinris3n.png">
+
+<!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>An Even Nicer Picture | 当て身 Atemi</title>
+<meta name="generator" content="Jekyll v3.8.7" />
+<meta property="og:title" content="An Even Nicer Picture" />
+<meta name="author" content="shinris3n" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Forensics - An Even Nicer Picture" />
+<meta property="og:description" content="Forensics - An Even Nicer Picture" />
+<link rel="canonical" href="http://localhost:4000/writeups/2020/08/07/Defcon28RTVCTF-Nicer-Pic.html" />
+<meta property="og:url" content="http://localhost:4000/writeups/2020/08/07/Defcon28RTVCTF-Nicer-Pic.html" />
+<meta property="og:site_name" content="当て身 Atemi" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2020-08-07T22:21:15-04:00" />
+<script type="application/ld+json">
+{"@type":"BlogPosting","headline":"An Even Nicer Picture","dateModified":"2020-08-07T22:21:15-04:00","datePublished":"2020-08-07T22:21:15-04:00","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/writeups/2020/08/07/Defcon28RTVCTF-Nicer-Pic.html"},"author":{"@type":"Person","name":"shinris3n"},"url":"http://localhost:4000/writeups/2020/08/07/Defcon28RTVCTF-Nicer-Pic.html","description":"Forensics - An Even Nicer Picture","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+  </head>
+
+  <body>
+
+    <header>
+      <div class="container">
+        <h1><a href = '/' style = "text-decoration:none;color:#b5e853;" >当て身 Atemi</a></h1>
+        <h2>A Cybersecurity blog by shinris3n <br> 👊 <a href = "/writeups">Writeups</a> 👊 <a href = "/news">News</a> 👊 <a href = "/resources">Resources</a> <br></h2>
+        <h5>Part of the <a href="https://www.ninpwn.com" target="_blank">Ninpwn</a> Network</h5>
+      </div>
+    </header>
+
+    <div class="container">
+      <img src="http://localhost:4000/assets/images/shinris3n_banner_transparent.png" width="25%" height="25%" alt="shinris3n" title="shinris3n">
+      <section id="main_content">
+        <h5><a href="#" onclick="history.go(-1)"> &lt;&lt; back </a></h5><br>
+
+
+<small>7 August 2020</small>
+<h1>An Even Nicer Picture</h1>
+
+
+
+
+ <small><font color="b5e853">Challenge Source: <em>Defcon 28 - Red Team Village CTF</em></font></small>
+
+<br>
+
+  <small><font color="b5e853">Challenge Category: <em>forensics</em></font></small>
+
+
+<p>Forensics - An Even Nicer Picture</p>
+
+<p>Trying the same method from the “A Nice Picture” challenge first:</p>
+
+<p><img src="/assets/writeups/DefconRTVCTF/08b5bad066ee42c898fe71a40532993b.png" alt="1e4483d70dd40bd252283f7d4444bce5.png" /></p>
+
+<p>There doesn’t appear to be anything inside, but the file is clearly even larger than the first, identical picture, so let’s see what else we can do.  Exiftool doesn’t reveal anything in the metadata, so how about Steghide?</p>
+
+<p><img src="/assets/writeups/DefconRTVCTF/271a2b683ea2445f8d06ffabc17812c1.png" alt="252bbc0187d77aae3eda19d1f4c37fe8.png" /></p>
+
+<p>Nothing appears to show up, but maybe there’s a passphrase.  Using a tool called Stegcracker (installed via pip3; defaults to using /usr/share/wordlists/rockyou.txt):</p>
+
+<p><img src="/assets/writeups/DefconRTVCTF/a867e674f6c74744b34747584fb0c232.png" alt="52494346a7fe98388403a804931e74b0.png" /></p>
+
+<p>Inspecting the output:</p>
+
+<p><img src="/assets/writeups/DefconRTVCTF/c7c245f7832440d9b1d88763dad2ba1f.png" alt="8da2e8f1c47650b285da9b3f90eee1bd.png" /></p>
+
+<p>Since the file starts with PK, this is a zip file.  So we rename it and try to open it up, finding that its password protected.</p>
+
+<p><img src="/assets/writeups/DefconRTVCTF/40cccb9ff22445cc9ea763b0bb1c3b3b.png" alt="694dbe167dc00d63991af8443b59eaa3.png" /></p>
+
+<p>This part is actually the exact same as the “A Nice Picture” problem (including the password), but running through the steps again, we can use fcrackzip using rockyou.txt as the wordlist here as well:</p>
+
+<p><img src="/assets/writeups/DefconRTVCTF/b7c07f8cf88d4c8c82fc2041203906b0.png" alt="51b9ac376c538407a14313cdc67d0f02.png" /></p>
+
+
+
+
+  <small>Tags: <em>Defcon28-RTVCTF</em></small>
+
+
+      </section>
+    </div>
+
+    
+  </body>
+</html>

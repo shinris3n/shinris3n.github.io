@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="/assets/css/style.css?v=920a33609e62d59f7b5245bb80ea31c05c3776c4">
+    <link rel="shortcut icon" type="image/png" href="http://localhost:4000/assets/images/shinris3n.png">
+
+<!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>Roll For Initiative 1 | 当て身 Atemi</title>
+<meta name="generator" content="Jekyll v3.8.7" />
+<meta property="og:title" content="Roll For Initiative 1" />
+<meta name="author" content="shinris3n" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Programming - Roll for Initiative 1" />
+<meta property="og:description" content="Programming - Roll for Initiative 1" />
+<link rel="canonical" href="http://localhost:4000/writeups/2020/08/07/Defcon28RTVCTF-Roll1.html" />
+<meta property="og:url" content="http://localhost:4000/writeups/2020/08/07/Defcon28RTVCTF-Roll1.html" />
+<meta property="og:site_name" content="当て身 Atemi" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2020-08-07T22:23:15-04:00" />
+<script type="application/ld+json">
+{"@type":"BlogPosting","headline":"Roll For Initiative 1","dateModified":"2020-08-07T22:23:15-04:00","datePublished":"2020-08-07T22:23:15-04:00","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/writeups/2020/08/07/Defcon28RTVCTF-Roll1.html"},"author":{"@type":"Person","name":"shinris3n"},"url":"http://localhost:4000/writeups/2020/08/07/Defcon28RTVCTF-Roll1.html","description":"Programming - Roll for Initiative 1","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+  </head>
+
+  <body>
+
+    <header>
+      <div class="container">
+        <h1><a href = '/' style = "text-decoration:none;color:#b5e853;" >当て身 Atemi</a></h1>
+        <h2>A Cybersecurity blog by shinris3n <br> 👊 <a href = "/writeups">Writeups</a> 👊 <a href = "/news">News</a> 👊 <a href = "/resources">Resources</a> <br></h2>
+        <h5>Part of the <a href="https://www.ninpwn.com" target="_blank">Ninpwn</a> Network</h5>
+      </div>
+    </header>
+
+    <div class="container">
+      <img src="http://localhost:4000/assets/images/shinris3n_banner_transparent.png" width="25%" height="25%" alt="shinris3n" title="shinris3n">
+      <section id="main_content">
+        <h5><a href="#" onclick="history.go(-1)"> &lt;&lt; back </a></h5><br>
+
+
+<small>7 August 2020</small>
+<h1>Roll For Initiative 1</h1>
+
+
+
+
+ <small><font color="b5e853">Challenge Source: <em>Defcon 28 - Red Team Village CTF</em></font></small>
+
+<br>
+
+  <small><font color="b5e853">Challenge Category: <em>programming</em></font></small>
+
+
+<p>Programming - Roll for Initiative 1</p>
+
+<p>When connecting to the server, the “Backdoors and Breaches” game begins and we need to “Roll for Initiative”:</p>
+
+<p><img src="/assets/writeups/DefconRTVCTF/1b6fbdca30804930a87a5666ff2fbe1a.png" alt="8fcfc4d3c0aec11816b20352a7954d6b.png" /></p>
+
+<p>Experimenting a bit we find:</p>
+
+<ul>
+  <li>An integer between 1 and 20 needs to be provided as an input.</li>
+  <li>The number needs to match an expected value.</li>
+  <li>If it does we’re asked to “Roll again” and provide another input. We’re told that doing this 10 times will result in a “prize” which we can hope is the flag.</li>
+  <li>If it does not, we’re told it does not match, what the number should have been and the connection is broken.</li>
+  <li>The expected numbers and their order do not change when we re-establish a connection to the server.</li>
+</ul>
+
+<p>Our code therefore needs to open a connection to the server, submit some values, keep track of the correct values, restart the connect when an incorrect value is submitted, and find the flag, which we know will probably have ‘{‘ in it.</p>
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">import</span> <span class="nn">struct</span>
+<span class="kn">import</span> <span class="nn">socket</span>
+
+<span class="n">address</span> <span class="o">=</span> <span class="s">'164.90.147.2'</span>
+<span class="n">port</span> <span class="o">=</span> <span class="mi">1234</span>
+<span class="nb">buffer</span> <span class="o">=</span> <span class="mi">4096</span>
+<span class="n">data_to_send</span> <span class="o">=</span> <span class="p">[</span><span class="s">'14'</span><span class="p">]</span> <span class="o">*</span> <span class="mi">10</span>
+<span class="n">flag</span> <span class="o">=</span> <span class="s">''</span>
+<span class="n">received_data</span> <span class="o">=</span> <span class="s">''</span>
+<span class="k">while</span> <span class="n">flag</span> <span class="o">==</span> <span class="s">''</span><span class="p">:</span> 
+        <span class="n">tcpsocket</span> <span class="o">=</span> <span class="n">socket</span><span class="p">.</span><span class="n">socket</span><span class="p">(</span><span class="n">socket</span><span class="p">.</span><span class="n">AF_INET</span><span class="p">,</span> <span class="n">socket</span><span class="p">.</span><span class="n">SOCK_STREAM</span><span class="p">)</span>
+        <span class="n">tcpsocket</span><span class="p">.</span><span class="n">connect</span><span class="p">((</span><span class="n">address</span><span class="p">,</span> <span class="n">port</span><span class="p">))</span>
+        <span class="k">while</span> <span class="s">'What did you roll?'</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">received_data</span><span class="p">:</span>
+                <span class="n">received_data</span> <span class="o">=</span> <span class="n">tcpsocket</span><span class="p">.</span><span class="n">recv</span><span class="p">(</span><span class="nb">buffer</span><span class="p">).</span><span class="n">decode</span><span class="p">(</span><span class="s">'utf-8'</span><span class="p">)</span>
+        <span class="c1">#print ('Received:', received_data)
+</span>        <span class="n">index</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">while</span> <span class="bp">True</span><span class="p">:</span>
+                <span class="c1">#print ('Sending:', data_to_send[index], 'Array Index: ', index)
+</span>                <span class="n">formatted_data_to_send</span> <span class="o">=</span> <span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">data_to_send</span><span class="p">[</span><span class="n">index</span><span class="p">])</span> <span class="o">+</span> <span class="s">'</span><span class="se">\n</span><span class="s">'</span><span class="p">).</span><span class="n">encode</span><span class="p">(</span><span class="s">'utf-8'</span><span class="p">)</span>
+                <span class="n">tcpsocket</span><span class="p">.</span><span class="n">send</span><span class="p">(</span><span class="n">formatted_data_to_send</span><span class="p">)</span>
+                <span class="n">received_data</span> <span class="o">=</span> <span class="p">(</span><span class="n">tcpsocket</span><span class="p">.</span><span class="n">recv</span><span class="p">(</span><span class="nb">buffer</span><span class="p">)).</span><span class="n">decode</span><span class="p">(</span><span class="s">'utf-8'</span><span class="p">)</span>
+                <span class="c1">#print ('Received:', received_data)
+</span>                <span class="k">if</span> <span class="n">received_data</span> <span class="o">==</span> <span class="s">''</span><span class="p">:</span>
+                        <span class="k">break</span>
+                <span class="k">elif</span> <span class="s">'valid'</span> <span class="ow">in</span> <span class="n">received_data</span><span class="p">:</span>
+                        <span class="k">print</span> <span class="p">(</span><span class="s">'Error!'</span><span class="p">)</span>
+                        <span class="n">sys</span><span class="p">.</span><span class="nb">exit</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+                <span class="k">elif</span> <span class="s">'{'</span> <span class="ow">in</span> <span class="n">received_data</span><span class="p">:</span>
+                        <span class="n">flag</span> <span class="o">=</span> <span class="n">received_data</span>
+                        <span class="k">print</span> <span class="p">(</span><span class="s">'Flag ='</span><span class="p">,</span> <span class="n">flag</span><span class="p">)</span>
+                        <span class="k">break</span>
+                <span class="k">elif</span> <span class="s">'Correct'</span> <span class="ow">in</span> <span class="n">received_data</span><span class="p">:</span>
+                        <span class="c1">#print ('GOT IT!')
+</span>                        <span class="n">index</span> <span class="o">+=</span> <span class="mi">1</span>
+                <span class="k">else</span><span class="p">:</span>
+                        <span class="n">new_array_entry</span> <span class="o">=</span> <span class="n">received_data</span><span class="p">.</span><span class="n">lstrip</span><span class="p">(</span><span class="s">'Sorry, the roll I was looking for was '</span><span class="p">)</span>        
+                        <span class="c1">#print ('Array Entry Added:', new_array_entry, 'Index:', index)
+</span>                        <span class="n">data_to_send</span><span class="p">[</span><span class="n">index</span><span class="p">]</span> <span class="o">=</span> <span class="n">new_array_entry</span></code></pre></figure>
+
+<p><img src="/assets/writeups/DefconRTVCTF/eea3a0b7795f46d2ad0c16dc3b5a464e.png" alt="0989ccb25f75075faa483cf4bde6b738.png" /></p>
+
+
+
+
+  <small>Tags: <em>Defcon28-RTVCTF</em></small>
+
+
+      </section>
+    </div>
+
+    
+  </body>
+</html>

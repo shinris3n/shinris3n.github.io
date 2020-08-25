@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="/assets/css/style.css?v=920a33609e62d59f7b5245bb80ea31c05c3776c4">
+    <link rel="shortcut icon" type="image/png" href="http://localhost:4000/assets/images/shinris3n.png">
+
+<!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>Clicker | 当て身 Atemi</title>
+<meta name="generator" content="Jekyll v3.8.7" />
+<meta property="og:title" content="Clicker" />
+<meta name="author" content="shinris3n" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Pwn - Clicker" />
+<meta property="og:description" content="Pwn - Clicker" />
+<link rel="canonical" href="http://localhost:4000/writeups/2020/08/07/Defcon28RTVCTF-Clicker.html" />
+<meta property="og:url" content="http://localhost:4000/writeups/2020/08/07/Defcon28RTVCTF-Clicker.html" />
+<meta property="og:site_name" content="当て身 Atemi" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2020-08-07T22:20:15-04:00" />
+<script type="application/ld+json">
+{"@type":"BlogPosting","headline":"Clicker","dateModified":"2020-08-07T22:20:15-04:00","datePublished":"2020-08-07T22:20:15-04:00","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/writeups/2020/08/07/Defcon28RTVCTF-Clicker.html"},"author":{"@type":"Person","name":"shinris3n"},"url":"http://localhost:4000/writeups/2020/08/07/Defcon28RTVCTF-Clicker.html","description":"Pwn - Clicker","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+  </head>
+
+  <body>
+
+    <header>
+      <div class="container">
+        <h1><a href = '/' style = "text-decoration:none;color:#b5e853;" >当て身 Atemi</a></h1>
+        <h2>A Cybersecurity blog by shinris3n <br> 👊 <a href = "/writeups">Writeups</a> 👊 <a href = "/news">News</a> 👊 <a href = "/resources">Resources</a> <br></h2>
+        <h5>Part of the <a href="https://www.ninpwn.com" target="_blank">Ninpwn</a> Network</h5>
+      </div>
+    </header>
+
+    <div class="container">
+      <img src="http://localhost:4000/assets/images/shinris3n_banner_transparent.png" width="25%" height="25%" alt="shinris3n" title="shinris3n">
+      <section id="main_content">
+        <h5><a href="#" onclick="history.go(-1)"> &lt;&lt; back </a></h5><br>
+
+
+<small>7 August 2020</small>
+<h1>Clicker</h1>
+
+
+
+
+ <small><font color="b5e853">Challenge Source: <em>Defcon 28 - Red Team Village CTF</em></font></small>
+
+<br>
+
+  <small><font color="b5e853">Challenge Category: <em>pwn</em></font></small>
+
+
+<p>Pwn - Clicker</p>
+
+<p><em>“All you have to do is score 10,000,000 to get the flag. Get Clicking!!!!!”</em></p>
+
+<p>First we download clicker and make it executable.</p>
+
+<p><img src="/assets/writeups/DefconRTVCTF/4538f00cb9654440b1906f891e1e2c14.png" alt="b1d1a968f62062b7aa872004dfdcbc29.png" /></p>
+
+<p>Well we can hit or hold enter to buy toilet paper and buy a multiplier once we have enough rolls.  This resets the number of rolls to 0, and then we can buy 2 per “click”.  Yep, there’s no way we’re getting to 10 million like this.</p>
+
+<p>So what happens when we save?</p>
+
+<p><img src="/assets/writeups/DefconRTVCTF/5f208191b1be4822a4504294fefa2fc3.png" alt="f41d2846978714b65841a38cba031032.png" /></p>
+
+<p><img src="/assets/writeups/DefconRTVCTF/09e4172a4c234ad493eea3d0f06e3b69.png" alt="e3e22423bbcf66573ee4db58a42bb5ea.png" /></p>
+
+<p>Just text?  That seems easy enough to mess with!</p>
+
+<p><img src="/assets/writeups/DefconRTVCTF/339b34060b02462ea7cbe6d7d6255135.png" alt="1f6af210cec12a7fb7dc6341c9442709.png" /></p>
+
+<p><img src="/assets/writeups/DefconRTVCTF/6918cefa1bf44348b543537c2c2fc87c.png" alt="f190dba4f16e3d85ac7e1ea7f4a3fcb4.png" /></p>
+
+<p>And then after messing around enough we realize there’s no way to load actually it, so this was likely a troll…</p>
+
+<p>So how about gdb?</p>
+
+<p><img src="/assets/writeups/DefconRTVCTF/8832d87e9e3c43679d780489690f3ae3.png" alt="11432635340eb2a50137858ed0ff6499.png" /></p>
+
+<p><img src="/assets/writeups/DefconRTVCTF/65e1651442194166be715525fbb61494.png" alt="f27482c7910d7cf456b1bb6dc3045643.png" /></p>
+
+<p>Scrolling through, secret_function sure looks interesting.  So lets run the program, then ctrl-c to break during execution:</p>
+
+<p><img src="/assets/writeups/DefconRTVCTF/b232d90135e84e22944b2449ad5b5b19.png" alt="dc88f513274d36c043f5d35907169f13.png" /></p>
+
+<p>Now lets try to jump to the secret_function and see what happens:</p>
+
+<p><img src="/assets/writeups/DefconRTVCTF/e1f5db3716a441b2a017311fa0298d97.png" alt="c4ff3d4b541361ff5fc8154d15c02a2d.png" /></p>
+
+
+
+
+  <small>Tags: <em>Defcon28-RTVCTF</em></small>
+
+
+      </section>
+    </div>
+
+    
+  </body>
+</html>

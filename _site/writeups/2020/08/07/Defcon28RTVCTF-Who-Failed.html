@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="/assets/css/style.css?v=920a33609e62d59f7b5245bb80ea31c05c3776c4">
+    <link rel="shortcut icon" type="image/png" href="http://localhost:4000/assets/images/shinris3n.png">
+
+<!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>Who Failed | 当て身 Atemi</title>
+<meta name="generator" content="Jekyll v3.8.7" />
+<meta property="og:title" content="Who Failed" />
+<meta name="author" content="shinris3n" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Logs - Who Failed" />
+<meta property="og:description" content="Logs - Who Failed" />
+<link rel="canonical" href="http://localhost:4000/writeups/2020/08/07/Defcon28RTVCTF-Who-Failed.html" />
+<meta property="og:url" content="http://localhost:4000/writeups/2020/08/07/Defcon28RTVCTF-Who-Failed.html" />
+<meta property="og:site_name" content="当て身 Atemi" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2020-08-07T22:19:10-04:00" />
+<script type="application/ld+json">
+{"@type":"BlogPosting","headline":"Who Failed","dateModified":"2020-08-07T22:19:10-04:00","datePublished":"2020-08-07T22:19:10-04:00","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/writeups/2020/08/07/Defcon28RTVCTF-Who-Failed.html"},"author":{"@type":"Person","name":"shinris3n"},"url":"http://localhost:4000/writeups/2020/08/07/Defcon28RTVCTF-Who-Failed.html","description":"Logs - Who Failed","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+  </head>
+
+  <body>
+
+    <header>
+      <div class="container">
+        <h1><a href = '/' style = "text-decoration:none;color:#b5e853;" >当て身 Atemi</a></h1>
+        <h2>A Cybersecurity blog by shinris3n <br> 👊 <a href = "/writeups">Writeups</a> 👊 <a href = "/news">News</a> 👊 <a href = "/resources">Resources</a> <br></h2>
+        <h5>Part of the <a href="https://www.ninpwn.com" target="_blank">Ninpwn</a> Network</h5>
+      </div>
+    </header>
+
+    <div class="container">
+      <img src="http://localhost:4000/assets/images/shinris3n_banner_transparent.png" width="25%" height="25%" alt="shinris3n" title="shinris3n">
+      <section id="main_content">
+        <h5><a href="#" onclick="history.go(-1)"> &lt;&lt; back </a></h5><br>
+
+
+<small>7 August 2020</small>
+<h1>Who Failed</h1>
+
+
+
+
+ <small><font color="b5e853">Challenge Source: <em>Defcon 28 - Red Team Village CTF</em></font></small>
+
+<br>
+
+  <small><font color="b5e853">Challenge Category: <em>logs</em></font></small>
+
+
+<p>Logs - Who Failed</p>
+
+<p>The challenge seems easy enough:</p>
+
+<p><em>How many different IP addresses were banned?</em></p>
+
+<p>However, we don’t want to have to go through and count these manually. Looking at the file, we can see how a ban is formatted:</p>
+
+<p><img src="/assets/writeups/DefconRTVCTF/784a74acfcc049828cc0ca2c7cf2c6ae.png" alt="47da493d350f31e48f33b794498088a1.png" /></p>
+
+<p>So we can combine grep and sort as such:</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nb">cat </span>fail2ban.log | <span class="nb">grep</span> <span class="nt">-oe</span> <span class="s2">"Ban [0-9.]</span><span class="se">\{</span><span class="s2">11,19</span><span class="se">\}</span><span class="s2">"</span> | <span class="nb">sort</span> <span class="nt">--unique</span></code></pre></figure>
+
+<p>This gives us unique instances of any strings that look like “Ban X.X.X.X” (11 characters) through “Ban XXX.XXX.XXX.XXX” (19 characters), where X is a number between 0 and 9 or a period.</p>
+
+<p><img src="/assets/writeups/DefconRTVCTF/f4b4c861b46a4722ab99e29531654ddd.png" alt="91d5c4fd898f54905c70c7099c98f563.png" /></p>
+
+<p>With a bigger list we would also probably want to leverage the wc command to count the number of lines.  So a complete, single line solution for this challenge could be:</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nb">cat </span>fail2ban.log | <span class="nb">grep</span> <span class="nt">-oe</span> <span class="s2">"Ban [0-9.]</span><span class="se">\{</span><span class="s2">11,19</span><span class="se">\}</span><span class="s2">"</span> | <span class="nb">sort</span> <span class="nt">--unique</span> | <span class="nb">wc</span> <span class="nt">-l</span></code></pre></figure>
+
+<p><img src="/assets/writeups/DefconRTVCTF/a4d17f6322cf4b49bbf6f849fb3b4000.png" alt="05fbc0787b714dbeaa71cacdc5504dd7.png" /></p>
+
+
+
+
+  <small>Tags: <em>Defcon28-RTVCTF</em></small>
+
+
+      </section>
+    </div>
+
+    
+  </body>
+</html>
