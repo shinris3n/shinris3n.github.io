@@ -2,7 +2,7 @@
 layout: post
 title:  "VirSecCon 2020 CTF Results"
 date:   2020-04-06 01:25:41 -0400
-categories: news
+category: [news]
 tags: ctf
 ---
 

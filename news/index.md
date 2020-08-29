@@ -16,6 +16,7 @@ author: shinris3n
     <a href="{{ post.url }}">{{ post.title }}</a>
     <span class="date" style="font-size:0.75em;">({{ post.date | date: "%b %-d, %Y" }})</span>
   </li>
+  <br>
   {% endif %}
 {% endfor %}
 </ul>

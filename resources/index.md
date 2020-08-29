@@ -25,6 +25,7 @@ author: shinris3n
   <li>
     <a href="{{ post.url }}">{{ post.title }}</a>
   </li>
+  <br>
   {% endif %}
 {% endfor %}
 {% endfor %}
