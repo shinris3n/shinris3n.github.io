@@ -12,9 +12,23 @@ author: shinris3n
 <a href = "https://tryhackme.com/" target="_blank"><img src="/assets/writeups/TryHackMe/THMlogo.png" width="225"></a>
 
 <h2>Someone stole Santa's gift list!</h2>
-Sqlmap was a nice and straightforward way of solving this challenge, but I was curious how it could be solved manually.  I saw that others were also interested in the AoC2 Discord channel, so I decided to take a crack at it and share a possible solution.
+Using sqlmap was a nice and straightforward way of solving this challenge, but I was curious how it could be solved manually.  I saw that others were also interested in the AoC2 Discord channel, so I decided to take a crack at it and share a possible solution.
 
-- Just to take a look at what we have access to upfront, we can get all search button related output by trying a wildcard:
+- Taking it from the top for the sake of having a complete walkthrough to the Day 5 challenge, this is the page we're provided with to start:
+
+![santas_official_forum_frontpage.png](/assets/writeups/TryHackMe/AoC2D5/santas_official_forum_frontpage.png)
+
+- There's not really much to see in the page source, but as the challenge states to find "Santa's secret login panel and bypass the login", we can make some educated guesses (as instructed in the first challenge question) to find the panel at /santapanel:
+
+![santapanel.png](/assets/writeups/TryHackMe/AoC2D5/santapanel.png)
+
+- A simple and classic SQLi gets us in:
+
+`'or 1=1--`
+
+![badboilogin.png](/assets/writeups/TryHackMe/AoC2D5/badboilogin.png)
+
+- Just to take a look at what information we have access to upfront, we can get all search button related output by trying a wildcard:
 
 ![37de0ab710e9d480cc41b2ed5193a753.png](/assets/writeups/TryHackMe/AoC2D5/d01b15ca70e045c397034252c2769587.png)
 

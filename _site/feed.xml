@@ -1,10 +1,30 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.0">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2020-12-07T00:41:09-05:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">&lt;a href=&quot;/&quot; style=&quot;text-decoration:none;color:#b5e853;&quot;&gt;当て身 Atemi&lt;/a&gt;</title><subtitle>A Cybersecurity blog by shinris3n &lt;br&gt; 👊 &lt;a href = &quot;/writeups&quot;&gt;Writeups&lt;/a&gt; 👊 &lt;a href = &quot;/news&quot;&gt;News&lt;/a&gt; 👊 &lt;a href = &quot;/resources&quot;&gt;Resources&lt;/a&gt; &lt;br&gt;</subtitle><entry><title type="html">Advent of Cyber 2 - Day 5 (Manual Mode)</title><link href="http://localhost:4000/writeups/2020/12/05/TryHackMe-AoC2-Day5.html" rel="alternate" type="text/html" title="Advent of Cyber 2 - Day 5 (Manual Mode)" /><published>2020-12-05T23:12:21-05:00</published><updated>2020-12-05T23:12:21-05:00</updated><id>http://localhost:4000/writeups/2020/12/05/TryHackMe-AoC2-Day5</id><content type="html" xml:base="http://localhost:4000/writeups/2020/12/05/TryHackMe-AoC2-Day5.html">&lt;p&gt;&lt;a href=&quot;https://tryhackme.com/&quot; target=&quot;_blank&quot;&gt;&lt;img src=&quot;/assets/writeups/TryHackMe/THMlogo.png&quot; width=&quot;225&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.0">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2020-12-07T10:36:39-05:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">&lt;a href=&quot;/&quot; style=&quot;text-decoration:none;color:#b5e853;&quot;&gt;当て身 Atemi&lt;/a&gt;</title><subtitle>A Cybersecurity blog by shinris3n &lt;br&gt; 👊 &lt;a href = &quot;/writeups&quot;&gt;Writeups&lt;/a&gt; 👊 &lt;a href = &quot;/news&quot;&gt;News&lt;/a&gt; 👊 &lt;a href = &quot;/resources&quot;&gt;Resources&lt;/a&gt; &lt;br&gt;</subtitle><entry><title type="html">Advent of Cyber 2 - Day 5 (Manual Mode)</title><link href="http://localhost:4000/writeups/2020/12/05/TryHackMe-AoC2-Day5.html" rel="alternate" type="text/html" title="Advent of Cyber 2 - Day 5 (Manual Mode)" /><published>2020-12-05T23:12:21-05:00</published><updated>2020-12-05T23:12:21-05:00</updated><id>http://localhost:4000/writeups/2020/12/05/TryHackMe-AoC2-Day5</id><content type="html" xml:base="http://localhost:4000/writeups/2020/12/05/TryHackMe-AoC2-Day5.html">&lt;p&gt;&lt;a href=&quot;https://tryhackme.com/&quot; target=&quot;_blank&quot;&gt;&lt;img src=&quot;/assets/writeups/TryHackMe/THMlogo.png&quot; width=&quot;225&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
 
 &lt;h2&gt;Someone stole Santa's gift list!&lt;/h2&gt;
-&lt;p&gt;Sqlmap was a nice and straightforward way of solving this challenge, but I was curious how it could be solved manually.  I saw that others were also interested in the AoC2 Discord channel, so I decided to take a crack at it and share a possible solution.&lt;/p&gt;
+&lt;p&gt;Using sqlmap was a nice and straightforward way of solving this challenge, but I was curious how it could be solved manually.  I saw that others were also interested in the AoC2 Discord channel, so I decided to take a crack at it and share a possible solution.&lt;/p&gt;
 
 &lt;ul&gt;
-  &lt;li&gt;Just to take a look at what we have access to upfront, we can get all search button related output by trying a wildcard:&lt;/li&gt;
+  &lt;li&gt;Taking it from the top for the sake of having a complete walkthrough to the Day 5 challenge, this is the page we’re provided with to start:&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/writeups/TryHackMe/AoC2D5/santas_official_forum_frontpage.png&quot; alt=&quot;santas_official_forum_frontpage.png&quot; /&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;There’s not really much to see in the page source, but as the challenge states to find “Santa’s secret login panel and bypass the login”, we can make some educated guesses (as instructed in the first challenge question) to find the panel at /santapanel:&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/writeups/TryHackMe/AoC2D5/santapanel.png&quot; alt=&quot;santapanel.png&quot; /&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;A simple and classic SQLi gets us in:&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;'or 1=1--&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/writeups/TryHackMe/AoC2D5/badboilogin.png&quot; alt=&quot;badboilogin.png&quot; /&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Just to take a look at what information we have access to upfront, we can get all search button related output by trying a wildcard:&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;p&gt;&lt;img src=&quot;/assets/writeups/TryHackMe/AoC2D5/d01b15ca70e045c397034252c2769587.png&quot; alt=&quot;37de0ab710e9d480cc41b2ed5193a753.png&quot; /&gt;&lt;/p&gt;
