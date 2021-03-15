@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="/assets/css/style.css?v=7ffef42dae26353524a6dbf74721efac859862ec">
+    <link rel="shortcut icon" type="image/png" href="http://0.0.0.0:4000/assets/images/shinris3n.png">
+
+<!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>Pollex | 当て身 Atemi</title>
+<meta name="generator" content="Jekyll v3.9.0" />
+<meta property="og:title" content="Pollex" />
+<meta name="author" content="shinris3n" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Challenge Text" />
+<meta property="og:description" content="Challenge Text" />
+<link rel="canonical" href="http://0.0.0.0:4000/writeups/2021/03/14/NahamCon2021-Pollex.html" />
+<meta property="og:url" content="http://0.0.0.0:4000/writeups/2021/03/14/NahamCon2021-Pollex.html" />
+<meta property="og:site_name" content="当て身 Atemi" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2021-03-14T23:08:00-05:00" />
+<script type="application/ld+json">
+{"headline":"Pollex","url":"http://0.0.0.0:4000/writeups/2021/03/14/NahamCon2021-Pollex.html","dateModified":"2021-03-14T23:08:00-05:00","datePublished":"2021-03-14T23:08:00-05:00","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"http://0.0.0.0:4000/writeups/2021/03/14/NahamCon2021-Pollex.html"},"author":{"@type":"Person","name":"shinris3n"},"description":"Challenge Text","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+  </head>
+
+  <body>
+
+    <header>
+      <div class="container">
+        <h1><a href = '/' style = "text-decoration:none;color:#b5e853;" >当て身 Atemi</a></h1>
+        <h2>A Cybersecurity blog by shinris3n <br> 👊 <a href = "/writeups">Writeups</a> 👊 <a href = "/news">News</a> 👊 <a href = "/resources">Resources</a> <br></h2>
+        <h5>Part of the <a href="https://www.ninpwn.com" target="_blank">Ninpwn</a> Network</h5>
+      </div>
+    </header>
+
+    <div class="container">
+      <a href="http://0.0.0.0:4000"><img src="http://0.0.0.0:4000/assets/images/shinris3n_banner_transparent.png" width="25%" height="25%" alt="shinris3n" title="shinris3n home page link"></a>
+      <section id="main_content">
+        <h5><a href="#" onclick="history.go(-1)"> &lt;&lt; back </a></h5><br>
+
+
+<small>14 March 2021</small>
+<h1>Pollex</h1>
+
+
+
+
+ <small><font color="b5e853">Challenge Source: <em>NahamCon CTF 2021</em></font></small>
+
+<br>
+
+  <small><font color="b5e853">Challenge Category: <em>warmups</em></font></small>
+
+
+<h1></h1>
+<h3><font color="FF3030">Challenge Text</font></h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Author: @JohnHammond#6971
+
+👍
+
+Download the file below.
+
+Some people seem to have trouble reading this, understandably so. Sorry. The flag ends in these characters: 8fe36bc00}
+</code></pre></div></div>
+
+<h1></h1>
+<h3><font color="FF3030">Solution</font></h3>
+
+<ul>
+  <li>Opening the image file provided, nothing seems out of place.  However, if we look closely at the thumbnail theres a flag hidden there:</li>
+</ul>
+
+<p><img src="/assets/writeups/NahamConCTF2021/593b7c4d875d4da3b29be9e116e24d0e.png" alt="593b7c4d875d4da3b29be9e116e24d0e.png" /></p>
+
+<ul>
+  <li>
+    <p>Let’s not fall for John Hammond’s pro trolling attempts by using our biggest monitor and accessibility settings to try to see the image as it appears in our folder or taking screenshots and trying to zoom in via some image editor.  (Yes, I may have done this at first…)</p>
+  </li>
+  <li>
+    <p>Instead, we can easily see the flag clearly using exiftool to extract the thumbnail image:</p>
+  </li>
+</ul>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">exittool <span class="nt">-b</span> <span class="nt">-Thumbnailimage</span> pollex <span class="o">&gt;</span> ./pollex_thumbnail</code></pre></figure>
+
+<p><img src="/assets/writeups/NahamConCTF2021/c66d60c7816a44508a440b49dde15d7f.png" alt="c66d60c7816a44508a440b49dde15d7f.png" /></p>
+
+
+
+  <small>Tags: <em>NahamConCTF2021</em></small>
+
+
+      </section>
+    </div>
+
+    
+  </body>
+</html>

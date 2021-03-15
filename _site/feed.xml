@@ -1,4 +1,570 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.0">Jekyll</generator><link href="http://0.0.0.0:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://0.0.0.0:4000/" rel="alternate" type="text/html" /><updated>2020-12-15T23:08:36-06:00</updated><id>http://0.0.0.0:4000/feed.xml</id><title type="html">&lt;a href=&quot;/&quot; style=&quot;text-decoration:none;color:#b5e853;&quot;&gt;当て身 Atemi&lt;/a&gt;</title><subtitle>A Cybersecurity blog by shinris3n &lt;br&gt; 👊 &lt;a href = &quot;/writeups&quot;&gt;Writeups&lt;/a&gt; 👊 &lt;a href = &quot;/news&quot;&gt;News&lt;/a&gt; 👊 &lt;a href = &quot;/resources&quot;&gt;Resources&lt;/a&gt; &lt;br&gt;</subtitle><entry><title type="html">Audio Support</title><link href="http://0.0.0.0:4000/resources/2020/12/15/audio-support.html" rel="alternate" type="text/html" title="Audio Support" /><published>2020-12-15T22:00:01-06:00</published><updated>2020-12-15T22:00:01-06:00</updated><id>http://0.0.0.0:4000/resources/2020/12/15/audio-support</id><content type="html" xml:base="http://0.0.0.0:4000/resources/2020/12/15/audio-support.html">&lt;p&gt;&lt;a href=&quot;https://www.youtube.com/watch?v=X0WNQ3UYbJE&quot; target=&quot;_blank&quot;&gt;All The Things&lt;/a&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.0">Jekyll</generator><link href="http://0.0.0.0:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://0.0.0.0:4000/" rel="alternate" type="text/html" /><updated>2021-03-15T00:09:38-05:00</updated><id>http://0.0.0.0:4000/feed.xml</id><title type="html">&lt;a href=&quot;/&quot; style=&quot;text-decoration:none;color:#b5e853;&quot;&gt;当て身 Atemi&lt;/a&gt;</title><subtitle>A Cybersecurity blog by shinris3n &lt;br&gt; 👊 &lt;a href = &quot;/writeups&quot;&gt;Writeups&lt;/a&gt; 👊 &lt;a href = &quot;/news&quot;&gt;News&lt;/a&gt; 👊 &lt;a href = &quot;/resources&quot;&gt;Resources&lt;/a&gt; &lt;br&gt;</subtitle><entry><title type="html">Dice Roll</title><link href="http://0.0.0.0:4000/writeups/2021/03/14/NahamCon2021-Dice-Roll.html" rel="alternate" type="text/html" title="Dice Roll" /><published>2021-03-14T23:48:00-05:00</published><updated>2021-03-14T23:48:00-05:00</updated><id>http://0.0.0.0:4000/writeups/2021/03/14/NahamCon2021-Dice-Roll</id><content type="html" xml:base="http://0.0.0.0:4000/writeups/2021/03/14/NahamCon2021-Dice-Roll.html">&lt;h1&gt;&lt;/h1&gt;
+&lt;h3&gt;&lt;font color=&quot;FF3030&quot;&gt;Challenge Text&lt;/font&gt;&lt;/h3&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Author: @JohnHammond#6971
+
+When you have just one source of randomness, it's &quot;a die&quot;, but when you can have muliple -- it's 'dice!'
+
+NOTE: You are welcome to &quot;brute force&quot; this challenge if you feel you need to. ;)
+
+Download the file below and press the Start button on the top-right to begin this challenge.
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h1&gt;&lt;/h1&gt;
+&lt;h3&gt;&lt;font color=&quot;FF3030&quot;&gt;Solution&lt;/font&gt;&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Downloading the code, we can see that the program allows us to randomly generate a 32 bit integer that represents a dice roll, reset the random seed (“shake the dice”), or try to guess the outcome of the next dice roll.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-python&quot; data-lang=&quot;python&quot;&gt;&lt;span class=&quot;c1&quot;&gt;#!/usr/bin/env python3
+&lt;/span&gt;
+&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;random&lt;/span&gt;
+&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;os&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;banner&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;&quot;&quot;
+              _______
+   ______    | .   . |&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\\&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;
+  /     /&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\\&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;   |   .   |.&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\\&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;
+ /  '  /  &lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\\&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;  | .   . |.'|
+/_____/. . &lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\\&lt;/span&gt;&lt;span class=&quot;s&quot;&gt; |_______|.'|
+&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\\&lt;/span&gt;&lt;span class=&quot;s&quot;&gt; . . &lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\\&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;    /  &lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\\&lt;/span&gt;&lt;span class=&quot;s&quot;&gt; ' .   &lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\\&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'|
+ &lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\\&lt;/span&gt;&lt;span class=&quot;s&quot;&gt; . . &lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\\&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;  /    &lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\\&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;____'__&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\\&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;|
+  &lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\\&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;_____&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\\&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;/
+
+      D I C E   R O L L
+&quot;&quot;&quot;&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;menu&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;&quot;&quot;
+0. Info
+1. Shake the dice
+2. Roll the dice (practice)
+3. Guess the dice (test)
+&quot;&quot;&quot;&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;dice_bits&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;32&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;flag&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;open&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'flag.txt'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;read&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;banner&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;while&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;menu&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+        &lt;span class=&quot;k&quot;&gt;try&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+                &lt;span class=&quot;n&quot;&gt;entered&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;input&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'&amp;gt; '&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;except&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;ValueError&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+                &lt;span class=&quot;k&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;ERROR: Please select a menu option&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+                &lt;span class=&quot;k&quot;&gt;continue&lt;/span&gt;
+
+        &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;entered&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;not&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]:&lt;/span&gt;
+                &lt;span class=&quot;k&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;ERROR: Please select a menu option&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+                &lt;span class=&quot;k&quot;&gt;continue&lt;/span&gt;
+
+        &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;entered&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+                &lt;span class=&quot;k&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Our dice are loaded with a whopping 32 bits of randomness!&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+                &lt;span class=&quot;k&quot;&gt;continue&lt;/span&gt;
+
+        &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;entered&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+                &lt;span class=&quot;k&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Shaking all the dice...&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+                &lt;span class=&quot;n&quot;&gt;random&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;seed&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;os&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;urandom&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;dice_bits&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+                &lt;span class=&quot;k&quot;&gt;continue&lt;/span&gt;
+
+        &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;entered&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+                &lt;span class=&quot;k&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Rolling the dice... the sum was:&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+                &lt;span class=&quot;k&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;random&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;getrandbits&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;dice_bits&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+                &lt;span class=&quot;k&quot;&gt;continue&lt;/span&gt;
+
+        &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;entered&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+                &lt;span class=&quot;k&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Guess the dice roll to win a flag! What will the sum total be?&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+                &lt;span class=&quot;k&quot;&gt;try&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+                        &lt;span class=&quot;n&quot;&gt;guess&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;input&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'&amp;gt; '&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+                &lt;span class=&quot;k&quot;&gt;except&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;ValueError&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+                        &lt;span class=&quot;k&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;ERROR: Please enter a valid number!&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+                        &lt;span class=&quot;k&quot;&gt;continue&lt;/span&gt;
+
+                &lt;span class=&quot;n&quot;&gt;total&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;random&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;getrandbits&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;dice_bits&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+                &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;guess&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;total&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+                        &lt;span class=&quot;k&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;HOLY COW! YOU GUESSED IT RIGHT! Congratulations! Here is your flag:&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+                        &lt;span class=&quot;k&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;flag&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+                &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+                        &lt;span class=&quot;k&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;No, sorry, that was not correct... the sum total was:&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+                        &lt;span class=&quot;k&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;total&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+                &lt;span class=&quot;k&quot;&gt;continue&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;Since seeding is optional and &lt;em&gt;getrandbits&lt;/em&gt; (which is a deterministic, pseudo-random generator) is used, we should be able to predict values.  Luckily, there is a tool called &lt;a href=&quot;https://pypi.org/project/randcrack/&quot; target=&quot;_blank&quot;&gt;randcrack&lt;/a&gt; available that can use 32-bit &lt;em&gt;getrandbits&lt;/em&gt; integer inputs to predict newly generated numbers with high accuracy.  It takes 624 integers for randcrack to be ready to predict new numbers.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;To that end, we can build a script to interact with the challenge connection, roll the dice via option #2 and feed the results into randcrack.  After this we just use randcrack to guess the next roll with option #3 and get the flag.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-python&quot; data-lang=&quot;python&quot;&gt;&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;os&lt;/span&gt;
+&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;sys&lt;/span&gt;
+&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;struct&lt;/span&gt;
+&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;socket&lt;/span&gt;
+&lt;span class=&quot;kn&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;randcrack&lt;/span&gt; &lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;RandCrack&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;rc&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;RandCrack&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;address&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'challenge.nahamcon.com'&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;port&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;31699&lt;/span&gt;
+&lt;span class=&quot;nb&quot;&gt;buffer&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;4096&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;tcpsocket&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;socket&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;socket&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;socket&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;AF_INET&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;socket&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;SOCK_STREAM&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;tcpsocket&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;connect&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;((&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;address&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;port&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;# Get the initial headers
+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;received_data&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;tcpsocket&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;recv&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;buffer&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;decode&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'utf-8'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;print&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'Received:'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;received_data&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;# Check information
+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;tcpsocket&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;send&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;b'0&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\n&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;received_data&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;tcpsocket&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;recv&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;buffer&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;decode&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'utf-8'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;print&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'Received:'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;received_data&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;# Shake the dice
+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;tcpsocket&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;send&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;b'1&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\n&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;received_data&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;tcpsocket&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;recv&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;buffer&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;decode&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'utf-8'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;print&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'Received:'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;received_data&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;# Roll the dice enough for RandCrack to be able to work its magic
+&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;range&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;624&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;tcpsocket&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;send&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;b'2&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\n&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;received_data&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;tcpsocket&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;recv&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;buffer&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;decode&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'utf-8'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;received_data_lines&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;received_data&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;splitlines&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;received_roll&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;received_data_lines&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;])&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;rc&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;submit&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;received_roll&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+        &lt;span class=&quot;c1&quot;&gt;#print ('Received Roll Number',i,':', received_roll)
+&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;# Get a prediction of the next roll from RandCrack
+&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;try&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;roll_prediction&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;rc&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;predict_randrange&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;4294967294&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;print&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Roll Prediction: &quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;roll_prediction&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;except&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;print&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'Not enough rolls to predict - change range to 625.'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+        &lt;span class=&quot;nb&quot;&gt;exit&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;# Try to guess the next roll and output the response
+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;tcpsocket&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;send&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;b'3&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\n&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;received_data&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;tcpsocket&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;recv&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;buffer&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;decode&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'utf-8'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;print&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'Received:'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;received_data&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;roll_prediction_encoded&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;str&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;roll_prediction&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\n&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;encode&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'utf-8'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;tcpsocket&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;send&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;roll_prediction_encoded&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;received_data&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;tcpsocket&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;recv&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;buffer&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;decode&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'utf-8'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;print&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'Received:'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;received_data&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;tcpsocket&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;close&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;─&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;shinris3n㉿kodachi&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;-[~/sec/CTFs/Nahamcon_2021/dice_roll]
+└─&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;python3 roll_a_lot.py                                                                 
+Received: 
+              _______
+   ______    | &lt;span class=&quot;nb&quot;&gt;.&lt;/span&gt;   &lt;span class=&quot;nb&quot;&gt;.&lt;/span&gt; |&lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+  /     /&lt;span class=&quot;se&quot;&gt;\ &lt;/span&gt;  |   &lt;span class=&quot;nb&quot;&gt;.&lt;/span&gt;   |.&lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+ /  &lt;span class=&quot;s1&quot;&gt;'  /  \  | .   . |.'&lt;/span&gt;|
+/_____/. &lt;span class=&quot;nb&quot;&gt;.&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\ &lt;/span&gt;|_______|.&lt;span class=&quot;s1&quot;&gt;'|
+\ . . \    /  \ '&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;.&lt;/span&gt;   &lt;span class=&quot;se&quot;&gt;\'&lt;/span&gt;|
+ &lt;span class=&quot;se&quot;&gt;\ &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;.&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;.&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\ &lt;/span&gt; /    &lt;span class=&quot;se&quot;&gt;\_&lt;/span&gt;___&lt;span class=&quot;s1&quot;&gt;'__\|
+  \_____\/
+
+      D I C E   R O L L
+
+
+0. Info
+1. Shake the dice
+2. Roll the dice (practice)
+3. Guess the dice (test)
+
+&amp;gt; 
+Received: Our dice are loaded with a whopping 32 bits of randomness!
+
+0. Info
+1. Shake the dice
+2. Roll the dice (practice)
+3. Guess the dice (test)
+
+&amp;gt; 
+Received: Shaking all the dice...
+
+0. Info
+1. Shake the dice
+2. Roll the dice (practice)
+3. Guess the dice (test)
+
+&amp;gt; 
+Roll Prediction:  131726453
+Received: Guess the dice roll to win a flag! What will the sum total be?
+&amp;gt; 
+Received: HOLY COW! YOU GUESSED IT RIGHT! Congratulations! Here is your flag:
+flag{e915b62b2195d76bfddaac0160ed3194}
+
+0. Info
+1. Shake the dice
+2. Roll the dice (practice)
+3. Guess the dice (test)&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;</content><author><name>shinris3n</name></author><category term="[&quot;writeups&quot;]" /><category term="NahamConCTF2021" /><summary type="html">Challenge Text</summary></entry><entry><title type="html">Hydraulic</title><link href="http://0.0.0.0:4000/writeups/2021/03/14/NahamCon2021-Hydraulic.html" rel="alternate" type="text/html" title="Hydraulic" /><published>2021-03-14T23:42:00-05:00</published><updated>2021-03-14T23:42:00-05:00</updated><id>http://0.0.0.0:4000/writeups/2021/03/14/NahamCon2021-Hydraulic</id><content type="html" xml:base="http://0.0.0.0:4000/writeups/2021/03/14/NahamCon2021-Hydraulic.html">&lt;h1&gt;&lt;/h1&gt;
+&lt;h3&gt;&lt;font color=&quot;FF3030&quot;&gt;Challenge Text&lt;/font&gt;&lt;/h3&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Author: @JohnHammond#6971
+
+This is Stage 2 of Path 5 in The Mission. After solving this challenge, you may need to refresh the page to see the newly unlocked challenges.
+
+Gain access with the information you have gathered thus far and retrieve the flag.
+
+You may bruteforce this challenge... hence the name ;)
+
+Press the Start button on the top-right to begin this challenge.
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h1&gt;&lt;/h1&gt;
+&lt;h3&gt;&lt;font color=&quot;FF3030&quot;&gt;Solution&lt;/font&gt;&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Once finding new website directory structure via Lyra’s Twitter page and poking around a bit, we find http://constellations.page/constellations-documents/5/ with lists of user names and default passwords:&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;CONSTELLATIONS Default Account Passwords
+INTERNAL: this should not be shared outside of the org
+Personnel Names
+
+User accounts following the naming convention of lowercase firstname.
+
+    orion
+    pavo
+    gus
+    vela
+    hercules
+    leo
+    lyra
+    gemini 
+
+Default Passwords
+
+    starstar
+    allstars
+    starstruck
+    starshine
+    starsky
+    popstars
+    starship
+    bluestars
+    pinkstars
+    superstars
+    ilovestars
+    rockstars
+    thestars
+    starscream
+    gostars
+    shootingstars
+    northstars
+    alpinestars
+    starsign
+    moonandstars
+    starsrock
+    luckystars
+    iluvstars
+    fivestars
+    redstars
+    mystars
+    lovestars
+    dallasstars
+    moonstars
+    sunmoonstars
+    starsailor
+    silverstars
+    sevenstars
+    lilstars
+    dotaallstars
+    sunstars
+    starsun
+    starsstars
+    starsareblind
+    pokerstars
+    magicstars
+    divastars
+    blackstars
+    starstarstar
+    starsearch
+    luvstars
+    greenstars
+    deathstars
+    brightstars
+    twinstars
+    starsinthesky
+    starshooter
+    starsha
+    threestars
+    summerstars
+    starspirit
+    starshollow
+    starsandstripes
+    starsandmoons
+    nightstars
+    metrostars
+    icstars
+    hoodstars
+    deadstars
+    citystars
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;We can copy/paste these lists into separate files, then feed them into Hydra:&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;hydra &lt;span class=&quot;nt&quot;&gt;-s&lt;/span&gt; 32369 &lt;span class=&quot;nt&quot;&gt;-L&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;users&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-P&lt;/span&gt; ./passwords challenge.nahamcon.com &lt;span class=&quot;nt&quot;&gt;-t&lt;/span&gt; 4 ssh 
+Hydra v9.1 &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;c&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; 2020 by van Hauser/THC &amp;amp; David Maciejak - Please &lt;span class=&quot;k&quot;&gt;do &lt;/span&gt;not use &lt;span class=&quot;k&quot;&gt;in &lt;/span&gt;military or secret service organizations, or &lt;span class=&quot;k&quot;&gt;for &lt;/span&gt;illegal purposes &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;this is non-binding, these &lt;span class=&quot;k&quot;&gt;***&lt;/span&gt; ignore laws and ethics anyway&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;.&lt;/span&gt;
+
+Hydra &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;https://github.com/vanhauser-thc/thc-hydra&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; starting at 2021-03-13 11:13:25
+&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;DATA] max 4 tasks per 1 server, overall 4 tasks, 520 login tries &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;l:8/p:65&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;, ~130 tries per task
+&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;DATA] attacking ssh://challenge.nahamcon.com:32369/
+&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;STATUS] 36.00 tries/min, 36 tries &lt;span class=&quot;k&quot;&gt;in &lt;/span&gt;00:01h, 484 to &lt;span class=&quot;k&quot;&gt;do in &lt;/span&gt;00:14h, 4 active
+&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;STATUS] 29.67 tries/min, 89 tries &lt;span class=&quot;k&quot;&gt;in &lt;/span&gt;00:03h, 431 to &lt;span class=&quot;k&quot;&gt;do in &lt;/span&gt;00:15h, 4 active
+&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;32369][ssh] host: challenge.nahamcon.com   login: pavo   password: starsinthesky                                                                     
+&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;STATUS] 31.00 tries/min, 217 tries &lt;span class=&quot;k&quot;&gt;in &lt;/span&gt;00:07h, 303 to &lt;span class=&quot;k&quot;&gt;do in &lt;/span&gt;00:10h, 4 active
+1 of 1 target successfully completed, 1 valid password found
+Hydra &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;https://github.com/vanhauser-thc/thc-hydra&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; finished at 2021-03-13 11:21:48&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;After this, it’s just a matter of loading the instance, logging in with these credentials via SSH and grabbing the flag in the user’s home directory.&lt;/li&gt;
+&lt;/ul&gt;</content><author><name>shinris3n</name></author><category term="[&quot;writeups&quot;]" /><category term="NahamConCTF2021" /><summary type="html">Challenge Text</summary></entry><entry><title type="html">Meet The Team</title><link href="http://0.0.0.0:4000/writeups/2021/03/14/NahamCon2021-Meet-The-Team.html" rel="alternate" type="text/html" title="Meet The Team" /><published>2021-03-14T23:38:00-05:00</published><updated>2021-03-14T23:38:00-05:00</updated><id>http://0.0.0.0:4000/writeups/2021/03/14/NahamCon2021-Meet-The-Team</id><content type="html" xml:base="http://0.0.0.0:4000/writeups/2021/03/14/NahamCon2021-Meet-The-Team.html">&lt;h1&gt;&lt;/h1&gt;
+&lt;h3&gt;&lt;font color=&quot;FF3030&quot;&gt;Challenge Text&lt;/font&gt;&lt;/h3&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Author: @JohnHammond#6971
+
+Recover the list of employees working at CONSTELLATIONS.
+
+With the flag of this challenge, you should find new information that will help with future challenges.
+
+You should find the flag for this challenge ON THIS constellations.page website. You will not find it on GitHub.
+
+HINT: &quot;Can we please stop sharing our version control software out on our website?&quot;
+
+HINT AGAIN: you are looking for a publicly accessible version control software folder published on the constellations.page website itself
+
+After solving this challenge, you may need to refresh the page to see the newly unlocked challenges.
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h1&gt;&lt;/h1&gt;
+&lt;h3&gt;&lt;font color=&quot;FF3030&quot;&gt;Solution&lt;/font&gt;&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;The hint for this challenge was the quote in the source code at https://constellations.page/meet-the-team.html:&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&amp;lt;!-- Vela, can we please stop sharing our version control software out on the public internet? --&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;We see a Github link at the bottom of the page, which leads us to try:&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/writeups/NahamConCTF2021/1b7d7180a341438f8014c69f21325f0b.png&quot; alt=&quot;7f58c2422d6e80aa968d023dd1f79279.png&quot; /&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;We can’t browse the directory structure, unfortunately, so we have to try to access default files and figure out a path from there.  There is an excellent resource &lt;a href=&quot;https://medium.com/swlh/hacking-git-directories-e0e60fa79a36&quot; target=&quot;_blank&quot;&gt;here&lt;/a&gt; discussing some manual ways to discover files.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The path of least resistance, however, is automating this process via &lt;a href=&quot;https://github.com/internetwache/GitTools&quot; target=&quot;_blank&quot;&gt;GitTools&lt;/a&gt;.  Armed with this, we can run the “Dumper” tool first to find and pull the relevant contents from the site. (Note:  Having spaces in your path breaks this script, so check for this first.)&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;─&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;bash gitdumper.sh http://constellations.page/.git/ ./git_pages_dump
+&lt;span class=&quot;c&quot;&gt;###########&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;# GitDumper is part of https://github.com/internetwache/GitTools&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;#&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;# Developed and maintained by @gehaxelt from @internetwache&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;#&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;# Use at your own risk. Usage might be illegal in certain circumstances. &lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;# Only for educational purposes!&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;###########&lt;/span&gt;
+
+
+&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;]&lt;/span&gt; Destination folder does not exist
+&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;+] Creating ./git_pages_dump/.git/
+&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;+] Downloaded: HEAD
+&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;-] Downloaded: objects/info/packs
+&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;+] Downloaded: description
+&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;+] Downloaded: config
+&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;+] Downloaded: COMMIT_EDITMSG
+&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;+] Downloaded: index
+&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;-] Downloaded: packed-refs
+&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;+] Downloaded: refs/heads/master
+&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;-] Downloaded: refs/remotes/origin/HEAD
+&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;-] Downloaded: refs/stash
+&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;+] Downloaded: logs/HEAD
+&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;+] Downloaded: logs/refs/heads/master
+&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;-] Downloaded: logs/refs/remotes/origin/HEAD
+&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;-] Downloaded: info/refs
+&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;+] Downloaded: info/exclude
+&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;-] Downloaded: /refs/wip/index/refs/heads/master
+&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;-] Downloaded: /refs/wip/wtree/refs/heads/master
+&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;+] Downloaded: objects/e7/d4663ac6b436f95684c8bfc428cef0d7731455
+&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;+] Downloaded: objects/8e/9e7afad5d1f7c6c3dcf322a3a94aeebc1e0073
+&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;-] Downloaded: objects/00/00000000000000000000000000000000000000
+&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;+] Downloaded: objects/11/42cc3145fdba8d9eb8f9c9e7ee79bdfda64d9a
+&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;+] Downloaded: objects/87/b17a86409582c162e260795afdf104dc1d46b1
+...&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Next, we need to run the extractor script, which tries to iterate through the repo and recreate the contents by analyzing the commits.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt; 
+
+bash extractor.sh ./git_pages_dump ./git_pages_extracted
+&lt;span class=&quot;c&quot;&gt;###########&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;# Extractor is part of https://github.com/internetwache/GitTools&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;#&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;# Developed and maintained by @gehaxelt from @internetwache&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;#&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;# Use at your own risk. Usage might be illegal in certain circumstances. &lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;# Only for educational purposes!&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;###########&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;]&lt;/span&gt; Destination folder does not exist
+&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;]&lt;/span&gt; Creating...
+&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;+] Found commit: 8e9e7afad5d1f7c6c3dcf322a3a94aeebc1e0073
+&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;+] Found folder: /your/path/git_pages_extracted/0-8e9e7afad5d1f7c6c3dcf322a3a94aeebc1e0073/assets
+&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;+] Found file: /your/path/git_pages_extracted/0-8e9e7afad5d1f7c6c3dcf322a3a94aeebc1e0073/assets/.DS_Store
+&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;+] Found folder: /your/path/git_pages_extracted/0-8e9e7afad5d1f7c6c3dcf322a3a94aeebc1e0073/assets/css
+&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;+] Found file: /your/path/git_pages_extracted/0-8e9e7afad5d1f7c6c3dcf322a3a94aeebc1e0073/assets/css/grayscale.css
+&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;+] Found file: /your/path/git_pages_extracted/0-8e9e7afad5d1f7c6c3dcf322a3a94aeebc1e0073/assets/css/grayscale.min.css
+&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;+] Found folder: /your/path/git_pages_extracted/0-8e9e7afad5d1f7c6c3dcf322a3a94aeebc1e0073/assets/fonts                                                                     
+&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;+] Found folder: /your/path/git_pages_extracted/0-8e9e7afad5d1f7c6c3dcf322a3a94aeebc1e0073/assets/fonts/bootstrap                                                           
+&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;+] Found file: /your/path/git_pages_extracted/0-8e9e7afad5d1f7c6c3dcf322a3a94aeebc1e0073/assets/fonts/bootstrap/glyphicons-halflings-regular.eot                            
+&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;+] Found file: /your/path/git_pages_extracted/0-8e9e7afad5d1f7c6c3dcf322a3a94aeebc1e0073/assets/fonts/bootstrap/glyphicons-halflings-regular.svg                            
+&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;+] Found file: /your/path/git_pages_extracted/0-8e9e7afad5d1f7c6c3dcf322a3a94aeebc1e0073/assets/fonts/bootstrap/glyphicons-halflings-regular.ttf                            
+&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;+] Found file: /your/path/git_pages_extracted/0-8e9e7afad5d1f7c6c3dcf322a3a94aeebc1e0073/assets/fonts/bootstrap/glyphicons-halflings-regular.woff                           
+&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;+] Found file: /your/path/git_pages_extracted/0-8e9e7afad5d1f7c6c3dcf322a3a94aeebc1e0073/assets/fonts/bootstrap/glyphicons-halflings-regular.woff2
+...&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Finally, it’s just a matter of finding the flag in the reconstructed content.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;ls
+&lt;/span&gt;0-8e9e7afad5d1f7c6c3dcf322a3a94aeebc1e0073
+1-0780dea9ede681b1e4276d74740bb11056d97c39
+2-e7d4663ac6b436f95684c8bfc428cef0d7731455
+3-4c88ac1c56fe228267cf415c3ef87d7c3b8abd60
+4-1142cc3145fdba8d9eb8f9c9e7ee79bdfda64d9a
+5-87b17a86409582c162e260795afdf104dc1d46b1
+
+&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;grep&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-r&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;flag{&quot;&lt;/span&gt;
+3-4c88ac1c56fe228267cf415c3ef87d7c3b8abd60/meet-the-team.html:            &amp;lt;&lt;span class=&quot;o&quot;&gt;!&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;--&lt;/span&gt; &amp;lt;li&amp;gt;&amp;lt;h4&amp;gt;&amp;lt;b&amp;gt;flag&lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;4063962f3a52f923ddb4411c139dd24c&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;&amp;lt;/b&amp;gt;&amp;lt;/h4&amp;gt;&amp;lt;/li&amp;gt; &lt;span class=&quot;nt&quot;&gt;--&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt;
+2-e7d4663ac6b436f95684c8bfc428cef0d7731455/robots.txt:flag&lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;33b5240485dda77430d3de22996297a1&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+1-0780dea9ede681b1e4276d74740bb11056d97c39/meet-the-team.html:            &amp;lt;&lt;span class=&quot;o&quot;&gt;!&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;--&lt;/span&gt; &amp;lt;li&amp;gt;&amp;lt;h4&amp;gt;&amp;lt;b&amp;gt;flag&lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;4063962f3a52f923ddb4411c139dd24c&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;&amp;lt;/b&amp;gt;&amp;lt;/h4&amp;gt;&amp;lt;/li&amp;gt; &lt;span class=&quot;nt&quot;&gt;--&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt;
+1-0780dea9ede681b1e4276d74740bb11056d97c39/robots.txt:flag&lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;33b5240485dda77430d3de22996297a1&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+0-8e9e7afad5d1f7c6c3dcf322a3a94aeebc1e0073/robots.txt:flag&lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;33b5240485dda77430d3de22996297a1&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;</content><author><name>shinris3n</name></author><category term="[&quot;writeups&quot;]" /><category term="NahamConCTF2021" /><summary type="html">Challenge Text</summary></entry><entry><title type="html">Parseltongue</title><link href="http://0.0.0.0:4000/writeups/2021/03/14/NahamCon2021-Parseltongue.html" rel="alternate" type="text/html" title="Parseltongue" /><published>2021-03-14T23:33:00-05:00</published><updated>2021-03-14T23:33:00-05:00</updated><id>http://0.0.0.0:4000/writeups/2021/03/14/NahamCon2021-Parseltongue</id><content type="html" xml:base="http://0.0.0.0:4000/writeups/2021/03/14/NahamCon2021-Parseltongue.html">&lt;h1&gt;&lt;/h1&gt;
+&lt;h3&gt;&lt;font color=&quot;FF3030&quot;&gt;Challenge Text&lt;/font&gt;&lt;/h3&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Author: @JohnHammond#6971
+
+Hisssss, can you ssssee ssssome sssssecretssss?
+
+Download the file below.
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h1&gt;&lt;/h1&gt;
+&lt;h3&gt;&lt;font color=&quot;FF3030&quot;&gt;Solution&lt;/font&gt;&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Running strings on the file we can see it has an embedded python file in it.  With the help of &lt;a href=&quot;https://pypi.org/project/uncompyle6/&quot; target=&quot;_blank&quot;&gt;uncompyle6&lt;/a&gt; we’re able to decompile the binary (after changing its extension to pyc):&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;uncompyle6 pt.pyc &lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; pt.py&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-python&quot; data-lang=&quot;python&quot;&gt;&lt;span class=&quot;c1&quot;&gt;# uncompyle6 version 3.7.4
+# Python bytecode 3.8 (3413)
+# Decompiled from: Python 3.8.6 (default, Sep 25 2020, 09:36:53) 
+# [GCC 10.2.0]
+# Embedded file name: ./parseltongue.py
+# Compiled at: 2021-02-28 08:42:29
+# Size of source mod 2**32: 1889 bytes
+&lt;/span&gt;&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;Crypto.Util.number&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;as&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;l2b&lt;/span&gt;
+&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;random&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;sszz&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;
+ &lt;span class=&quot;s&quot;&gt;'aposlogahs'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'apsle'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'Sine'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'aʃe'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'bei∫ed'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'tuif'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'Kura'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'Vera'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'pard'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'pardshesl'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'bo∫'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'Gara'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'vinth'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'Pelʃis'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'keilsing'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'khair'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'tikni'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'Bana'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'Slehara'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'koukh'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'kups'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'dai'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'Andi'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'dorʃe'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'doʃe'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'sloʃe'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'kaʃe'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'Sarna'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'Suu'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'giʃe'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'Gorna'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'ass-girou'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'dros'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'feslure'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'hasli'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'riʃan'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'fraeslis'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'vris'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'gatsi'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'runʃe'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'Tira'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'hishe'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'einʃe'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'hesleuf'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'Firna'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'Baʃ'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'ʃem'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'ai'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'ine'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'dinʃe'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'Negei'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'slanp'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'ʃena'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'sliʃe'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'dati'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'slifai'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'Kuine'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'Ha'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'nisl'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'ʃe'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'Sobne'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'bna'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'Sora'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'ovith'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'houk'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'parknent'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'fasar'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'nesha'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'praughs'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'Pura'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'ʃine'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'ʃane'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'gisan'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'rai∫e'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'kata'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'Ara'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'Nigi'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'akaʃe'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'rashe'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'slan'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'Derne'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'Tina'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'snart'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'gariʃe'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'kerashe'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'stabsle'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'Fasi'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'Peina'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'Tasi'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'Sekusi'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'Harne'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'kapi'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'Athne'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'vaʃe'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'asl'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'ʃik'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'agiro'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'vei'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'Asuna'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'Teʃ'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'Fiʃ'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'Doʃ'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'ʃira'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'Haʃ'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'Vuʃ'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'vindovth'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'Bira'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'Sa'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'Slu'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'ou'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'iangsteur'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;zzss&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;b'&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\x07\x1c\x0e\x14\x17\n\x06\x03\x0c&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;J&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\x00&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;@G&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\x0e\x01&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;7X&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\x0b\x04&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;W&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\xf8\xb5\x03&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;P&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\x06\x0f\x80\xea\x9b\x00\x05&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;A&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\x16\\\x00&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\x17\x0f&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;s&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;False&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;z&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;True&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;ss&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;s&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;amp;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;z&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;z&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;abs&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ss&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;abs&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;z&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;zz&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ss&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;z&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;z&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;zz&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;z&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;z&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;zz&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;z&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;z&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;z&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;zz&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;zz&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;s&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ss&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ss&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;sz&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;s&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;z&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;zs&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;z&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;s&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;z&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;zs&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;sz&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;ss&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;str&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;z&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;replace&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;str&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;zs&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;str&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ss&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;replace&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;str&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ss&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;str&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;z&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;replace&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;str&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;z&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;''&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)))&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;sss&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;bytes&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ss&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;join&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sszz&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'utf-8'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;zzz&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;bytes&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;([&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;_a&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;^&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;_b&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;_a&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;_b&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;zip&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sss&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;zzss&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)])&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;ssszzz&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;bytes&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;([&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;_a&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;^&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;_b&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;_a&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;_b&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;zip&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;zzz&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;zzss&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)])&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;sss&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;b'S'&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;ssss&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[]&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;ss&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;sss&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[:&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;len&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sss&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;//&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;zz&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;sss&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;len&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sss&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;//&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:]&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;s&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;range&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;len&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ss&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)):&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;ssss&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;append&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ss&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;s&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;^&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;zz&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;s&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;])&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;else&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;5&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;' '&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;join&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;([&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;random&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;choice&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sszz&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;upper&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;_&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;range&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;random&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;randrange&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;5&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;10&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))]))&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;' '&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;join&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;([&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;random&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;choice&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sszz&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;upper&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;_&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;range&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;random&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;randrange&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;5&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;10&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))]))&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;# okay decompiling pt.pyc&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;There’s a lot going on here and many similar variables to confuse things.  When we run the program we know we’re only seeing output that takes a few random elements of the sszz array and capitalizes the characters in the string.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;To that end, the easiest thing to do here first is just modify the code to print the output of the other variables - “zzz” and “ssszzz” stand out as suspicious because they are iterating over the “zzss” string of bytecode.  Just trying these first, the flag string turns out to be hiding in the “zzz” variable.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-python&quot; data-lang=&quot;python&quot;&gt;&lt;span class=&quot;k&quot;&gt;print&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;zzz&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;print&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ssszzz&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;python3 py.py                                                          
+APSLE INE AGIRO HAƩ BANA GARA SINE SLANP
+b&lt;span class=&quot;s1&quot;&gt;'flag{eabd9a04bdd1ea626f2cfbb0ea5c5feb}'&lt;/span&gt;
+b&lt;span class=&quot;s1&quot;&gt;'aposlogahsapsleSinea\xca\x83ebei\xe2\x88\xabedtuifKur'&lt;/span&gt;
+&lt;span class=&quot;sb&quot;&gt;```&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;</content><author><name>shinris3n</name></author><category term="[&quot;writeups&quot;]" /><category term="NahamConCTF2021" /><summary type="html">Challenge Text</summary></entry><entry><title type="html">Pollex</title><link href="http://0.0.0.0:4000/writeups/2021/03/14/NahamCon2021-Pollex.html" rel="alternate" type="text/html" title="Pollex" /><published>2021-03-14T23:08:00-05:00</published><updated>2021-03-14T23:08:00-05:00</updated><id>http://0.0.0.0:4000/writeups/2021/03/14/NahamCon2021-Pollex</id><content type="html" xml:base="http://0.0.0.0:4000/writeups/2021/03/14/NahamCon2021-Pollex.html">&lt;h1&gt;&lt;/h1&gt;
+&lt;h3&gt;&lt;font color=&quot;FF3030&quot;&gt;Challenge Text&lt;/font&gt;&lt;/h3&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Author: @JohnHammond#6971
+
+👍
+
+Download the file below.
+
+Some people seem to have trouble reading this, understandably so. Sorry. The flag ends in these characters: 8fe36bc00}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h1&gt;&lt;/h1&gt;
+&lt;h3&gt;&lt;font color=&quot;FF3030&quot;&gt;Solution&lt;/font&gt;&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Opening the image file provided, nothing seems out of place.  However, if we look closely at the thumbnail theres a flag hidden there:&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/writeups/NahamConCTF2021/593b7c4d875d4da3b29be9e116e24d0e.png&quot; alt=&quot;593b7c4d875d4da3b29be9e116e24d0e.png&quot; /&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;Let’s not fall for John Hammond’s pro trolling attempts by using our biggest monitor and accessibility settings to try to see the image as it appears in our folder or taking screenshots and trying to zoom in via some image editor.  (Yes, I may have done this at first…)&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Instead, we can easily see the flag clearly using exiftool to extract the thumbnail image:&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;exittool &lt;span class=&quot;nt&quot;&gt;-b&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-Thumbnailimage&lt;/span&gt; pollex &lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; ./pollex_thumbnail&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/writeups/NahamConCTF2021/c66d60c7816a44508a440b49dde15d7f.png&quot; alt=&quot;c66d60c7816a44508a440b49dde15d7f.png&quot; /&gt;&lt;/p&gt;</content><author><name>shinris3n</name></author><category term="[&quot;writeups&quot;]" /><category term="NahamConCTF2021" /><summary type="html">Challenge Text</summary></entry><entry><title type="html">Audio Support</title><link href="http://0.0.0.0:4000/resources/2020/12/15/audio-support.html" rel="alternate" type="text/html" title="Audio Support" /><published>2020-12-15T22:00:01-06:00</published><updated>2020-12-15T22:00:01-06:00</updated><id>http://0.0.0.0:4000/resources/2020/12/15/audio-support</id><content type="html" xml:base="http://0.0.0.0:4000/resources/2020/12/15/audio-support.html">&lt;p&gt;&lt;a href=&quot;https://www.youtube.com/watch?v=X0WNQ3UYbJE&quot; target=&quot;_blank&quot;&gt;All The Things&lt;/a&gt;
 &lt;br /&gt;
 &lt;a href=&quot;https://www.youtube.com/watch?v=08vrKZcA6eE&quot; target=&quot;_blank&quot;&gt;P5 OST&lt;/a&gt;&lt;/p&gt;</content><author><name>shinris3n</name></author><category term="[&quot;resources&quot;]" /><category term="resources" /><category term="everything" /><summary type="html">All The Things P5 OST</summary></entry><entry><title type="html">Advent of Cyber 2 - Day 5 (Manual Mode)</title><link href="http://0.0.0.0:4000/writeups/2020/12/05/TryHackMe-AoC2-Day5.html" rel="alternate" type="text/html" title="Advent of Cyber 2 - Day 5 (Manual Mode)" /><published>2020-12-05T22:12:21-06:00</published><updated>2020-12-05T22:12:21-06:00</updated><id>http://0.0.0.0:4000/writeups/2020/12/05/TryHackMe-AoC2-Day5</id><content type="html" xml:base="http://0.0.0.0:4000/writeups/2020/12/05/TryHackMe-AoC2-Day5.html">&lt;p&gt;&lt;a href=&quot;https://tryhackme.com/&quot; target=&quot;_blank&quot;&gt;&lt;img src=&quot;/assets/writeups/TryHackMe/THMlogo.png&quot; width=&quot;225&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
 
@@ -247,97 +813,4 @@
 
 &lt;p&gt;This part is actually the exact same as the “A Nice Picture” problem (including the password), but running through the steps again, we can use fcrackzip using rockyou.txt as the wordlist here as well:&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;/assets/writeups/DefconRTVCTF/b7c07f8cf88d4c8c82fc2041203906b0.png&quot; alt=&quot;51b9ac376c538407a14313cdc67d0f02.png&quot; /&gt;&lt;/p&gt;</content><author><name>shinris3n</name></author><category term="[&quot;writeups&quot;]" /><category term="Defcon28-RTVCTF" /><summary type="html">Forensics - An Even Nicer Picture</summary></entry><entry><title type="html">Re_Me</title><link href="http://0.0.0.0:4000/writeups/2020/08/07/Defcon28RTVCTF-Re-Me.html" rel="alternate" type="text/html" title="Re_Me" /><published>2020-08-07T21:20:15-05:00</published><updated>2020-08-07T21:20:15-05:00</updated><id>http://0.0.0.0:4000/writeups/2020/08/07/Defcon28RTVCTF-Re-Me</id><content type="html" xml:base="http://0.0.0.0:4000/writeups/2020/08/07/Defcon28RTVCTF-Re-Me.html">&lt;p&gt;Reversing - Re_Me&lt;/p&gt;
-
-&lt;p&gt;GDB Peda probably made this easier than it would have been:&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/writeups/DefconRTVCTF/3f9efa16462f45cdb37cb56a78a6c94a.png&quot; alt=&quot;960bf84715ae11864e2a6265eacd181e.png&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/writeups/DefconRTVCTF/636ae71bc3ee4beb9df1336e72f9945c.png&quot; alt=&quot;83f6400adfcf1da45f02997e34489ba0.png&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/writeups/DefconRTVCTF/b588053e85a6448681ed01a1bfeec514.png&quot; alt=&quot;1716d9598a6f466dc2e4a46d4a7301ef.png&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;Then hitting enter to step through:&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/writeups/DefconRTVCTF/1f92dd31363e4669a83a62b4cb6f192b.png&quot; alt=&quot;31e06a2443061bb739f63e87b1c118ad.png&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;This starts to build.  Manually stepping through:&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/writeups/DefconRTVCTF/7aec30aba65c49f1b4b415a4b2b1356e.png&quot; alt=&quot;d1b3e28ef5b82c5298831faf536af596.png&quot; /&gt;&lt;/p&gt;</content><author><name>shinris3n</name></author><category term="[&quot;writeups&quot;]" /><category term="Defcon28-RTVCTF" /><summary type="html">Reversing - Re_Me</summary></entry><entry><title type="html">Clicker</title><link href="http://0.0.0.0:4000/writeups/2020/08/07/Defcon28RTVCTF-Clicker.html" rel="alternate" type="text/html" title="Clicker" /><published>2020-08-07T21:20:15-05:00</published><updated>2020-08-07T21:20:15-05:00</updated><id>http://0.0.0.0:4000/writeups/2020/08/07/Defcon28RTVCTF-Clicker</id><content type="html" xml:base="http://0.0.0.0:4000/writeups/2020/08/07/Defcon28RTVCTF-Clicker.html">&lt;p&gt;Pwn - Clicker&lt;/p&gt;
-
-&lt;p&gt;&lt;em&gt;“All you have to do is score 10,000,000 to get the flag. Get Clicking!!!!!”&lt;/em&gt;&lt;/p&gt;
-
-&lt;p&gt;First we download clicker and make it executable.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/writeups/DefconRTVCTF/4538f00cb9654440b1906f891e1e2c14.png&quot; alt=&quot;b1d1a968f62062b7aa872004dfdcbc29.png&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;Well we can hit or hold enter to buy toilet paper and buy a multiplier once we have enough rolls.  This resets the number of rolls to 0, and then we can buy 2 per “click”.  Yep, there’s no way we’re getting to 10 million like this.&lt;/p&gt;
-
-&lt;p&gt;So what happens when we save?&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/writeups/DefconRTVCTF/5f208191b1be4822a4504294fefa2fc3.png&quot; alt=&quot;f41d2846978714b65841a38cba031032.png&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/writeups/DefconRTVCTF/09e4172a4c234ad493eea3d0f06e3b69.png&quot; alt=&quot;e3e22423bbcf66573ee4db58a42bb5ea.png&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;Just text?  That seems easy enough to mess with!&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/writeups/DefconRTVCTF/339b34060b02462ea7cbe6d7d6255135.png&quot; alt=&quot;1f6af210cec12a7fb7dc6341c9442709.png&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/writeups/DefconRTVCTF/6918cefa1bf44348b543537c2c2fc87c.png&quot; alt=&quot;f190dba4f16e3d85ac7e1ea7f4a3fcb4.png&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;And then after messing around enough we realize there’s no way to load actually it, so this was likely a troll…&lt;/p&gt;
-
-&lt;p&gt;So how about gdb?&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/writeups/DefconRTVCTF/8832d87e9e3c43679d780489690f3ae3.png&quot; alt=&quot;11432635340eb2a50137858ed0ff6499.png&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/writeups/DefconRTVCTF/65e1651442194166be715525fbb61494.png&quot; alt=&quot;f27482c7910d7cf456b1bb6dc3045643.png&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;Scrolling through, secret_function sure looks interesting.  So lets run the program, then ctrl-c to break during execution:&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/writeups/DefconRTVCTF/b232d90135e84e22944b2449ad5b5b19.png&quot; alt=&quot;dc88f513274d36c043f5d35907169f13.png&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;Now lets try to jump to the secret_function and see what happens:&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/writeups/DefconRTVCTF/e1f5db3716a441b2a017311fa0298d97.png&quot; alt=&quot;c4ff3d4b541361ff5fc8154d15c02a2d.png&quot; /&gt;&lt;/p&gt;</content><author><name>shinris3n</name></author><category term="[&quot;writeups&quot;]" /><category term="Defcon28-RTVCTF" /><summary type="html">Pwn - Clicker</summary></entry><entry><title type="html">Who Failed</title><link href="http://0.0.0.0:4000/writeups/2020/08/07/Defcon28RTVCTF-Who-Failed.html" rel="alternate" type="text/html" title="Who Failed" /><published>2020-08-07T21:19:10-05:00</published><updated>2020-08-07T21:19:10-05:00</updated><id>http://0.0.0.0:4000/writeups/2020/08/07/Defcon28RTVCTF-Who-Failed</id><content type="html" xml:base="http://0.0.0.0:4000/writeups/2020/08/07/Defcon28RTVCTF-Who-Failed.html">&lt;p&gt;Logs - Who Failed&lt;/p&gt;
-
-&lt;p&gt;The challenge seems easy enough:&lt;/p&gt;
-
-&lt;p&gt;&lt;em&gt;How many different IP addresses were banned?&lt;/em&gt;&lt;/p&gt;
-
-&lt;p&gt;However, we don’t want to have to go through and count these manually. Looking at the file, we can see how a ban is formatted:&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/writeups/DefconRTVCTF/784a74acfcc049828cc0ca2c7cf2c6ae.png&quot; alt=&quot;47da493d350f31e48f33b794498088a1.png&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;So we can combine grep and sort as such:&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;nb&quot;&gt;cat &lt;/span&gt;fail2ban.log | &lt;span class=&quot;nb&quot;&gt;grep&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-oe&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;Ban [0-9.]&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\{&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;11,19&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\}&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt; | &lt;span class=&quot;nb&quot;&gt;sort&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;--unique&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;This gives us unique instances of any strings that look like “Ban X.X.X.X” (11 characters) through “Ban XXX.XXX.XXX.XXX” (19 characters), where X is a number between 0 and 9 or a period.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/writeups/DefconRTVCTF/f4b4c861b46a4722ab99e29531654ddd.png&quot; alt=&quot;91d5c4fd898f54905c70c7099c98f563.png&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;With a bigger list we would also probably want to leverage the wc command to count the number of lines.  So a complete, single line solution for this challenge could be:&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;nb&quot;&gt;cat &lt;/span&gt;fail2ban.log | &lt;span class=&quot;nb&quot;&gt;grep&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-oe&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;Ban [0-9.]&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\{&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;11,19&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\}&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt; | &lt;span class=&quot;nb&quot;&gt;sort&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;--unique&lt;/span&gt; | &lt;span class=&quot;nb&quot;&gt;wc&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-l&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/writeups/DefconRTVCTF/a4d17f6322cf4b49bbf6f849fb3b4000.png&quot; alt=&quot;05fbc0787b714dbeaa71cacdc5504dd7.png&quot; /&gt;&lt;/p&gt;</content><author><name>shinris3n</name></author><category term="[&quot;writeups&quot;]" /><category term="Defcon28-RTVCTF" /><summary type="html">Logs - Who Failed</summary></entry><entry><title type="html">Ninpwn Draws First Blood on the VetSec Scholarship Practical Challenge!</title><link href="http://0.0.0.0:4000/news/2020/08/04/vetsec-scholarship.html" rel="alternate" type="text/html" title="Ninpwn Draws First Blood on the VetSec Scholarship Practical Challenge!" /><published>2020-08-04T16:47:23-05:00</published><updated>2020-08-04T16:47:23-05:00</updated><id>http://0.0.0.0:4000/news/2020/08/04/vetsec-scholarship</id><content type="html" xml:base="http://0.0.0.0:4000/news/2020/08/04/vetsec-scholarship.html">&lt;p&gt;&lt;a href=&quot;https://veteransec.com/&quot; target=&quot;_blank&quot;&gt;&lt;img src=&quot;/assets/images/vetsec.png&quot; /&gt;&lt;/a&gt;
-   &lt;a href=&quot;https://ninpwn.com/&quot; target=&quot;_blank&quot;&gt;&lt;img src=&quot;/assets/images/ninpwn.png&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;Grats to my buddy and CTF team captain Ninpwn for being the first to conquer the &lt;a href=&quot;https://veteransec.com/2020/08/03/veteran-security-announces-scholarship-2020/&quot; target=&quot;_blank&quot;&gt;Veteran Security 2020 Scholarship&lt;/a&gt; practical challenge!&lt;/p&gt;
-
-&lt;p&gt;Best of luck to him in the upcoming selection process!&lt;/p&gt;</content><author><name></name></author><category term="[&quot;news&quot;]" /><category term="firstblood" /><category term="vetsec" /><category term="scholarship" /><summary type="html">   </summary></entry><entry><title type="html">Common Place</title><link href="http://0.0.0.0:4000/writeups/2020/07/31/HacktivityCon-Common-Place.html" rel="alternate" type="text/html" title="Common Place" /><published>2020-07-31T16:38:23-05:00</published><updated>2020-07-31T16:38:23-05:00</updated><id>http://0.0.0.0:4000/writeups/2020/07/31/HacktivityCon-Common-Place</id><content type="html" xml:base="http://0.0.0.0:4000/writeups/2020/07/31/HacktivityCon-Common-Place.html">&lt;p&gt;I initially scrubbed through the html and js source code, looked for cookies and such but I couldn’t figure this one out until checking what initially seemed like just flavor text:&lt;/p&gt;
-
-&lt;p&gt;    &lt;img src=&quot;/assets/writeups/HacktivityCon2020/edc29275958045a89db03465980a3e49.png&quot; alt=&quot;adbfd379f7e68fbc4a98fab24525a952.png&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;“rfc5785” found the flag…eh?&lt;/p&gt;
-
-&lt;p&gt;https://tools.ietf.org/html/rfc5785&lt;/p&gt;
-
-&lt;p&gt;    &lt;img src=&quot;/assets/writeups/HacktivityCon2020/c704d87c2b1a4899ac021b4fd007d4b7.png&quot; alt=&quot;1e07aa6c1df1cf00e65310aeb3ad64f9.png&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;And sure enough:&lt;/p&gt;
-
-&lt;p&gt;    &lt;img src=&quot;/assets/writeups/HacktivityCon2020/4f417fd06dae4c628afa19166ff2eb5b.png&quot; alt=&quot;3e7b8aee28d8aa0b69194cc4f97a2ba3.png&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;Dirbuster or Gobuster probably would have worked just fine also, and that was about to be my next step, but this was definitely more fun.&lt;/p&gt;</content><author><name>shinris3n</name></author><category term="[&quot;writeups&quot;]" /><category term="HacktivityCon2020" /><summary type="html">I initially scrubbed through the html and js source code, looked for cookies and such but I couldn’t figure this one out until checking what initially seemed like just flavor text:</summary></entry></feed>
+&lt;p&gt;&lt;img src=&quot;/assets/writeups/DefconRTVCTF/b7c07f8cf88d4c8c82fc2041203906b0.png&quot; alt=&quot;51b9ac376c538407a14313cdc67d0f02.png&quot; /&gt;&lt;/p&gt;</content><author><name>shinris3n</name></author><category term="[&quot;writeups&quot;]" /><category term="Defcon28-RTVCTF" /><summary type="html">Forensics - An Even Nicer Picture</summary></entry></feed>
