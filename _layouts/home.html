@@ -35,7 +35,7 @@ layout: default
           {% else %}
             {% assign category_name = 'n/a' %}
           {% endif %}
-          <br><font size="2" style="font-variant: small-caps;">{{ post.category | join: ", " }}</font>
+          <br><font size="2" style="font-variant: small-caps;">category: {{ post.category | join: ", " }}</font>
         </h3>
         {%- if site.show_excerpts -%}
           {{ post.excerpt }}
