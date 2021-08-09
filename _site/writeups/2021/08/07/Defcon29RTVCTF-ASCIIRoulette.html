@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="/assets/css/style.css?v=6914123be53a4c438c445ef6a34e3c22b78b510c">
+    <link rel="shortcut icon" type="image/png" href="http://0.0.0.0:4000/assets/images/shinris3n.png">
+
+<!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>ASCII Roulette | 当て身 Atemi</title>
+<meta name="generator" content="Jekyll v3.9.0" />
+<meta property="og:title" content="ASCII Roulette" />
+<meta name="author" content="shinris3n" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="A Cybersecurity blog by shinris3n 👊 Writeups 👊 News 👊 Resources" />
+<meta property="og:description" content="A Cybersecurity blog by shinris3n 👊 Writeups 👊 News 👊 Resources" />
+<link rel="canonical" href="http://0.0.0.0:4000/writeups/2021/08/07/Defcon29RTVCTF-ASCIIRoulette.html" />
+<meta property="og:url" content="http://0.0.0.0:4000/writeups/2021/08/07/Defcon29RTVCTF-ASCIIRoulette.html" />
+<meta property="og:site_name" content="当て身 Atemi" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2021-08-07T18:20:12-05:00" />
+<script type="application/ld+json">
+{"author":{"@type":"Person","name":"shinris3n"},"url":"http://0.0.0.0:4000/writeups/2021/08/07/Defcon29RTVCTF-ASCIIRoulette.html","@type":"BlogPosting","description":"A Cybersecurity blog by shinris3n 👊 Writeups 👊 News 👊 Resources","mainEntityOfPage":{"@type":"WebPage","@id":"http://0.0.0.0:4000/writeups/2021/08/07/Defcon29RTVCTF-ASCIIRoulette.html"},"headline":"ASCII Roulette","dateModified":"2021-08-07T18:20:12-05:00","datePublished":"2021-08-07T18:20:12-05:00","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+  </head>
+
+  <body>
+
+    <header>
+      <div class="container">
+        <h1><a href = '/' style = "text-decoration:none;color:#b5e853;" >当て身 Atemi</a></h1>
+        <h2>A Cybersecurity blog by shinris3n <br> 👊 <a href = "/writeups">Writeups</a> 👊 <a href = "/news">News</a> 👊 <a href = "/resources">Resources</a> <br></h2>
+        <h5>Part of the <a href="https://www.ninpwn.com" target="_blank">Ninpwn</a> Network</h5>
+      </div>
+    </header>
+
+    <div class="container">
+      <a href="http://0.0.0.0:4000"><img src="http://0.0.0.0:4000/assets/images/shinris3n_banner_transparent.png" width="25%" height="25%" alt="shinris3n" title="shinris3n home page link"></a>
+      <section id="main_content">
+        <h5><a href="#" onclick="history.go(-1)"> &lt;&lt; back </a></h5><br>
+
+
+<small>7 August 2021</small>
+<h1>ASCII Roulette</h1>
+
+
+
+
+ <small><font color="b5e853">Challenge Source: <em>Defcon 29 - Red Team Village CTF</em></font></small>
+
+<br>
+
+  <small><font color="b5e853">Challenge Category: <em>programming</em>, <em>crypto</em></font></small>
+
+
+<p><img src="/assets/writeups/DefconRTVCTF2021/fc87d99fca484a23a74aef239560c99f.png" alt="36b0b02e2b149d78d49234508c1f96a6.png" /></p>
+
+<ul>
+  <li>This was the original source code, which will take some effort to understand:</li>
+</ul>
+
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#define lucky_num 24
+#define angry_stache }
+#define happy_stache {
+#define extra_fate &gt;&gt;
+#define lesser_fate &lt;&lt;
+#define less_fate &lt;
+#define gained_fate +
+#define lost_fate -
+#define absolute_fate ==
+#define given_fate =
+#define start main()
+#define lucky_number (rand()%7)+1;
+#define cat for
+#define give cout
+#define take cin
+#define seven flag
+#define luck int
+#define lucky string
+#include &lt;iostream&gt;
+#include &lt;string&gt;
+#include &lt;stdlib.h&gt;
+#include &lt;time.h&gt;
+</span><span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
+
+<span class="n">luck</span> <span class="n">start</span>
+<span class="n">happy_stache</span>
+        <span class="n">lucky</span> <span class="n">seven</span><span class="p">;</span>
+        <span class="n">give</span> <span class="n">lesser_fate</span> <span class="s">"Enter Any String to Make it Lucky: "</span><span class="p">;</span>
+        <span class="n">take</span> <span class="n">extra_fate</span> <span class="n">seven</span><span class="p">;</span>
+        <span class="n">srand</span><span class="p">(</span><span class="n">time</span><span class="p">(</span><span class="nb">NULL</span><span class="p">));</span>
+        <span class="n">luck</span> <span class="n">seven_rand</span> <span class="n">given_fate</span> <span class="n">lucky_number</span>
+        <span class="n">give</span> <span class="n">lesser_fate</span> <span class="s">"Your Lucky Numbers are: "</span><span class="p">;</span>
+        <span class="k">for</span><span class="p">(</span><span class="n">luck</span> <span class="n">i</span> <span class="n">given_fate</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="n">less_fate</span> <span class="n">seven</span><span class="p">.</span><span class="n">length</span><span class="p">();</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+        <span class="n">happy_stache</span>
+                <span class="n">luck</span> <span class="n">seven_num</span> <span class="n">given_fate</span> <span class="n">seven</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
+                <span class="n">seven_num</span> <span class="n">given_fate</span> <span class="n">seven_num</span> <span class="o">^</span> <span class="n">seven_rand</span><span class="p">;</span>
+                <span class="k">if</span><span class="p">(</span><span class="n">i</span> <span class="o">%</span> <span class="mi">2</span> <span class="n">absolute_fate</span> <span class="mi">0</span><span class="p">)</span>
+                <span class="n">happy_stache</span>
+                        <span class="n">seven_num</span> <span class="n">given_fate</span> <span class="n">seven_num</span> <span class="n">gained_fate</span> <span class="n">lucky_num</span><span class="p">;</span>
+                <span class="n">angry_stache</span>
+                <span class="k">else</span>
+                <span class="n">happy_stache</span>
+                        <span class="n">seven_num</span> <span class="n">given_fate</span> <span class="n">seven_num</span> <span class="n">lost_fate</span> <span class="n">lucky_num</span><span class="p">;</span>
+                <span class="n">angry_stache</span>
+                <span class="n">give</span> <span class="n">lesser_fate</span> <span class="n">seven_num</span> <span class="n">lesser_fate</span> <span class="s">" "</span><span class="p">;</span>
+        <span class="n">angry_stache</span>
+<span class="n">angry_stache</span>
+</code></pre></div></div>
+
+<ul>
+  <li>Substituting the defines throughout the code to make it readable:</li>
+</ul>
+
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#define lucky_num 24
+#define angry_stache }
+#define happy_stache {
+#define extra_fate &gt;&gt;
+#define lesser_fate &lt;&lt;
+#define less_fate &lt;
+#define gained_fate +
+#define lost_fate -
+#define absolute_fate ==
+#define given_fate =
+#define start main()
+#define lucky_number (rand()%7)+1;
+#define cat for
+#define give cout
+#define take cin
+#define seven flag
+#define luck int
+#define lucky string
+#include &lt;iostream&gt;
+#include &lt;string&gt;
+#include &lt;stdlib.h&gt;
+#include &lt;time.h&gt;
+</span><span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
+
+<span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+<span class="p">{</span>
+        <span class="n">string</span> <span class="n">flag</span><span class="p">;</span>
+        <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">"Enter Any String to Make it Lucky: "</span><span class="p">;</span>
+        <span class="n">cin</span> <span class="o">&gt;&gt;</span> <span class="n">flag</span><span class="p">;</span>
+        <span class="n">srand</span><span class="p">(</span><span class="n">time</span><span class="p">(</span><span class="nb">NULL</span><span class="p">));</span>
+        <span class="kt">int</span> <span class="n">flag_rand</span> <span class="o">=</span> <span class="p">(</span><span class="n">rand</span><span class="p">()</span><span class="o">%</span><span class="mi">7</span><span class="p">)</span><span class="o">+</span><span class="mi">1</span><span class="p">;</span>
+        <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">"Your Lucky Numbers are: "</span><span class="p">;</span>
+        <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">flag</span><span class="p">.</span><span class="n">length</span><span class="p">();</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+        <span class="p">{</span>
+                <span class="kt">int</span> <span class="n">flag_num</span> <span class="o">=</span> <span class="n">flag</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
+                <span class="n">flag_num</span> <span class="o">=</span> <span class="n">flag_num</span> <span class="o">^</span> <span class="n">flag_rand</span><span class="p">;</span>
+                <span class="k">if</span><span class="p">(</span><span class="n">i</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span>
+                <span class="p">{</span>
+                        <span class="n">flag_num</span> <span class="o">=</span> <span class="n">flag_num</span> <span class="o">+</span> <span class="mi">24</span><span class="p">;</span>
+                <span class="p">}</span>
+                <span class="k">else</span>
+                <span class="p">{</span>
+                        <span class="n">flag_num</span> <span class="o">=</span> <span class="n">flag_num</span> <span class="o">-</span> <span class="mi">24</span><span class="p">;</span>
+                <span class="p">}</span>
+                <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">flag_num</span> <span class="o">&lt;&lt;</span> <span class="s">" "</span><span class="p">;</span>
+        <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<ul>
+  <li>
+    <p>This shows us that the decimal value of each ASCII character in the string received from the commmand line is first bitwise XOR’d with a random number between 1 and 8.  This random number is chosen right at the beginning, so does not change.</p>
+  </li>
+  <li>
+    <p>24 is then added to the value of every even indexed character in the string and 24 is subtracted from the value of every odd indexed character in the string.</p>
+  </li>
+  <li>
+    <p>Now, we just have to write a script to reverse this entire process on the encoded string we are provided in the challenge, brute forcing the random offset value:</p>
+  </li>
+</ul>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">roulette_string</span> <span class="o">=</span> <span class="s">"123 81 124 74 150 29 127 94 126 88 143 72 114 29 143 66 129 88 126 86 148 66 123 81 73 24 82 96"</span>
+
+<span class="n">roulette_array</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="n">roulette_string</span><span class="p">.</span><span class="n">split</span><span class="p">(</span><span class="s">" "</span><span class="p">)))</span>
+
+<span class="k">print</span> <span class="p">(</span><span class="s">"ASCII Roulette Array: "</span><span class="p">,</span> <span class="n">roulette_array</span><span class="p">)</span>
+
+<span class="n">flag</span> <span class="o">=</span> <span class="s">""</span>
+<span class="n">index</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">rand_num</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="k">while</span> <span class="n">rand_num</span> <span class="o">&lt;=</span> <span class="mi">8</span><span class="p">:</span>
+	<span class="k">for</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">roulette_array</span><span class="p">:</span>
+		<span class="k">if</span> <span class="p">(</span><span class="n">index</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">==</span> <span class="mi">0</span><span class="p">):</span>
+			<span class="n">flag_num</span> <span class="o">=</span> <span class="p">(</span><span class="n">value</span> <span class="o">-</span> <span class="mi">24</span><span class="p">)</span> <span class="o">^</span> <span class="n">rand_num</span>
+		<span class="k">else</span><span class="p">:</span>
+			<span class="n">flag_num</span> <span class="o">=</span> <span class="p">(</span><span class="n">value</span> <span class="o">+</span> <span class="mi">24</span><span class="p">)</span> <span class="o">^</span> <span class="n">rand_num</span>
+		<span class="n">flag</span> <span class="o">=</span> <span class="n">flag</span> <span class="o">+</span> <span class="nb">chr</span><span class="p">(</span><span class="n">flag_num</span><span class="p">)</span>
+		<span class="n">index</span> <span class="o">=</span> <span class="n">index</span> <span class="o">+</span> <span class="mi">1</span>
+	<span class="k">if</span> <span class="n">flag</span> <span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">4</span><span class="p">]</span> <span class="o">==</span> <span class="s">"flag"</span><span class="p">:</span>
+		<span class="k">print</span> <span class="p">(</span><span class="s">"Flag Found for rand_num ="</span><span class="p">,</span> <span class="n">rand_num</span><span class="p">,</span> <span class="s">":"</span><span class="p">,</span> <span class="n">flag</span><span class="p">)</span>
+	<span class="n">rand_num</span> <span class="o">=</span> <span class="n">rand_num</span> <span class="o">+</span> <span class="mi">1</span>
+	<span class="n">flag</span> <span class="o">=</span> <span class="s">""</span>
+</code></pre></div></div>
+
+<p><img src="/assets/writeups/DefconRTVCTF2021/ba25ebd461c44f1aa35a98957494569b.png" alt="93b0c4bcaa0b44b849500aee79fbbb98.png" /></p>
+
+
+
+  <small>Tags: <em>Defcon29-RTVCTF</em></small>
+
+
+      </section>
+    </div>
+
+    
+  </body>
+</html>
