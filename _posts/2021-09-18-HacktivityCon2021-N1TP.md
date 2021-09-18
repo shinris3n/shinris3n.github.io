@@ -67,16 +67,102 @@ NINA: Ta-daaa!! I think this is called a 'one' 'time' 'pad' or something?
 NINA: Isn't that cool!?! Want to see it again? 
       Sorry, I forget already -- what was it you wanted to see again?
 ```
+- One approach is to brute force this challenge by staying connected and interacting with the service, cycling through the possible flag values and matching hexidecimal values until we determine what the flag is.  
 
-Therefore, we'll have to stay connected and interact with the service until we determine what the flag is.  The Python code below accomplishes this.
+- The brute force method is easy enough to use to solve this, but as it turns out this really is just a standard one-time pad implementation (with no twists).  We should therefore be able to get the key by simply passing along any value equal to the key length (which we were told was the same length as the flag when we first connected to the service).  Next, we can just XOR the plaintext we chose with the encrypted response we received to get the key.  Finally, we XOR the encrypted flag with the key and receive the plaintext flag!  Trying this out:
 
 ```python
-# H@cktivityCon 2021 - N1TP Solution
+# H@cktivityCon 2021 - N1TP Solution (Finding the Key with Chosen Plaintext)
 # shinris3n
 
-import os
-import sys
-import struct
+import socket
+
+address = 'challenge.ctf.games'
+port = 30966
+buffer = 4096
+
+# The encrypted flag received from "NINA" after connecting to the service.
+encrypted_flag = ''
+
+# Send over plaintext of equal length to the key (which equals the flag length)
+input_to_encrypt = 'flag{0123456789abcdef0123456789abcdef}'
+
+received_data = ''
+
+# Open up connection.
+tcpsocket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+tcpsocket.connect((address, port))
+
+# Get greeting.
+received_data = tcpsocket.recv(buffer).decode('utf-8')
+print (received_data)
+
+# Retrieve and store the encrypted flag. 
+received_data = tcpsocket.recv(buffer).decode('utf-8')
+encrypted_flag = received_data[6:82] # The flag appears to be hex formatted, 64 characters plus 12 characters for the flag{} portion, and 6 spaces of padding.
+print ('Encrypted Flag:', encrypted_flag)
+
+# Send input to encrypt in flag format.
+formatted_data_to_send = (input_to_encrypt + '\n').encode('utf-8')
+tcpsocket.send(formatted_data_to_send)
+print ('Data sent:', input_to_encrypt)
+
+# Get and store encrypted response.
+received_data = tcpsocket.recv(buffer).decode('utf-8') # Get flavor text
+print (received_data)
+received_data = tcpsocket.recv(buffer).decode('utf-8') # Get encrypted response
+encrypted_response = received_data[6:82] # Same format as the original flag.
+print (received_data)
+print ('Encrypted Flag:', encrypted_flag)
+print ('Encrypted Response:', encrypted_response)
+
+# Figure out the key by XORing the plaintext input that was sent with the encrypted value received
+
+plaintext_hex = input_to_encrypt.encode("utf-8").hex()
+plaintext_hex_value = int(plaintext_hex, 16)
+
+encrypted_plaintext_hex = int((encrypted_response), 16)
+otp_key_value = plaintext_hex_value^encrypted_plaintext_hex
+
+print ("Key: ", hex(otp_key_value))
+
+# Find the flag by XORing the encrypted flag and the key
+
+encrypted_flag_value = int((encrypted_flag), 16)
+plaintext_flag_hex = hex(encrypted_flag_value^otp_key_value)
+
+plaintext_flag = bytes.fromhex(plaintext_flag_hex[2:])
+
+print ("Flag calculated as:",  str(plaintext_flag)[2:-1])
+```
+
+- Running this quickly returns the flag.
+
+```console
+┌──(shinris3n㉿kodachi)-[~/sec/CTFs/HacktivityCon2021/N1TP]
+└─$ python3 n1tp2.py                                                                                                             
+NINA: Hello! I found a flag, look!
+
+Encrypted Flag: cb31255b7a64b6814aae91e9f1fea18620376bd1a56306bbf33d34e369e48c51ec3f274cda28
+Data sent: flag{0123456789abcdef0123456789abcdef}
+NINA: Ta-daaa!! I think this is called a 'one' 'time' 'pad' or something?
+
+      cb31255b7a6db5844ff9c0bdf1f0f9d4263039d6f23502bbf33b31ec3db88c53be3d7218de28
+NINA: Isn't that cool!?! Want to see it again? 
+      Sorry, I forget already -- what was it you wanted to see again?
+> 
+Encrypted Flag: cb31255b7a64b6814aae91e9f1fea18620376bd1a56306bbf33d34e369e48c51ec3f274cda28
+Encrypted Response: cb31255b7a6db5844ff9c0bdf1f0f9d4263039d6f23502bbf33b31ec3db88c53be3d7218de28
+Key:  0xad5d443c015d84b67ccdf58bc6c8c0b544535db394053389c00f04da0a80b532dc5e167db855
+Flag calculated as: flag{9276cdb76a3dd6b1f523209cd9c0a11b}
+```
+
+- The Python code below accomplishes an alternative, brute force method of solving this challenge.
+
+```python
+# H@cktivityCon 2021 - N1TP Solution (Brute Force)
+# shinris3n
+
 import socket
 import time
 
