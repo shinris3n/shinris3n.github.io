@@ -1,4 +1,204 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.0">Jekyll</generator><link href="http://0.0.0.0:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://0.0.0.0:4000/" rel="alternate" type="text/html" /><updated>2022-09-11T17:48:42-05:00</updated><id>http://0.0.0.0:4000/feed.xml</id><title type="html">&lt;a href=&quot;/&quot; style=&quot;text-decoration:none;color:#b5e853;&quot;&gt;当て身 Atemi&lt;/a&gt;</title><subtitle>A Cybersecurity blog by shinris3n &lt;br&gt; 👊 &lt;a href = &quot;/writeups&quot;&gt;Writeups&lt;/a&gt; 👊 &lt;a href = &quot;/news&quot;&gt;News&lt;/a&gt; 👊 &lt;a href = &quot;/resources&quot;&gt;Resources&lt;/a&gt; &lt;br&gt;</subtitle><entry><title type="html">buffer overflow 1</title><link href="http://0.0.0.0:4000/writeups/2022/03/31/PicoCTF2022-buf1.html" rel="alternate" type="text/html" title="buffer overflow 1" /><published>2022-03-31T21:31:21-05:00</published><updated>2022-03-31T21:31:21-05:00</updated><id>http://0.0.0.0:4000/writeups/2022/03/31/PicoCTF2022-buf1</id><content type="html" xml:base="http://0.0.0.0:4000/writeups/2022/03/31/PicoCTF2022-buf1.html">&lt;h1&gt;&lt;/h1&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.0">Jekyll</generator><link href="http://0.0.0.0:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://0.0.0.0:4000/" rel="alternate" type="text/html" /><updated>2022-09-11T20:12:05-05:00</updated><id>http://0.0.0.0:4000/feed.xml</id><title type="html">&lt;a href=&quot;/&quot; style=&quot;text-decoration:none;color:#b5e853;&quot;&gt;当て身 Atemi&lt;/a&gt;</title><subtitle>A Cybersecurity blog by shinris3n &lt;br&gt; 👊 &lt;a href = &quot;/writeups&quot;&gt;Writeups&lt;/a&gt; 👊 &lt;a href = &quot;/news&quot;&gt;News&lt;/a&gt; 👊 &lt;a href = &quot;/resources&quot;&gt;Resources&lt;/a&gt; &lt;br&gt;</subtitle><entry><title type="html">Gotta Crack Them All</title><link href="http://0.0.0.0:4000/writeups/2022/09/11/CSAW2022-GCTA.html" rel="alternate" type="text/html" title="Gotta Crack Them All" /><published>2022-09-11T17:11:21-05:00</published><updated>2022-09-11T17:11:21-05:00</updated><id>http://0.0.0.0:4000/writeups/2022/09/11/CSAW2022-GCTA</id><content type="html" xml:base="http://0.0.0.0:4000/writeups/2022/09/11/CSAW2022-GCTA.html">&lt;h1&gt;&lt;/h1&gt;
+&lt;h3&gt;&lt;font color=&quot;FF3030&quot;&gt; Challenge Text: &lt;/font&gt;&lt;/h3&gt;
+
+&lt;div class=&quot;language-console highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;go&quot;&gt;As an intern in the security department, you want to show the admin what a major security issue there is by having all passwords being from a wordlist (even if it is one the admin created) as well as potential issues with stream ciphers. 
+Here's the list of encrypted passwords (including the admin's), the encryption algorithm and your password. Can you crack them all and get the admin's password?
+Here is the web service that the admin made to encrypt a password: nc crypto.chal.csaw.io 5002
+
+NOTE: The flag is just the admin's password.
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;h3&gt;&lt;font color=&quot;FF3030&quot;&gt; Solution: &lt;/font&gt;&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;We’re provided with three files to inspect.  Inside of &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;encrypt.py&lt;/code&gt;, we see that &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;encrypt(plain)&lt;/code&gt; takes a plaintext string and XORs it with a key:&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;with&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;open&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'key.txt'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'rb'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;as&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;f&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;key&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;f&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;read&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;encrypt&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;plain&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;b''&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;join&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;((&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;ord&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;^&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;to_bytes&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'big'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;zip&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;plain&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;key&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Inside of &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;leaked_password.txt&lt;/code&gt; we have:
+    &lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Cacturne-Grass-Dark
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Inside of &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;encrypted_passwords.txt&lt;/code&gt; we find what looks like individually encrypted passwords separated by new lines:&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;┌──&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;shinris3n㉿kodachi&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;-[~/sec/CTFs/CSAW2022]
+└─&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;python3                                                                                                 
+Python 3.9.13 &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;main, Jun  8 2022, 09:45:57&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; 
+&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;GCC 11.3.0] on linux
+Type &lt;span class=&quot;s2&quot;&gt;&quot;help&quot;&lt;/span&gt;, &lt;span class=&quot;s2&quot;&gt;&quot;copyright&quot;&lt;/span&gt;, &lt;span class=&quot;s2&quot;&gt;&quot;credits&quot;&lt;/span&gt; or &lt;span class=&quot;s2&quot;&gt;&quot;license&quot;&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;for &lt;/span&gt;more information.
+&lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; with open&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'encrypted_passwords.txt'&lt;/span&gt;,&lt;span class=&quot;s1&quot;&gt;'rb'&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; as f:
+...     passwords &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; f.read&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt;
+... 
+&lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; print&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;passwords&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+b&lt;span class=&quot;s1&quot;&gt;'cr\xcb\xaa\xc0Si\x83\xf0\xb8\xe6\x99\xbf\nlz\xd7\xa6\xdeWr\x83\xe3\xb8\xe0\x97\nks\xcc\xa3\xcbZr\xc0\xc0\xf4\xc2\x8f\xb4\x7f\xab.\xcd\n`z\xd5\xbd\xc5Xb\x83\xe9\xb6\xe0\x91\xacp\nkw\xc4\xba\xc5Ba\xcb\xd5\xf4\xc5\x9d\xb9y\xb1\nkz\xc6\xb9\xd9Du\xcb\x8a\x9e\xe0\x9d\xbeo\xee\x03\xcf\xddd\n{w\xca\xba\xc7_u\xc9\x8a\x89\xfd\x95\xbes\xadj\xfe\xdcv\xf6\xe4\xd2\xaa\n{u\xc0\xac\xdfSw\x83\xe3\xb8\xe0\x97\xe0U\xa0&quot;\n`t\xca\xbd\xcd\x1bK\xdd\xde\xba\xfa\x95\xae1\x84/\xc1\xdc{\nzs\xdc\xbd\xc9Dr\xc1\xd5\xf4\xd5\x8e\xa2i\xad#\x83\xfd`\xf6\xe7\n{~\xc0\xa9\xc3B6\xe9\xd5\xb8\xe1\x8f\nks\xcc\xa3\xcf^t\xdb\x8a\x8e\xf3\x88\xa8n\xee\x02\xc2\xcal\xe1\xfe\xd2\xaa\n|h\xc4\xbf\xc9Su\xcf\x8a\x9e\xe0\x9d\xbeo\nmc\xc6\xac\xc8Dr\xc2\xcb\xf4\xd5\x8e\xa2i\xad#\x83\xfc{\xf0\xe9\xd7\non\xc8\xbe\xc4Yt\xdd\x8a\x97\xfd\x8e\xa0}\xaf\nci\xcc\xae\xc7So\xdb\xc9\xbc\xbf\xbe\xb8{\nlz\xd7\xb9\xde_c\x83\xe0\xab\xf3\x8f\xbe1\x85+\xd7\xc6a\xf2\nxr\xce\xa4\xdcSp\x83\xe9\xb6\xe0\x91\xacp\xee\x01\xc2\xd6f\xfb\xeb\nln\xc2\xb9\xde_t\x83\xe0\xab\xfd\x89\xa3x\xee\x14\xda\xcaj\xf9\njz\xd6\xae\xd9Zr\xc0\x8a\x8e\xf3\x88\xa8n\n`r\xd5\xbd\xc3A\x7f\xc1\xc9\xf4\xd5\x8e\xa2i\xad#\n|t\xc2\xa8\xd8_x\x83\xe1\xb8\xfb\x8e\xb41\x85+\xd7\xc6a\xf2\nnr\xcb\xa3\xc9Yu\x83\xf0\xb8\xe6\x99\xbf\nzr\xca\xa1\xd9\x1b]\xc7\xc0\xb1\xe6\x95\xa3{\nmu\xd1\xa8\xc5\x1b]\xc7\xd5\xbc\n{k\xd7\xa4\xd8L~\xcb\x8a\x9f\xf3\x95\xbfe\nez\xcb\xb9\xc5X~\x83\xf0\xb8\xe6\x99\xbf1\x85+\xd7\xc6a\xf2\n{r\xc9\xbb\xcdZw\xd7\x8a\x97\xfd\x8e\xa0}\xaf\nj~\xc9\xa1\xdfFi\xc1\xd2\xad\xbf\xbb\xbf}\xb04\x83\xff`\xfc\xff\xd4\xa7\n\x7fb\xd7\xa9\xc9Si\x83\xe9\xb6\xe0\x91\xacp\xee\x17\xdd\xd6l\xfd\xe5\xd8\nez\xd7\xa4\xc0Z6\xf9\xc6\xad\xf7\x8e\xe0Z\xa2.\xdc\xd6\n`~\xd7\xa9\xc5Si\x83\xe9\xb6\xe0\x91\xacp\niw\xd1\xac\xde_z\x83\xe3\xab\xf3\x9b\xa2r\xee\x01\xc2\xd6f\xfb\xeb\n|s\xd2\xac\xcf]~\xd7\x8a\x9e\xe0\x9d\xbeo\n{k\xc0\xba\xdcW6\xec\xd2\xbe\nji\xca\xa3\xd6Yu\xc9\x8a\x8a\xe6\x99\xa8p\xee\x17\xdd\xd6l\xfd\xe5\xd8\n`z\xce\xac\xc1Y6\xc1\x8a\x9d\xe0\x9d\xaas\xadj\xe8\xc6h\xfd\xf8\xd2\xa7\x9c\nks\xc0\xbe\xdc_u\x83\xe0\xab\xf3\x8f\xbe\nei\x8b\xed\xe1_v\xcb\x8a\x89\xe1\x85\xaet\xaa$\x83\xe9n\xfc\xfe\xc2\n|t\xd7\xa3\xcdRn\xdd\x8a\x9f\xfe\x85\xa4r\xa4\nxn\xd5\xa4\xd8Wi\x83\xf5\xb6\xf1\x97\xe0[\xb1(\xdb\xc1k\nkt\xc8\xaf\xd9Ep\xcb\xc9\xf4\xd4\x95\xbfy\xee\x01\xc7\xc8g\xe1\xe5\xd5\xae\non\xdf\xb7\xc0Yi\xca\x8a\x9d\xf3\x8e\xa61\x875\xcf\xc8`\xfb\nkz\xd7\xa3\xc5@r\xc0\xc2\xf4\xd5\x8e\xaco\xb0\noi\xca\xba\xc0_o\xc6\xc2\xf4\xd4\x95\xbfy\noi\xd0\xaf\xce_u\x83\xe5\xac\xf5\noz\xd6\xb9\xdeY\x7f\xc1\xc9\xf4\xc5\x9d\xb9y\xb1j\xe9\xdd`\xe0\xe2\xdf\not\xca\xa0\xd5\x1b_\xdc\xc6\xbe\xfd\x92\n|s\xcc\xa8\xdaCw\x83\xe3\xb8\xe0\x97\n\x19u\x90\xfe\xcfC)\x9d\x92\xee\xa0\xcf\xf9q\xa0v\xde\xc7&amp;lt;\xa7\n{~\xc4\xa9\xdeW6\xf9\xc6\xad\xf7\x8e\n'&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Interacting with the server, we see that we may only pass across certain plaintext strings for encryption.  The leaked password works as one of the allowed strings:&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;┌──&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;shinris3n㉿kodachi&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;-[~]
+└─&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;nc crypto.chal.csaw.io 5002                                                                             
+You can encrypt a pre-approved password using this service.
+
+What is the password you would like to encrypt?
+
+&lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&lt;/span&gt; 0
+This is not a pre-approved password! &lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt;:&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;
+It will not be encrypted.
+
+
+┌──&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;shinris3n㉿kodachi&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;-[~]
+└─&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;nc crypto.chal.csaw.io 5002                                                                             
+You can encrypt a pre-approved password using this service.
+
+What is the password you would like to encrypt?
+
+&lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&lt;/span&gt; Cacturne-Grass-Dark   
+The encrypted password is: b&lt;span class=&quot;s1&quot;&gt;'kz\xc6\xb9\xd9Du\xcb\x8a\x9e\xe0\x9d\xbeo\xee\x03\xcf\xddd'&lt;/span&gt;
+Would you like to go again? &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;Y/N&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;With this information, we can try to find the key by verifying that one of the values in our encrypted passwords list matches what we received from the server (i.e. the same key was used to encrypt the passwords in this file).  We then XOR the encrypted value with the leaked plaintext password, recovering the key.  We can XOR this result with the entire list of encrypted passwords and inspect what we receive back to check if the key works for the other passwords as well:&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;known_encrypted_pws&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[]&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;leaked_pw&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;Cacturne-Grass-Dark&quot;&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;encrypted_leaked_pw_from_service&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;b'kz&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\xc6\xb9\xd9&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;Du&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\xcb\x8a\x9e\xe0\x9d\xbe&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;o&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\xee\x03\xcf\xdd&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;d'&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;with&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;open&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'encrypted_passwords.txt'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'rb'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;as&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;f&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;line&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;f&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;known_encrypted_pws&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;append&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;f&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;readline&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()[:&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;])&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;decrypt&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;plain&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;key&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;b''&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;join&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;((&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;ord&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;^&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;to_bytes&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'big'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;zip&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;plain&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;key&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;decrypt_bytes&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;encrypted&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;key&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;bytes&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;([&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;^&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;b&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;b&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;zip&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;encrypted&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;key&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)])&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;count&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;encrypted_pw&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;enumerate&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;known_encrypted_pws&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;encrypted_leaked_pw_from_service&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;encrypted_pw&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Encrypted Password&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;count&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;Matches Result Provided via the Web Service:&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;encrypted_pw&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;key&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;decrypt&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Cacturne-Grass-Dark&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;encrypted_pw&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Key =&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;key&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;print&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'Decrypted Password List:'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;encrypted_pw&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;known_encrypted_pws&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;try&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;decrypt_bytes&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;encrypted_pw&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;key&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;except&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'@#$%^!!!'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;When we run this script, we see that the key works for all passwords, but it turns out to be incomplete:&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;┌──&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;shinris3n㉿kodachi&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;-[~/sec/CTFs/CSAW2022]
+└─&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;python3 decrypt.py                                                                                      
+Encrypted Password 2 Matches Result Provided via the Web Service: b&lt;span class=&quot;s1&quot;&gt;'kz\xc6\xb9\xd9Du\xcb\x8a\x9e\xe0\x9d\xbeo\xee\x03\xcf\xddd'&lt;/span&gt;
+Key &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; b&lt;span class=&quot;s1&quot;&gt;'(\x1b\xa5\xcd\xac6\x1b\xae\xa7\xd9\x92\xfc\xcd\x1c\xc3G\xae\xaf\x0f'&lt;/span&gt;
+Decrypted Password List:
+b&lt;span class=&quot;s1&quot;&gt;'Darkrai-Dark'&lt;/span&gt;
+b&lt;span class=&quot;s1&quot;&gt;'Happiny-Normal'&lt;/span&gt;
+b&lt;span class=&quot;s1&quot;&gt;'Cacturne-Grass-Dark'&lt;/span&gt;
+b&lt;span class=&quot;s1&quot;&gt;'Sneasel-Dark-Ice'&lt;/span&gt;
+b&lt;span class=&quot;s1&quot;&gt;'Rhyperior-Ground-Ro'&lt;/span&gt;
+b&lt;span class=&quot;s1&quot;&gt;'Chinchou-Water-Elec'&lt;/span&gt;
+b&lt;span class=&quot;s1&quot;&gt;'Excadrill-Ground-St'&lt;/span&gt;
+b&lt;span class=&quot;s1&quot;&gt;'Kricketune-Bug'&lt;/span&gt;
+b&lt;span class=&quot;s1&quot;&gt;'Pikipek-Normal-Flyi'&lt;/span&gt;
+b&lt;span class=&quot;s1&quot;&gt;'Basculin-Water'&lt;/span&gt;
+b&lt;span class=&quot;s1&quot;&gt;'Togetic-Fairy-Flyin'&lt;/span&gt;
+b&lt;span class=&quot;s1&quot;&gt;'Riolu-Fighting'&lt;/span&gt;
+b&lt;span class=&quot;s1&quot;&gt;'Spritzee-Fairy'&lt;/span&gt;
+b&lt;span class=&quot;s1&quot;&gt;'Silvally-Normal'&lt;/span&gt;
+b&lt;span class=&quot;s1&quot;&gt;'Wyrdeer-Normal-Psyc'&lt;/span&gt;
+b&lt;span class=&quot;s1&quot;&gt;'Herdier-Normal'&lt;/span&gt;
+b&lt;span class=&quot;s1&quot;&gt;'Thwackey-Grass'&lt;/span&gt;
+b&lt;span class=&quot;s1&quot;&gt;'Bronzong-Steel-Psyc'&lt;/span&gt;
+b&lt;span class=&quot;s1&quot;&gt;'Chespin-Grass'&lt;/span&gt;
+b&lt;span class=&quot;s1&quot;&gt;'Tornadus-Flying'&lt;/span&gt;
+b&lt;span class=&quot;s1&quot;&gt;'Combusken-Fire-Figh'&lt;/span&gt;
+b&lt;span class=&quot;s1&quot;&gt;'Carnivine-Grass'&lt;/span&gt;
+b&lt;span class=&quot;s1&quot;&gt;'Grubbin-Bug'&lt;/span&gt;
+b&lt;span class=&quot;s1&quot;&gt;'Goomy-Dragon'&lt;/span&gt;
+b&lt;span class=&quot;s1&quot;&gt;'1n53cu2357234mc1ph3'&lt;/span&gt;
+b&lt;span class=&quot;s1&quot;&gt;''&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;To recover more of the key, we need to interact with the server again and use a longer plaintext string by completing one of the longer decrypted passwords:&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;┌──&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;shinris3n㉿kodachi&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;-[~]
+└─&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;nc crypto.chal.csaw.io 5002
+You can encrypt a pre-approved password using this service.
+
+What is the password you would like to encrypt?
+
+&lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&lt;/span&gt; Chinchou-Water-Electric
+The encrypted password is: b&lt;span class=&quot;s1&quot;&gt;'ks\xcc\xa3\xcf^t\xdb\x8a\x8e\xf3\x88\xa8n\xee\x02\xc2\xcal\xe1\xfe\xd2\xaa'&lt;/span&gt;
+Would you like to go again? &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;Y/N&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Now we can append our original script:&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;likely_full_password&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;Chinchou-Water-Electric&quot;&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;encrypted_cracked_pw_from_service&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;b'ks&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\xcc\xa3\xcf&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;^t&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\xdb\x8a\x8e\xf3\x88\xa8&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\xee\x02\xc2\xca&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;l&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\xe1\xfe\xd2\xaa&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;extended_key&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;decrypt&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;likely_full_password&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;encrypted_cracked_pw_from_service&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Extended Key =&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;extended_key&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;print&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'Decrypted Password List:'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;encrypted_pw&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;known_encrypted_pws&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;try&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;decrypt_bytes&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;encrypted_pw&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;extended_key&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;except&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'@#$%^!!!'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;The output from this additional code reveals the rest of the passwords in full along with the full admin password, which is the flag:&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Extended Key = b'(\x1b\xa5\xcd\xac6\x1b\xae\xa7\xd9\x92\xfc\xcd\x1c\xc3G\xae\xaf\x0f\x95\x8c\xbb\xc9'
+Decrypted Password List:
+b'Darkrai-Dark'
+b'Happiny-Normal'
+b'Cacturne-Grass-Dark'
+b'Sneasel-Dark-Ice'
+b'Rhyperior-Ground-Rock'
+b'Chinchou-Water-Electric'
+b'Excadrill-Ground-Steel'
+b'Kricketune-Bug'
+b'Pikipek-Normal-Flying'
+b'Basculin-Water'
+b'Togetic-Fairy-Flying'
+b'Riolu-Fighting'
+b'Spritzee-Fairy'
+b'Silvally-Normal'
+b'Wyrdeer-Normal-Psychic'
+b'Herdier-Normal'
+b'Thwackey-Grass'
+b'Bronzong-Steel-Psychic'
+b'Chespin-Grass'
+b'Tornadus-Flying'
+b'Combusken-Fire-Fighting'
+b'Carnivine-Grass'
+b'Grubbin-Bug'
+b'Goomy-Dragon'
+b'1n53cu2357234mc1ph32'
+b''
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content><author><name>shinris3n</name></author><category term="[&quot;writeups&quot;]" /><category term="CSAW2022" /><category term="Crypto" /><summary type="html">Challenge Text:</summary></entry><entry><title type="html">buffer overflow 1</title><link href="http://0.0.0.0:4000/writeups/2022/03/31/PicoCTF2022-buf1.html" rel="alternate" type="text/html" title="buffer overflow 1" /><published>2022-03-31T21:31:21-05:00</published><updated>2022-03-31T21:31:21-05:00</updated><id>http://0.0.0.0:4000/writeups/2022/03/31/PicoCTF2022-buf1</id><content type="html" xml:base="http://0.0.0.0:4000/writeups/2022/03/31/PicoCTF2022-buf1.html">&lt;h1&gt;&lt;/h1&gt;
 &lt;h3&gt;&lt;font color=&quot;FF3030&quot;&gt; Challenge Text: &lt;/font&gt;&lt;/h3&gt;
 
 &lt;div class=&quot;language-console highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;go&quot;&gt;Author: Sanjay C / Palash Oswal
@@ -2037,133 +2237,4 @@ Hydra &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;https://github.com/vanhauser
 
 &lt;ul&gt;
   &lt;li&gt;After this, it’s just a matter of loading the instance, logging in with these credentials via SSH and grabbing the flag in the user’s home directory.&lt;/li&gt;
-&lt;/ul&gt;</content><author><name>shinris3n</name></author><category term="[&quot;writeups&quot;]" /><category term="NahamConCTF2021" /><summary type="html">Challenge Text</summary></entry><entry><title type="html">Meet The Team</title><link href="http://0.0.0.0:4000/writeups/2021/03/14/NahamCon2021-Meet-The-Team.html" rel="alternate" type="text/html" title="Meet The Team" /><published>2021-03-14T23:38:00-05:00</published><updated>2021-03-14T23:38:00-05:00</updated><id>http://0.0.0.0:4000/writeups/2021/03/14/NahamCon2021-Meet-The-Team</id><content type="html" xml:base="http://0.0.0.0:4000/writeups/2021/03/14/NahamCon2021-Meet-The-Team.html">&lt;h1&gt;&lt;/h1&gt;
-&lt;h3&gt;&lt;font color=&quot;FF3030&quot;&gt;Challenge Text&lt;/font&gt;&lt;/h3&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Author: @JohnHammond#6971
-
-Recover the list of employees working at CONSTELLATIONS.
-
-With the flag of this challenge, you should find new information that will help with future challenges.
-
-You should find the flag for this challenge ON THIS constellations.page website. You will not find it on GitHub.
-
-HINT: &quot;Can we please stop sharing our version control software out on our website?&quot;
-
-HINT AGAIN: you are looking for a publicly accessible version control software folder published on the constellations.page website itself
-
-After solving this challenge, you may need to refresh the page to see the newly unlocked challenges.
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h1&gt;&lt;/h1&gt;
-&lt;h3&gt;&lt;font color=&quot;FF3030&quot;&gt;Solution&lt;/font&gt;&lt;/h3&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;The hint for this challenge was the quote in the source code at https://constellations.page/meet-the-team.html:&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&amp;lt;!-- Vela, can we please stop sharing our version control software out on the public internet? --&amp;gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;We see a Github link at the bottom of the page, which leads us to try:&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/writeups/NahamConCTF2021/1b7d7180a341438f8014c69f21325f0b.png&quot; alt=&quot;7f58c2422d6e80aa968d023dd1f79279.png&quot; /&gt;&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;
-    &lt;p&gt;We can’t browse the directory structure, unfortunately, so we have to try to access default files and figure out a path from there.  There is an excellent resource &lt;a href=&quot;https://medium.com/swlh/hacking-git-directories-e0e60fa79a36&quot; target=&quot;_blank&quot;&gt;here&lt;/a&gt; discussing some manual ways to discover files.&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;The path of least resistance, however, is automating this process via &lt;a href=&quot;https://github.com/internetwache/GitTools&quot; target=&quot;_blank&quot;&gt;GitTools&lt;/a&gt;.  Armed with this, we can run the “Dumper” tool first to find and pull the relevant contents from the site. (Note:  Having spaces in your path breaks this script, so check for this first.)&lt;/p&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;─&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;bash gitdumper.sh http://constellations.page/.git/ ./git_pages_dump
-&lt;span class=&quot;c&quot;&gt;###########&lt;/span&gt;
-&lt;span class=&quot;c&quot;&gt;# GitDumper is part of https://github.com/internetwache/GitTools&lt;/span&gt;
-&lt;span class=&quot;c&quot;&gt;#&lt;/span&gt;
-&lt;span class=&quot;c&quot;&gt;# Developed and maintained by @gehaxelt from @internetwache&lt;/span&gt;
-&lt;span class=&quot;c&quot;&gt;#&lt;/span&gt;
-&lt;span class=&quot;c&quot;&gt;# Use at your own risk. Usage might be illegal in certain circumstances. &lt;/span&gt;
-&lt;span class=&quot;c&quot;&gt;# Only for educational purposes!&lt;/span&gt;
-&lt;span class=&quot;c&quot;&gt;###########&lt;/span&gt;
-
-
-&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;]&lt;/span&gt; Destination folder does not exist
-&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;+] Creating ./git_pages_dump/.git/
-&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;+] Downloaded: HEAD
-&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;-] Downloaded: objects/info/packs
-&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;+] Downloaded: description
-&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;+] Downloaded: config
-&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;+] Downloaded: COMMIT_EDITMSG
-&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;+] Downloaded: index
-&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;-] Downloaded: packed-refs
-&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;+] Downloaded: refs/heads/master
-&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;-] Downloaded: refs/remotes/origin/HEAD
-&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;-] Downloaded: refs/stash
-&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;+] Downloaded: logs/HEAD
-&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;+] Downloaded: logs/refs/heads/master
-&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;-] Downloaded: logs/refs/remotes/origin/HEAD
-&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;-] Downloaded: info/refs
-&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;+] Downloaded: info/exclude
-&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;-] Downloaded: /refs/wip/index/refs/heads/master
-&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;-] Downloaded: /refs/wip/wtree/refs/heads/master
-&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;+] Downloaded: objects/e7/d4663ac6b436f95684c8bfc428cef0d7731455
-&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;+] Downloaded: objects/8e/9e7afad5d1f7c6c3dcf322a3a94aeebc1e0073
-&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;-] Downloaded: objects/00/00000000000000000000000000000000000000
-&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;+] Downloaded: objects/11/42cc3145fdba8d9eb8f9c9e7ee79bdfda64d9a
-&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;+] Downloaded: objects/87/b17a86409582c162e260795afdf104dc1d46b1
-...&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;Next, we need to run the extractor script, which tries to iterate through the repo and recreate the contents by analyzing the commits.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt; 
-
-bash extractor.sh ./git_pages_dump ./git_pages_extracted
-&lt;span class=&quot;c&quot;&gt;###########&lt;/span&gt;
-&lt;span class=&quot;c&quot;&gt;# Extractor is part of https://github.com/internetwache/GitTools&lt;/span&gt;
-&lt;span class=&quot;c&quot;&gt;#&lt;/span&gt;
-&lt;span class=&quot;c&quot;&gt;# Developed and maintained by @gehaxelt from @internetwache&lt;/span&gt;
-&lt;span class=&quot;c&quot;&gt;#&lt;/span&gt;
-&lt;span class=&quot;c&quot;&gt;# Use at your own risk. Usage might be illegal in certain circumstances. &lt;/span&gt;
-&lt;span class=&quot;c&quot;&gt;# Only for educational purposes!&lt;/span&gt;
-&lt;span class=&quot;c&quot;&gt;###########&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;]&lt;/span&gt; Destination folder does not exist
-&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;]&lt;/span&gt; Creating...
-&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;+] Found commit: 8e9e7afad5d1f7c6c3dcf322a3a94aeebc1e0073
-&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;+] Found folder: /your/path/git_pages_extracted/0-8e9e7afad5d1f7c6c3dcf322a3a94aeebc1e0073/assets
-&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;+] Found file: /your/path/git_pages_extracted/0-8e9e7afad5d1f7c6c3dcf322a3a94aeebc1e0073/assets/.DS_Store
-&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;+] Found folder: /your/path/git_pages_extracted/0-8e9e7afad5d1f7c6c3dcf322a3a94aeebc1e0073/assets/css
-&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;+] Found file: /your/path/git_pages_extracted/0-8e9e7afad5d1f7c6c3dcf322a3a94aeebc1e0073/assets/css/grayscale.css
-&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;+] Found file: /your/path/git_pages_extracted/0-8e9e7afad5d1f7c6c3dcf322a3a94aeebc1e0073/assets/css/grayscale.min.css
-&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;+] Found folder: /your/path/git_pages_extracted/0-8e9e7afad5d1f7c6c3dcf322a3a94aeebc1e0073/assets/fonts                                                                     
-&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;+] Found folder: /your/path/git_pages_extracted/0-8e9e7afad5d1f7c6c3dcf322a3a94aeebc1e0073/assets/fonts/bootstrap                                                           
-&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;+] Found file: /your/path/git_pages_extracted/0-8e9e7afad5d1f7c6c3dcf322a3a94aeebc1e0073/assets/fonts/bootstrap/glyphicons-halflings-regular.eot                            
-&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;+] Found file: /your/path/git_pages_extracted/0-8e9e7afad5d1f7c6c3dcf322a3a94aeebc1e0073/assets/fonts/bootstrap/glyphicons-halflings-regular.svg                            
-&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;+] Found file: /your/path/git_pages_extracted/0-8e9e7afad5d1f7c6c3dcf322a3a94aeebc1e0073/assets/fonts/bootstrap/glyphicons-halflings-regular.ttf                            
-&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;+] Found file: /your/path/git_pages_extracted/0-8e9e7afad5d1f7c6c3dcf322a3a94aeebc1e0073/assets/fonts/bootstrap/glyphicons-halflings-regular.woff                           
-&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;+] Found file: /your/path/git_pages_extracted/0-8e9e7afad5d1f7c6c3dcf322a3a94aeebc1e0073/assets/fonts/bootstrap/glyphicons-halflings-regular.woff2
-...&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;Finally, it’s just a matter of finding the flag in the reconstructed content.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;ls
-&lt;/span&gt;0-8e9e7afad5d1f7c6c3dcf322a3a94aeebc1e0073
-1-0780dea9ede681b1e4276d74740bb11056d97c39
-2-e7d4663ac6b436f95684c8bfc428cef0d7731455
-3-4c88ac1c56fe228267cf415c3ef87d7c3b8abd60
-4-1142cc3145fdba8d9eb8f9c9e7ee79bdfda64d9a
-5-87b17a86409582c162e260795afdf104dc1d46b1
-
-&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;grep&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-r&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;flag{&quot;&lt;/span&gt;
-3-4c88ac1c56fe228267cf415c3ef87d7c3b8abd60/meet-the-team.html:            &amp;lt;&lt;span class=&quot;o&quot;&gt;!&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;--&lt;/span&gt; &amp;lt;li&amp;gt;&amp;lt;h4&amp;gt;&amp;lt;b&amp;gt;flag&lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;4063962f3a52f923ddb4411c139dd24c&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;&amp;lt;/b&amp;gt;&amp;lt;/h4&amp;gt;&amp;lt;/li&amp;gt; &lt;span class=&quot;nt&quot;&gt;--&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt;
-2-e7d4663ac6b436f95684c8bfc428cef0d7731455/robots.txt:flag&lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;33b5240485dda77430d3de22996297a1&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-1-0780dea9ede681b1e4276d74740bb11056d97c39/meet-the-team.html:            &amp;lt;&lt;span class=&quot;o&quot;&gt;!&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;--&lt;/span&gt; &amp;lt;li&amp;gt;&amp;lt;h4&amp;gt;&amp;lt;b&amp;gt;flag&lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;4063962f3a52f923ddb4411c139dd24c&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;&amp;lt;/b&amp;gt;&amp;lt;/h4&amp;gt;&amp;lt;/li&amp;gt; &lt;span class=&quot;nt&quot;&gt;--&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt;
-1-0780dea9ede681b1e4276d74740bb11056d97c39/robots.txt:flag&lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;33b5240485dda77430d3de22996297a1&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-0-8e9e7afad5d1f7c6c3dcf322a3a94aeebc1e0073/robots.txt:flag&lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;33b5240485dda77430d3de22996297a1&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;</content><author><name>shinris3n</name></author><category term="[&quot;writeups&quot;]" /><category term="NahamConCTF2021" /><summary type="html">Challenge Text</summary></entry></feed>
+&lt;/ul&gt;</content><author><name>shinris3n</name></author><category term="[&quot;writeups&quot;]" /><category term="NahamConCTF2021" /><summary type="html">Challenge Text</summary></entry></feed>
