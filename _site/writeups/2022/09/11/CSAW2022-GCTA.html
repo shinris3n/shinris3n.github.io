@@ -4,12 +4,12 @@
     <meta charset='utf-8'>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="/assets/css/style.css?v=33cf73e227231c49003c98c0b29fb04af2660c69">
+    <link rel="stylesheet" href="/assets/css/style.css?v=5a1e236f69011cfa446dad26d377bc5a5cfb9d20">
     <link rel="shortcut icon" type="image/png" href="http://0.0.0.0:4000/assets/images/shinris3n.png">
 
-<!-- Begin Jekyll SEO tag v2.6.1 -->
+<!-- Begin Jekyll SEO tag v2.8.0 -->
 <title>Gotta Crack Them All | 当て身 Atemi</title>
-<meta name="generator" content="Jekyll v3.9.0" />
+<meta name="generator" content="Jekyll v3.10.0" />
 <meta property="og:title" content="Gotta Crack Them All" />
 <meta name="author" content="shinris3n" />
 <meta property="og:locale" content="en_US" />
@@ -20,8 +20,10 @@
 <meta property="og:site_name" content="当て身 Atemi" />
 <meta property="og:type" content="article" />
 <meta property="article:published_time" content="2022-09-11T17:11:21-05:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Gotta Crack Them All" />
 <script type="application/ld+json">
-{"author":{"@type":"Person","name":"shinris3n"},"url":"http://0.0.0.0:4000/writeups/2022/09/11/CSAW2022-GCTA.html","mainEntityOfPage":{"@type":"WebPage","@id":"http://0.0.0.0:4000/writeups/2022/09/11/CSAW2022-GCTA.html"},"description":"Challenge Text:","@type":"BlogPosting","headline":"Gotta Crack Them All","dateModified":"2022-09-11T17:11:21-05:00","datePublished":"2022-09-11T17:11:21-05:00","@context":"https://schema.org"}</script>
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"shinris3n"},"dateModified":"2022-09-11T17:11:21-05:00","datePublished":"2022-09-11T17:11:21-05:00","description":"Challenge Text:","headline":"Gotta Crack Them All","mainEntityOfPage":{"@type":"WebPage","@id":"http://0.0.0.0:4000/writeups/2022/09/11/CSAW2022-GCTA.html"},"url":"http://0.0.0.0:4000/writeups/2022/09/11/CSAW2022-GCTA.html"}</script>
 <!-- End Jekyll SEO tag -->
 
   </head>
@@ -74,7 +76,7 @@ NOTE: The flag is just the admin's password.
   <span class="n">key</span> <span class="o">=</span> <span class="n">f</span><span class="p">.</span><span class="n">read</span><span class="p">()</span>
 
 <span class="k">def</span> <span class="nf">encrypt</span><span class="p">(</span><span class="n">plain</span><span class="p">):</span>
-  <span class="k">return</span> <span class="s">b''</span><span class="p">.</span><span class="n">join</span><span class="p">((</span><span class="nb">ord</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">^</span> <span class="n">y</span><span class="p">).</span><span class="n">to_bytes</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="s">'big'</span><span class="p">)</span> <span class="k">for</span> <span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">plain</span><span class="p">,</span><span class="n">key</span><span class="p">))</span>
+  <span class="k">return</span> <span class="sa">b</span><span class="s">''</span><span class="p">.</span><span class="n">join</span><span class="p">((</span><span class="nb">ord</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">^</span> <span class="n">y</span><span class="p">).</span><span class="n">to_bytes</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="s">'big'</span><span class="p">)</span> <span class="k">for</span> <span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">plain</span><span class="p">,</span><span class="n">key</span><span class="p">))</span>
 </code></pre></div></div>
 
 <ul>
@@ -129,14 +131,14 @@ Would you like to go again? <span class="o">(</span>Y/N<span class="o">)</span>
 
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">known_encrypted_pws</span> <span class="o">=</span> <span class="p">[]</span>
 <span class="n">leaked_pw</span> <span class="o">=</span> <span class="s">"Cacturne-Grass-Dark"</span>
-<span class="n">encrypted_leaked_pw_from_service</span> <span class="o">=</span> <span class="s">b'kz</span><span class="se">\xc6\xb9\xd9</span><span class="s">Du</span><span class="se">\xcb\x8a\x9e\xe0\x9d\xbe</span><span class="s">o</span><span class="se">\xee\x03\xcf\xdd</span><span class="s">d'</span>
+<span class="n">encrypted_leaked_pw_from_service</span> <span class="o">=</span> <span class="sa">b</span><span class="s">'kz</span><span class="se">\xc6\xb9\xd9</span><span class="s">Du</span><span class="se">\xcb\x8a\x9e\xe0\x9d\xbe</span><span class="s">o</span><span class="se">\xee\x03\xcf\xdd</span><span class="s">d'</span>
 
 <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s">'encrypted_passwords.txt'</span><span class="p">,</span><span class="s">'rb'</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
   <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">f</span><span class="p">:</span>
     <span class="n">known_encrypted_pws</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="n">f</span><span class="p">.</span><span class="n">readline</span><span class="p">()[:</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
 
 <span class="k">def</span> <span class="nf">decrypt</span><span class="p">(</span><span class="n">plain</span><span class="p">,</span> <span class="n">key</span><span class="p">):</span>
-  <span class="k">return</span> <span class="s">b''</span><span class="p">.</span><span class="n">join</span><span class="p">((</span><span class="nb">ord</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">^</span> <span class="n">y</span><span class="p">).</span><span class="n">to_bytes</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="s">'big'</span><span class="p">)</span> <span class="k">for</span> <span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">plain</span><span class="p">,</span><span class="n">key</span><span class="p">))</span>
+  <span class="k">return</span> <span class="sa">b</span><span class="s">''</span><span class="p">.</span><span class="n">join</span><span class="p">((</span><span class="nb">ord</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">^</span> <span class="n">y</span><span class="p">).</span><span class="n">to_bytes</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="s">'big'</span><span class="p">)</span> <span class="k">for</span> <span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">plain</span><span class="p">,</span><span class="n">key</span><span class="p">))</span>
 
 <span class="k">def</span> <span class="nf">decrypt_bytes</span><span class="p">(</span><span class="n">encrypted</span><span class="p">,</span> <span class="n">key</span><span class="p">):</span>
     <span class="k">return</span> <span class="nb">bytes</span><span class="p">([</span><span class="n">a</span> <span class="o">^</span> <span class="n">b</span> <span class="k">for</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">encrypted</span><span class="p">,</span> <span class="n">key</span><span class="p">)])</span>
@@ -212,7 +214,7 @@ Would you like to go again? <span class="o">(</span>Y/N<span class="o">)</span>
 </ul>
 
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">likely_full_password</span> <span class="o">=</span> <span class="s">"Chinchou-Water-Electric"</span>
-<span class="n">encrypted_cracked_pw_from_service</span> <span class="o">=</span> <span class="s">b'ks</span><span class="se">\xcc\xa3\xcf</span><span class="s">^t</span><span class="se">\xdb\x8a\x8e\xf3\x88\xa8</span><span class="s">n</span><span class="se">\xee\x02\xc2\xca</span><span class="s">l</span><span class="se">\xe1\xfe\xd2\xaa</span><span class="s">'</span>
+<span class="n">encrypted_cracked_pw_from_service</span> <span class="o">=</span> <span class="sa">b</span><span class="s">'ks</span><span class="se">\xcc\xa3\xcf</span><span class="s">^t</span><span class="se">\xdb\x8a\x8e\xf3\x88\xa8</span><span class="s">n</span><span class="se">\xee\x02\xc2\xca</span><span class="s">l</span><span class="se">\xe1\xfe\xd2\xaa</span><span class="s">'</span>
 <span class="n">extended_key</span> <span class="o">=</span> <span class="n">decrypt</span><span class="p">(</span><span class="n">likely_full_password</span><span class="p">,</span> <span class="n">encrypted_cracked_pw_from_service</span><span class="p">)</span>
 <span class="k">print</span><span class="p">(</span><span class="s">"Extended Key ="</span><span class="p">,</span> <span class="n">extended_key</span><span class="p">)</span>
 <span class="k">print</span> <span class="p">(</span><span class="s">'Decrypted Password List:'</span><span class="p">)</span>
@@ -227,34 +229,34 @@ Would you like to go again? <span class="o">(</span>Y/N<span class="o">)</span>
   <li>The output from this additional code reveals the rest of the passwords in full along with the full admin password, which is the flag:</li>
 </ul>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Extended Key = b'(\x1b\xa5\xcd\xac6\x1b\xae\xa7\xd9\x92\xfc\xcd\x1c\xc3G\xae\xaf\x0f\x95\x8c\xbb\xc9'
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Extended Key <span class="o">=</span> b<span class="s1">'(\x1b\xa5\xcd\xac6\x1b\xae\xa7\xd9\x92\xfc\xcd\x1c\xc3G\xae\xaf\x0f\x95\x8c\xbb\xc9'</span>
 Decrypted Password List:
-b'Darkrai-Dark'
-b'Happiny-Normal'
-b'Cacturne-Grass-Dark'
-b'Sneasel-Dark-Ice'
-b'Rhyperior-Ground-Rock'
-b'Chinchou-Water-Electric'
-b'Excadrill-Ground-Steel'
-b'Kricketune-Bug'
-b'Pikipek-Normal-Flying'
-b'Basculin-Water'
-b'Togetic-Fairy-Flying'
-b'Riolu-Fighting'
-b'Spritzee-Fairy'
-b'Silvally-Normal'
-b'Wyrdeer-Normal-Psychic'
-b'Herdier-Normal'
-b'Thwackey-Grass'
-b'Bronzong-Steel-Psychic'
-b'Chespin-Grass'
-b'Tornadus-Flying'
-b'Combusken-Fire-Fighting'
-b'Carnivine-Grass'
-b'Grubbin-Bug'
-b'Goomy-Dragon'
-b'1n53cu2357234mc1ph32'
-b''
+b<span class="s1">'Darkrai-Dark'</span>
+b<span class="s1">'Happiny-Normal'</span>
+b<span class="s1">'Cacturne-Grass-Dark'</span>
+b<span class="s1">'Sneasel-Dark-Ice'</span>
+b<span class="s1">'Rhyperior-Ground-Rock'</span>
+b<span class="s1">'Chinchou-Water-Electric'</span>
+b<span class="s1">'Excadrill-Ground-Steel'</span>
+b<span class="s1">'Kricketune-Bug'</span>
+b<span class="s1">'Pikipek-Normal-Flying'</span>
+b<span class="s1">'Basculin-Water'</span>
+b<span class="s1">'Togetic-Fairy-Flying'</span>
+b<span class="s1">'Riolu-Fighting'</span>
+b<span class="s1">'Spritzee-Fairy'</span>
+b<span class="s1">'Silvally-Normal'</span>
+b<span class="s1">'Wyrdeer-Normal-Psychic'</span>
+b<span class="s1">'Herdier-Normal'</span>
+b<span class="s1">'Thwackey-Grass'</span>
+b<span class="s1">'Bronzong-Steel-Psychic'</span>
+b<span class="s1">'Chespin-Grass'</span>
+b<span class="s1">'Tornadus-Flying'</span>
+b<span class="s1">'Combusken-Fire-Fighting'</span>
+b<span class="s1">'Carnivine-Grass'</span>
+b<span class="s1">'Grubbin-Bug'</span>
+b<span class="s1">'Goomy-Dragon'</span>
+b<span class="s1">'1n53cu2357234mc1ph32'</span>
+b<span class="s1">''</span>
 </code></pre></div></div>
 
 

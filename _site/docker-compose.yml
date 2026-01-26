@@ -1,13 +1,13 @@
-# docker run --rm --volume="$PWD:/srv/jekyll" -p 4000:4000 jekyll/jekyll:latest jekyll serve
-
-version: "3.9"
 services:
-  jekyll-serve:
+  site:
     image: jekyll/jekyll:latest
-    volumes:
-      - ".:/srv/jekyll"
+    command: jekyll serve --force_polling --livereload
     ports:
-      - 4000:4000
-    command: "jekyll serve"
-
-
+      - "4000:4000"
+      - "35729:35729"
+    volumes:
+      - .:/srv/jekyll
+    environment:
+      # Map container user to your local user ID to prevent permission issues
+      - JEKYLL_UID=1000
+      - JEKYLL_GID=1000
