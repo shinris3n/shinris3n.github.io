@@ -8,7 +8,16 @@ _site/
 vendor/
 Gemfile.lock
 
-# Docker / System files
+# Editor and System files
 .DS_Store
-.sass-cache/
+*.swp
+*~
 *.log
+
+# Environment and Private config
+.env
+docker-compose.override.yml
+
+# CSS/JS processing
+.sass-cache/
+node_modules/
