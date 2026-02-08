@@ -9,13 +9,11 @@ layout: default
 
   {{ content }}
 
-
   {% if site.paginate %}
     {% assign posts = paginator.posts %}
   {% else %}
     {% assign posts = site.posts %}
   {% endif %}
-
 
   {%- if posts.size > 0 -%}
     {%- if page.list_title -%}
@@ -25,7 +23,7 @@ layout: default
       {%- assign date_format = site.minima.date_format | default: "%b %-d, %Y" -%}
       {%- for post in posts -%}
       <li>
-        <span class="post-meta"><font size="2" style="font-variant: small-caps;">{{ post.date | date: date_format }}</font></span>
+        <span class="post-meta"><span class="post-meta-date" style="font-variant: small-caps; font-size: small;">{{ post.date | date: date_format }}</span></span>
         <h3>
           <a class="post-link" href="{{ post.url | relative_url }}">
             {{ post.title | escape }}
@@ -35,7 +33,7 @@ layout: default
           {% else %}
             {% assign category_name = 'n/a' %}
           {% endif %}
-          <br><font size="2" style="font-variant: small-caps;">category: {{ post.category | join: ", " }}</font>
+          <br><span class="post-meta-category" style="font-variant: small-caps; font-size: small;">category: {{ post.category | join: ", " }}</span>
         </h3>
         {%- if site.show_excerpts -%}
           {{ post.excerpt }}
@@ -63,26 +61,4 @@ layout: default
     {%- endif %}
 
   {%- endif -%}
-
-
-{% comment %}
-<h2 class="post-list-heading"><u>{{ page.list2_title }}</u></h2>
-{% for tag in site.tags %}
-  {% assign t = tag | first %}
-  {% assign posts = tag | last %}
-
-{{ t | upcase }}
-<ul>
-{% for post in posts %}
-  {% if post.tags contains t %}
-  <li>
-    <a href="{{ post.url }}">{{ post.title }}</a> 
-    <span class="date" style="font-size:0.75em;">({{ post.date | date: date_format  }})</span>
-  </li>
-  {% endif %}
-{% endfor %}
-</ul>
-{% endfor %}
-{% endcomment %}
-
 </div>

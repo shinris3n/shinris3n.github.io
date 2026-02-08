@@ -1,0 +1,312 @@
+/* 1. DEFAULT THEME (NINPWN MODE) */
+.brand-link, 
+.challenge-meta,
+.post-meta-date,
+.post-meta-category {
+  color: #b5e853; 
+}
+
+/* --- FLOATING BUTTON (Vibrant Ghost Style) --- */
+#theme-toggle {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 9999;
+  background: rgba(0, 0, 0, 0.3); 
+  border: 1px solid #b5e853;
+  color: #b5e853;
+  padding: 10px 15px;      
+  font-size: 12px;
+  font-family: 'Arial Narrow', 'Helvetica Condensed', sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  cursor: pointer;
+  backdrop-filter: blur(4px); 
+  -webkit-backdrop-filter: blur(4px);
+  transition: all 0.3s ease;
+  border-radius: 4px;
+}
+
+#theme-toggle:hover {
+  background: #000000; 
+  border-color: #b5e853;
+  color: #b5e853;
+  box-shadow: 0 0 15px rgba(181, 232, 83, 0.4);
+}
+
+/* 2. READABILITY MODE (POLISHED SLATE STYLE) */
+html body.readability-mode {
+  background: #E3E8EC !important; 
+  background-image: none !important; 
+  color: #37474F !important; 
+  
+  /* MODERN FONT STACK: Uses San Francisco (Mac), Segoe UI (Windows), Roboto (Android) */
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif !important;
+  
+  /* Tyopgraphy Tweaks for "Freshness" */
+  line-height: 1.6; /* More breathing room between lines */
+  font-size: 16px;  /* Slightly larger base text */
+}
+
+/* Header & Containers */
+html body.readability-mode header {
+  background: #E3E8EC !important; 
+  border-bottom: 2px solid #B0BEC5; 
+  /* Keep Header Monospace for Brand Identity */
+  font-family: "Bitstream Vera Sans Mono", "Consolas", Courier, monospace !important;
+}
+
+html body.readability-mode .container, 
+html body.readability-mode #main_content,
+html body.readability-mode .home {
+  background: transparent !important;
+  color: #37474F !important;
+}
+
+/* --- READABILITY BUTTON --- */
+html body.readability-mode #theme-toggle {
+  background: rgba(255, 255, 255, 0.3) !important; 
+  border: 1px solid #006064 !important;
+  color: #006064 !important;
+  box-shadow: none !important;
+}
+
+html body.readability-mode #theme-toggle:hover {
+  background: #006064 !important;
+  color: white !important;
+  border-color: #006064 !important;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2) !important;
+}
+
+/* --- THE BULLET FIX --- */
+html body.readability-mode ul li::before,
+html body.readability-mode #main_content ul li::before,
+html body.readability-mode .container ul li::before {
+  content: none !important; 
+  display: none !important;
+}
+
+html body.readability-mode ul,
+html body.readability-mode #main_content ul {
+  list-style-image: none !important;
+  list-style-type: disc !important;
+  padding-left: 40px !important;
+  margin-left: 0 !important;
+}
+
+html body.readability-mode ul li,
+html body.readability-mode #main_content ul li {
+  list-style-image: none !important;
+  list-style-type: disc !important;
+  color: #37474F !important;
+  padding-left: 0 !important;
+}
+
+/* --- THE CODE BLOCK CONTAINER (Lighter Grey & Sky Blue) --- */
+html body.readability-mode code,
+html body.readability-mode #main_content code {
+  background-color: rgba(0, 0, 0, 0.06) !important;
+  border: none !important;
+  color: #D84315 !important; 
+  font-family: "Consolas", "Monaco", monospace;
+  padding: 2px 4px;
+  border-radius: 3px;
+}
+
+html body.readability-mode pre,
+html body.readability-mode #main_content pre {
+  background-color: #CFD8DC !important; 
+  border: 2px solid #29B6F6 !important; 
+  border-radius: 6px;
+  padding: 12px;
+  margin-top: 15px;
+  margin-bottom: 15px;
+  overflow: auto;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  color: #212529 !important; 
+}
+
+html body.readability-mode pre code,
+html body.readability-mode #main_content pre code {
+  background-color: transparent !important;
+  border: none !important;
+  color: inherit !important; 
+  padding: 0;
+  font-weight: 500;
+}
+
+/* --- NUCLEAR SYNTAX OVERRIDES --- */
+html body.readability-mode pre .c, 
+html body.readability-mode pre .cm,
+html body.readability-mode pre .cp,
+html body.readability-mode pre .c1,
+html body.readability-mode pre .cs {
+  color: #455A64 !important;
+  font-style: italic;
+  font-weight: bold;
+}
+
+html body.readability-mode pre .s, 
+html body.readability-mode pre .sb,
+html body.readability-mode pre .sc,
+html body.readability-mode pre .sd,
+html body.readability-mode pre .s2,
+html body.readability-mode pre .sh,
+html body.readability-mode pre .sx,
+html body.readability-mode pre .s1 {
+  color: #C62828 !important;
+}
+
+html body.readability-mode pre .k, 
+html body.readability-mode pre .kc,
+html body.readability-mode pre .kd,
+html body.readability-mode pre .kn,
+html body.readability-mode pre .kp,
+html body.readability-mode pre .kr,
+html body.readability-mode pre .kt,
+html body.readability-mode pre .nf,
+html body.readability-mode pre .nt { 
+  color: #0D47A1 !important;
+  font-weight: bold;
+}
+
+html body.readability-mode pre .nv, 
+html body.readability-mode pre .vc,
+html body.readability-mode pre .vg,
+html body.readability-mode pre .vi,
+html body.readability-mode pre .na, 
+html body.readability-mode pre .nb,
+html body.readability-mode pre .bp {
+  color: #4A148C !important;
+}
+
+html body.readability-mode pre .m, 
+html body.readability-mode pre .mf,
+html body.readability-mode pre .mh,
+html body.readability-mode pre .mi,
+html body.readability-mode pre .mo,
+html body.readability-mode pre .il {
+  color: #004D40 !important;
+}
+
+html body.readability-mode pre .o,
+html body.readability-mode pre .ow, 
+html body.readability-mode pre .p,
+html body.readability-mode pre .pi {
+  color: #000000 !important;
+  font-weight: bold;
+}
+
+html body.readability-mode pre .n,
+html body.readability-mode pre .nx,
+html body.readability-mode pre .go {
+  color: #263238 !important;
+}
+
+/* --- OVERRIDE HEADINGS --- 
+   Using standard sans-serif with tighter tracking for a 'headline' feel.
+*/
+html body.readability-mode h1,
+html body.readability-mode h2,
+html body.readability-mode h3,
+html body.readability-mode h4,
+html body.readability-mode h5,
+html body.readability-mode h6,
+html body.readability-mode #main_content h1,
+html body.readability-mode #main_content h2,
+html body.readability-mode #main_content h3,
+html body.readability-mode .page-heading {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif !important;
+  color: #263238 !important; 
+  letter-spacing: -0.5px; /* Tighter headline spacing */
+  font-weight: 700;
+  border-bottom: none !important;
+}
+
+/* --- LINKS --- */
+html body.readability-mode a,
+html body.readability-mode #main_content a,
+html body.readability-mode .brand-link,
+html body.readability-mode .challenge-meta,
+html body.readability-mode .post-meta-date,
+html body.readability-mode .post-meta-category,
+html body.readability-mode .post-link,
+html body.readability-mode header h1 a, 
+html body.readability-mode header p a {
+  color: #006064 !important;
+  text-decoration: none;
+}
+
+html body.readability-mode a:hover,
+html body.readability-mode #main_content a:hover,
+html body.readability-mode .brand-link:hover {
+  text-decoration: underline;
+  color: #00838F !important;
+}
+
+/* --- BANNER IMAGE FIX --- */
+html body.readability-mode img[src*="shinris3n_banner_transparent.png"] {
+  filter: invert(1) hue-rotate(180deg) brightness(0.6) contrast(2) drop-shadow(0 0 0px #000);
+  opacity: 1.0;
+}
+
+/* Header Description */
+html body.readability-mode header h2 {
+  color: #546E7A !important;
+}
+
+/* --- HEADER LAYOUT (Text Left, Logo Right) --- */
+
+/* 1. Flex Container */
+.header-flex {
+  display: flex;
+  justify-content: space-between; /* Pushes Text left, Logo right */
+  align-items: center;            /* Vertically centers them */
+  gap: 40px;                      /* Healthy gap so they don't touch */
+}
+
+/* 2. Text Area */
+.header-text {
+  flex: 1; /* Allows text to take up available space */
+}
+
+/* 3. Logo Area */
+.header-logo-wrapper {
+  flex-shrink: 0; /* Prevents logo from getting squished */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.header-brand-logo {
+  /* SIZING: 140px usually matches the full height of the text block exactly. */
+  max-height: 140px; 
+  width: auto;      
+  
+  /* NINPWN Mode: Default presentation */
+  opacity: 1.0;
+  transition: all 0.3s ease;
+}
+
+/* --- MOBILE RESPONSIVENESS --- */
+@media (max-width: 768px) {
+  .header-flex {
+    flex-direction: column-reverse; /* Stack them on mobile */
+    text-align: center;
+    gap: 20px;
+  }
+  
+  .header-brand-logo {
+    max-height: 100px; /* Smaller on phone */
+    margin-bottom: 10px;
+  }
+}
+
+/* --- READABILITY MODE LOGO FIX --- 
+   This ensures the logo matches the 'Slate' theme.
+   It inverts the colors so a white logo becomes Dark Grey/Blue.
+*/
+html body.readability-mode .header-brand-logo {
+  filter: invert(1) hue-rotate(180deg) brightness(0.6) contrast(1.2) drop-shadow(0 0 0px #000);
+  opacity: 0.8;
+}

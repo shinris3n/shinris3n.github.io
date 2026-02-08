@@ -5,26 +5,33 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="{{ '/assets/css/style.css?v=' | append: site.github.build_revision | relative_url }}">
+    <link rel="stylesheet" href="{{ '/assets/css/theme-switch.css' | relative_url }}?v={{ site.time | date: '%s' }}"> 
     <link rel="shortcut icon" type="image/png" href="{{ '/assets/images/shinris3n.png' | relative_url }}">
 
     {% seo %}
   </head>
 
   <body>
-    <header>
-      <div class="container">
-        <h1>
-          <a href="{{ '/' | relative_url }}" style="text-decoration:none;color:#b5e853;">
-            {{ site.title }}
-          </a>
-        </h1>
-        <h2>{{ site.description }}</h2>
-        
-        <p style="margin-top: 10px;">
-          👊 <a href="{{ '/writeups' | relative_url }}" style="color:#b5e853;">Writeups</a> 
-          👊 <a href="{{ '/news' | relative_url }}" style="color:#b5e853;">News</a> 
-          👊 <a href="{{ '/resources' | relative_url }}" style="color:#b5e853;">Resources</a>
-        </p>
+<header>
+      <div class="container header-flex">
+        <div class="header-text">
+          <h1>
+            <a href="{{ '/' | relative_url }}" class="brand-link" style="text-decoration:none;">
+              {{ site.title }}
+            </a>
+          </h1>
+          <h2>{{ site.description }}</h2>
+          
+          <p style="margin-top: 10px;">
+            👊 <a href="{{ '/writeups' | relative_url }}" class="brand-link">Writeups</a> 
+            👊 <a href="{{ '/news' | relative_url }}" class="brand-link">News</a> 
+            👊 <a href="{{ '/resources' | relative_url }}" class="brand-link">Resources</a>
+          </p>
+        </div>
+
+        <div class="header-logo-wrapper">
+          <img src="{{ '/assets/images/ninpwn.png' | relative_url }}" alt="NINPWN Logo" class="header-brand-logo">
+        </div>
       </div>
     </header>
 
@@ -37,5 +44,33 @@
       </section>
     </div>
 
-    </body>
+    <button id="theme-toggle" onclick="toggleTheme()">
+      Switch to Readability Mode
+    </button>
+
+    <script>
+      const currentTheme = localStorage.getItem('theme');
+      const toggleBtn = document.getElementById('theme-toggle');
+      
+      if (currentTheme === 'readability-mode') {
+        document.body.classList.add('readability-mode');
+        toggleBtn.innerText = "Switch to NINPWN Mode";
+      } else {
+        toggleBtn.innerText = "Switch to Readability Mode";
+      }
+
+      function toggleTheme() {
+        const body = document.body;
+        body.classList.toggle('readability-mode');
+        
+        if (body.classList.contains('readability-mode')) {
+          localStorage.setItem('theme', 'readability-mode');
+          toggleBtn.innerText = "Switch to NINPWN Mode";
+        } else {
+          localStorage.removeItem('theme');
+          toggleBtn.innerText = "Switch to Readability Mode";
+        }
+      }
+    </script>
+  </body>
 </html>

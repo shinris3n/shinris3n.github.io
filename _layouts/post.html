@@ -12,11 +12,11 @@ layout: default
 {% endcomment %}
 
 {% if page.challenge-source %}
- <small><font color="b5e853">Challenge Source: <em>{{ page.challenge-source | join: "</em>, <em>" }}</em></font></small>
+ <small><span class="challenge-meta">Challenge Source: <em>{{ page.challenge-source | join: "</em>, <em>" }}</em></span></small>
 {% endif %}
 <br>
 {% if page.challenge-category %}
-  <small><font color="b5e853">Challenge Category: <em>{{ page.challenge-category | join: "</em>, <em>" }}</em></font></small>
+  <small><span class="challenge-meta">Challenge Category: <em>{{ page.challenge-category | join: "</em>, <em>" }}</em></span></small>
 {% endif %}
 
 {{content}}
