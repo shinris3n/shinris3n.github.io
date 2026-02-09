@@ -49,12 +49,26 @@
     </button>
 
     <script>
+      // 1. Check Local Storage (User Preference)
       const currentTheme = localStorage.getItem('theme');
+      
+      // 2. Check URL Parameter (Professional Override)
+      // Allows links like: yoursite.com/post?mode=readability
+      const urlParams = new URLSearchParams(window.location.search);
+      const forceReadability = urlParams.get('mode') === 'readability';
+
       const toggleBtn = document.getElementById('theme-toggle');
       
-      if (currentTheme === 'readability-mode') {
+      // Logic: If Local Storage says "Readability" OR URL forces "Readability"
+      if (currentTheme === 'readability-mode' || forceReadability) {
         document.body.classList.add('readability-mode');
         toggleBtn.innerText = "Switch to NINPWN Mode";
+        
+        // If forced via URL, save it so they stay in professional mode 
+        // as they click around the site.
+        if (forceReadability) {
+          localStorage.setItem('theme', 'readability-mode');
+        }
       } else {
         toggleBtn.innerText = "Switch to Readability Mode";
       }
@@ -72,5 +86,6 @@
         }
       }
     </script>
+    
   </body>
 </html>
