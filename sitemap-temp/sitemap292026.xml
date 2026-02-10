@@ -6,154 +6,147 @@
   </url>
   <url>
     <loc>https://shinris3n.github.io/news/2026/01/26/CVE-2026-24061-Analysis.html</loc>
-    <lastmod>2026-01-26</lastmod>
+    <lastmod>2026-01-26T02:09:21+00:00</lastmod>
   </url>
-</urlset>
-<url>
-<loc>https://shinris3n.github.io/resources/2020/04/13/john-hammond.html</loc>
-<lastmod>2020-04-13T04:00:01+00:00</lastmod>
-</url>
-<url>
-<loc>https://shinris3n.github.io/resources/2020/04/14/cyber-mentor.html</loc>
-<lastmod>2020-04-14T04:00:01+00:00</lastmod>
-</url>
-<url>
-<loc>https://shinris3n.github.io/resources/2020/04/14/ricky.html</loc>
-<lastmod>2020-04-14T04:00:15+00:00</lastmod>
-</url>
-<url>
-<loc>https://shinris3n.github.io/writeups/2020/04/14/VirSecCon2020-2048.html</loc>
-<lastmod>2020-04-14T14:48:21+00:00</lastmod>
-</url>
-<url>
-<loc>https://shinris3n.github.io/writeups/2020/04/17/TryHackMe-Node1.html</loc>
-<lastmod>2020-04-17T04:13:21+00:00</lastmod>
-</url>
-<url>
-<loc>https://shinris3n.github.io/writeups/2020/05/03/VirSecCon2020-Quick-Run.html</loc>
-<lastmod>2020-05-03T01:28:21+00:00</lastmod>
-</url>
-<url>
-<loc>https://shinris3n.github.io/writeups/2020/07/31/HacktivityCon-Spaghetti.html</loc>
-<lastmod>2020-07-31T21:38:21+00:00</lastmod>
-</url>
-<url>
-<loc>https://shinris3n.github.io/writeups/2020/07/31/HacktivityCon-Internet-Cattos.html</loc>
-<lastmod>2020-07-31T21:38:22+00:00</lastmod>
-</url>
-<url>
-<loc>https://shinris3n.github.io/writeups/2020/07/31/HacktivityCon-Common-Place.html</loc>
-<lastmod>2020-07-31T21:38:23+00:00</lastmod>
-</url>
-<url>
-<loc>https://shinris3n.github.io/news/2020/08/04/vetsec-scholarship.html</loc>
-<lastmod>2020-08-04T21:47:23+00:00</lastmod>
-</url>
-<url>
-<loc>https://shinris3n.github.io/writeups/2020/08/08/Defcon28RTVCTF-Who-Failed.html</loc>
-<lastmod>2020-08-08T02:19:10+00:00</lastmod>
-</url>
-<url>
-<loc>https://shinris3n.github.io/writeups/2020/08/08/Defcon28RTVCTF-Clicker.html</loc>
-<lastmod>2020-08-08T02:20:15+00:00</lastmod>
-</url>
-<url>
-<loc>https://shinris3n.github.io/writeups/2020/08/08/Defcon28RTVCTF-Re-Me.html</loc>
-<lastmod>2020-08-08T02:20:15+00:00</lastmod>
-</url>
-<url>
-<loc>https://shinris3n.github.io/writeups/2020/08/08/Defcon28RTVCTF-Nicer-Pic.html</loc>
-<lastmod>2020-08-08T02:21:15+00:00</lastmod>
-</url>
-<url>
-<loc>https://shinris3n.github.io/writeups/2020/08/08/Defcon28RTVCTF-Roll1.html</loc>
-<lastmod>2020-08-08T02:23:15+00:00</lastmod>
-</url>
-<url>
-<loc>https://shinris3n.github.io/writeups/2020/08/08/Defcon28RTVCTF-Roll2.html</loc>
-<lastmod>2020-08-08T02:24:15+00:00</lastmod>
-</url>
-<url>
-<loc>https://shinris3n.github.io/writeups/2020/12/06/TryHackMe-AoC2-Day5.html</loc>
-<lastmod>2020-12-06T04:12:21+00:00</lastmod>
-</url>
-<url>
-<loc>https://shinris3n.github.io/resources/2020/12/16/audio-support.html</loc>
-<lastmod>2020-12-16T04:00:01+00:00</lastmod>
-</url>
-<url>
-<loc>https://shinris3n.github.io/writeups/2021/03/15/NahamCon2021-Pollex.html</loc>
-<lastmod>2021-03-15T04:08:00+00:00</lastmod>
-</url>
-<url>
-<loc>https://shinris3n.github.io/writeups/2021/03/15/NahamCon2021-Parseltongue.html</loc>
-<lastmod>2021-03-15T04:33:00+00:00</lastmod>
-</url>
-<url>
-<loc>https://shinris3n.github.io/writeups/2021/03/15/NahamCon2021-Meet-The-Team.html</loc>
-<lastmod>2021-03-15T04:38:00+00:00</lastmod>
-</url>
-<url>
-<loc>https://shinris3n.github.io/writeups/2021/03/15/NahamCon2021-Hydraulic.html</loc>
-<lastmod>2021-03-15T04:42:00+00:00</lastmod>
-</url>
-<url>
-<loc>https://shinris3n.github.io/writeups/2021/03/15/NahamCon2021-Dice-Roll.html</loc>
-<lastmod>2021-03-15T04:48:00+00:00</lastmod>
-</url>
-<url>
-<loc>https://shinris3n.github.io/writeups/resources/2021/06/13/TryHackMe-BOF-Prep.html</loc>
-<lastmod>2021-06-13T21:13:21+00:00</lastmod>
-</url>
-<url>
-<loc>https://shinris3n.github.io/writeups/2021/08/07/Defcon29RTVCTF-ASCIIRoulette.html</loc>
-<lastmod>2021-08-07T23:20:12+00:00</lastmod>
-</url>
-<url>
-<loc>https://shinris3n.github.io/news/2021/08/08/defcon2021results.html</loc>
-<lastmod>2021-08-08T18:12:41+00:00</lastmod>
-</url>
-<url>
-<loc>https://shinris3n.github.io/writeups/2021/09/18/HacktivityCon2021-N1TP.html</loc>
-<lastmod>2021-09-18T22:25:21+00:00</lastmod>
-</url>
-<url>
-<loc>https://shinris3n.github.io/writeups/2021/10/25/Buckeye2021-replay.html</loc>
-<lastmod>2021-10-25T02:31:21+00:00</lastmod>
-</url>
-<url>
-<loc>https://shinris3n.github.io/writeups/2021/10/25/Buckeye2021-layers.html</loc>
-<lastmod>2021-10-25T03:06:42+00:00</lastmod>
-</url>
-<url>
-<loc>https://shinris3n.github.io/writeups/2022/04/01/PicoCTF2022-buf1.html</loc>
-<lastmod>2022-04-01T02:31:21+00:00</lastmod>
-</url>
-<url>
-<loc>https://shinris3n.github.io/writeups/2022/09/11/CSAW2022-GCTA.html</loc>
-<lastmod>2022-09-11T22:11:21+00:00</lastmod>
-</url>
-<url>
-<loc>https://shinris3n.github.io/news/2026/01/26/CVE-2026-24061-Analysis.html</loc>
-<lastmod>2026-01-26T02:09:21+00:00</lastmod>
-</url>
-<url>
-<loc>https://shinris3n.github.io/old/2020-03-29-welcome-to-jekyll.html</loc>
-</url>
-<url>
-<loc>https://shinris3n.github.io/writeups/</loc>
-</url>
-<url>
-<loc>https://shinris3n.github.io/resources/</loc>
-</url>
-<url>
-<loc>https://shinris3n.github.io/news/</loc>
-</url>
-<url>
-<loc>https://shinris3n.github.io/</loc>
-</url>
-<url>
-<loc>https://shinris3n.github.io/googlee51826fa1394ca92.html</loc>
-<lastmod>2026-02-09T16:05:27+00:00</lastmod>
-</url>
+  <url>
+    <loc>https://shinris3n.github.io/news/2021/08/08/defcon2021results.html</loc>
+    <lastmod>2021-08-08T18:12:41+00:00</lastmod>
+  </url>
+  <url>
+    <loc>https://shinris3n.github.io/news/2020/08/04/vetsec-scholarship.html</loc>
+    <lastmod>2020-08-04T21:47:23+00:00</lastmod>
+  </url>
+  <url>
+    <loc>https://shinris3n.github.io/news/2020/04/06/virseccon-results.html</loc>
+    <lastmod>2020-04-06T05:25:41+00:00</lastmod>
+  </url>
+  <url>
+    <loc>https://shinris3n.github.io/writeups/2022/09/11/CSAW2022-GCTA.html</loc>
+    <lastmod>2022-09-11T22:11:21+00:00</lastmod>
+  </url>
+  <url>
+    <loc>https://shinris3n.github.io/writeups/2022/04/01/PicoCTF2022-buf1.html</loc>
+    <lastmod>2022-04-01T02:31:21+00:00</lastmod>
+  </url>
+  <url>
+    <loc>https://shinris3n.github.io/writeups/2021/10/25/Buckeye2021-layers.html</loc>
+    <lastmod>2021-10-25T03:06:42+00:00</lastmod>
+  </url>
+  <url>
+    <loc>https://shinris3n.github.io/writeups/2021/10/25/Buckeye2021-replay.html</loc>
+    <lastmod>2021-10-25T02:31:21+00:00</lastmod>
+  </url>
+  <url>
+    <loc>https://shinris3n.github.io/writeups/2021/09/18/HacktivityCon2021-N1TP.html</loc>
+    <lastmod>2021-09-18T22:25:21+00:00</lastmod>
+  </url>
+  <url>
+    <loc>https://shinris3n.github.io/writeups/2021/08/07/Defcon29RTVCTF-ASCIIRoulette.html</loc>
+    <lastmod>2021-08-07T23:20:12+00:00</lastmod>
+  </url>
+  <url>
+    <loc>https://shinris3n.github.io/writeups/resources/2021/06/13/TryHackMe-BOF-Prep.html</loc>
+    <lastmod>2021-06-13T21:13:21+00:00</lastmod>
+  </url>
+  <url>
+    <loc>https://shinris3n.github.io/writeups/2021/03/15/NahamCon2021-Dice-Roll.html</loc>
+    <lastmod>2021-03-15T04:48:00+00:00</lastmod>
+  </url>
+  <url>
+    <loc>https://shinris3n.github.io/writeups/2021/03/15/NahamCon2021-Hydraulic.html</loc>
+    <lastmod>2021-03-15T04:42:00+00:00</lastmod>
+  </url>
+  <url>
+    <loc>https://shinris3n.github.io/writeups/2021/03/15/NahamCon2021-Meet-The-Team.html</loc>
+    <lastmod>2021-03-15T04:38:00+00:00</lastmod>
+  </url>
+  <url>
+    <loc>https://shinris3n.github.io/writeups/2021/03/15/NahamCon2021-Parseltongue.html</loc>
+    <lastmod>2021-03-15T04:33:00+00:00</lastmod>
+  </url>
+  <url>
+    <loc>https://shinris3n.github.io/writeups/2021/03/15/NahamCon2021-Pollex.html</loc>
+    <lastmod>2021-03-15T04:08:00+00:00</lastmod>
+  </url>
+  <url>
+    <loc>https://shinris3n.github.io/writeups/2020/12/06/TryHackMe-AoC2-Day5.html</loc>
+    <lastmod>2020-12-06T04:12:21+00:00</lastmod>
+  </url>
+  <url>
+    <loc>https://shinris3n.github.io/writeups/2020/08/08/Defcon28RTVCTF-Roll2.html</loc>
+    <lastmod>2020-08-08T02:24:15+00:00</lastmod>
+  </url>
+  <url>
+    <loc>https://shinris3n.github.io/writeups/2020/08/08/Defcon28RTVCTF-Roll1.html</loc>
+    <lastmod>2020-08-08T02:23:15+00:00</lastmod>
+  </url>
+  <url>
+    <loc>https://shinris3n.github.io/writeups/2020/08/08/Defcon28RTVCTF-Nicer-Pic.html</loc>
+    <lastmod>2020-08-08T02:21:15+00:00</lastmod>
+  </url>
+  <url>
+    <loc>https://shinris3n.github.io/writeups/2020/08/08/Defcon28RTVCTF-Re-Me.html</loc>
+    <lastmod>2020-08-08T02:20:15+00:00</lastmod>
+  </url>
+  <url>
+    <loc>https://shinris3n.github.io/writeups/2020/08/08/Defcon28RTVCTF-Clicker.html</loc>
+    <lastmod>2020-08-08T02:20:15+00:00</lastmod>
+  </url>
+  <url>
+    <loc>https://shinris3n.github.io/writeups/2020/08/08/Defcon28RTVCTF-Who-Failed.html</loc>
+    <lastmod>2020-08-08T02:19:10+00:00</lastmod>
+  </url>
+  <url>
+    <loc>https://shinris3n.github.io/writeups/2020/07/31/HacktivityCon-Common-Place.html</loc>
+    <lastmod>2020-07-31T21:38:23+00:00</lastmod>
+  </url>
+  <url>
+    <loc>https://shinris3n.github.io/writeups/2020/07/31/HacktivityCon-Internet-Cattos.html</loc>
+    <lastmod>2020-07-31T21:38:22+00:00</lastmod>
+  </url>
+  <url>
+    <loc>https://shinris3n.github.io/writeups/2020/07/31/HacktivityCon-Spaghetti.html</loc>
+    <lastmod>2020-07-31T21:38:21+00:00</lastmod>
+  </url>
+  <url>
+    <loc>https://shinris3n.github.io/writeups/2020/05/03/VirSecCon2020-Quick-Run.html</loc>
+    <lastmod>2020-05-03T01:28:21+00:00</lastmod>
+  </url>
+  <url>
+    <loc>https://shinris3n.github.io/writeups/2020/04/17/TryHackMe-Node1.html</loc>
+    <lastmod>2020-04-17T04:13:21+00:00</lastmod>
+  </url>
+  <url>
+    <loc>https://shinris3n.github.io/writeups/2020/04/14/VirSecCon2020-2048.html</loc>
+    <lastmod>2020-04-14T14:48:21+00:00</lastmod>
+  </url>
+  <url>
+    <loc>https://shinris3n.github.io/writeups/</loc>
+  </url>
+  <url>
+    <loc>https://shinris3n.github.io/resources/2020/12/16/audio-support.html</loc>
+    <lastmod>2020-12-16T04:00:01+00:00</lastmod>
+  </url>
+  <url>
+    <loc>https://shinris3n.github.io/resources/2020/04/14/ricky.html</loc>
+    <lastmod>2020-04-14T04:00:15+00:00</lastmod>
+  </url>
+  <url>
+    <loc>https://shinris3n.github.io/resources/2020/04/14/cyber-mentor.html</loc>
+    <lastmod>2020-04-14T04:00:01+00:00</lastmod>
+  </url>
+  <url>
+    <loc>https://shinris3n.github.io/resources/2020/04/13/john-hammond.html</loc>
+    <lastmod>2020-04-13T04:00:01+00:00</lastmod>
+  </url>
+  <url>
+    <loc>https://shinris3n.github.io/resources/</loc>
+  </url>
+  <url>
+    <loc>https://shinris3n.github.io/news/</loc>
+  </url>
+  <url>
+    <loc>https://shinris3n.github.io/old/2020-03-29-welcome-to-jekyll.html</loc>
+    <lastmod>2020-03-29</lastmod>
+  </url>
 </urlset>
