@@ -1,4 +1,6 @@
-/* 1. DEFAULT THEME (NINPWN MODE) */
+/* =========================================
+   1. DEFAULT THEME (NINPWN)
+   ========================================= */
 .brand-link, 
 .challenge-meta,
 .post-meta-date,
@@ -6,7 +8,7 @@
   color: #b5e853; 
 }
 
-/* --- FLOATING BUTTON (Vibrant Ghost Style) --- */
+/* Theme Toggle Button */
 #theme-toggle {
   position: fixed;
   bottom: 20px;
@@ -34,77 +36,97 @@
   box-shadow: 0 0 15px rgba(181, 232, 83, 0.4);
 }
 
-/* 2. READABILITY MODE (POLISHED SLATE STYLE) */
-html body.readability-mode {
+/* =========================================
+   2. LIGHT MODE (SLATE STYLE)
+   ========================================= */
+html body.light-mode {
   background: #E3E8EC !important; 
   background-image: none !important; 
   color: #37474F !important; 
   
-  /* MODERN FONT STACK: Uses San Francisco (Mac), Segoe UI (Windows), Roboto (Android) */
+  /* Typography */
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif !important;
-  
-  /* Tyopgraphy Tweaks for "Freshness" */
-  line-height: 1.6; /* More breathing room between lines */
-  font-size: 16px;  /* Slightly larger base text */
+  line-height: 1.6;
+  font-size: 16px;
 }
 
 /* Header & Containers */
-html body.readability-mode header {
+html body.light-mode header {
   background: #E3E8EC !important; 
   border-bottom: 2px solid #B0BEC5; 
-  /* Keep Header Monospace for Brand Identity */
   font-family: "Bitstream Vera Sans Mono", "Consolas", Courier, monospace !important;
 }
 
-html body.readability-mode .container, 
-html body.readability-mode #main_content,
-html body.readability-mode .home {
+html body.light-mode .container, 
+html body.light-mode #main_content,
+html body.light-mode .home {
   background: transparent !important;
   color: #37474F !important;
 }
 
-/* --- READABILITY BUTTON --- */
-html body.readability-mode #theme-toggle {
+/* Links */
+html body.light-mode a,
+html body.light-mode #main_content a,
+html body.light-mode .brand-link,
+html body.light-mode .challenge-meta,
+html body.light-mode .post-meta-date,
+html body.light-mode .post-meta-category,
+html body.light-mode .post-link,
+html body.light-mode header h1 a, 
+html body.light-mode header p a {
+  color: #006064 !important;
+  text-decoration: none;
+}
+
+html body.light-mode a:hover,
+html body.light-mode #main_content a:hover,
+html body.light-mode .brand-link:hover {
+  text-decoration: underline;
+  color: #00838F !important;
+}
+
+/* Toggle Button Style */
+html body.light-mode #theme-toggle {
   background: rgba(255, 255, 255, 0.3) !important; 
   border: 1px solid #006064 !important;
   color: #006064 !important;
   box-shadow: none !important;
 }
 
-html body.readability-mode #theme-toggle:hover {
+html body.light-mode #theme-toggle:hover {
   background: #006064 !important;
   color: white !important;
   border-color: #006064 !important;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2) !important;
 }
 
-/* --- THE BULLET FIX --- */
-html body.readability-mode ul li::before,
-html body.readability-mode #main_content ul li::before,
-html body.readability-mode .container ul li::before {
+/* List Styles */
+html body.light-mode ul li::before,
+html body.light-mode #main_content ul li::before,
+html body.light-mode .container ul li::before {
   content: none !important; 
   display: none !important;
 }
 
-html body.readability-mode ul,
-html body.readability-mode #main_content ul {
+html body.light-mode ul,
+html body.light-mode #main_content ul {
   list-style-image: none !important;
   list-style-type: disc !important;
   padding-left: 40px !important;
   margin-left: 0 !important;
 }
 
-html body.readability-mode ul li,
-html body.readability-mode #main_content ul li {
+html body.light-mode ul li,
+html body.light-mode #main_content ul li {
   list-style-image: none !important;
   list-style-type: disc !important;
   color: #37474F !important;
   padding-left: 0 !important;
 }
 
-/* --- THE CODE BLOCK CONTAINER (Lighter Grey & Sky Blue) --- */
-html body.readability-mode code,
-html body.readability-mode #main_content code {
+/* Code Blocks */
+html body.light-mode code,
+html body.light-mode #main_content code {
   background-color: rgba(0, 0, 0, 0.06) !important;
   border: none !important;
   color: #D84315 !important; 
@@ -113,8 +135,8 @@ html body.readability-mode #main_content code {
   border-radius: 3px;
 }
 
-html body.readability-mode pre,
-html body.readability-mode #main_content pre {
+html body.light-mode pre,
+html body.light-mode #main_content pre {
   background-color: #CFD8DC !important; 
   border: 2px solid #29B6F6 !important; 
   border-radius: 6px;
@@ -126,8 +148,8 @@ html body.readability-mode #main_content pre {
   color: #212529 !important; 
 }
 
-html body.readability-mode pre code,
-html body.readability-mode #main_content pre code {
+html body.light-mode pre code,
+html body.light-mode #main_content pre code {
   background-color: transparent !important;
   border: none !important;
   color: inherit !important; 
@@ -135,178 +157,255 @@ html body.readability-mode #main_content pre code {
   font-weight: 500;
 }
 
-/* --- NUCLEAR SYNTAX OVERRIDES --- */
-html body.readability-mode pre .c, 
-html body.readability-mode pre .cm,
-html body.readability-mode pre .cp,
-html body.readability-mode pre .c1,
-html body.readability-mode pre .cs {
+/* Syntax Highlighting Overrides */
+html body.light-mode pre .c, 
+html body.light-mode pre .cm,
+html body.light-mode pre .cp,
+html body.light-mode pre .c1,
+html body.light-mode pre .cs {
   color: #455A64 !important;
   font-style: italic;
   font-weight: bold;
 }
 
-html body.readability-mode pre .s, 
-html body.readability-mode pre .sb,
-html body.readability-mode pre .sc,
-html body.readability-mode pre .sd,
-html body.readability-mode pre .s2,
-html body.readability-mode pre .sh,
-html body.readability-mode pre .sx,
-html body.readability-mode pre .s1 {
+html body.light-mode pre .s, 
+html body.light-mode pre .sb,
+html body.light-mode pre .sc,
+html body.light-mode pre .sd,
+html body.light-mode pre .s2,
+html body.light-mode pre .sh,
+html body.light-mode pre .sx,
+html body.light-mode pre .s1 {
   color: #C62828 !important;
 }
 
-html body.readability-mode pre .k, 
-html body.readability-mode pre .kc,
-html body.readability-mode pre .kd,
-html body.readability-mode pre .kn,
-html body.readability-mode pre .kp,
-html body.readability-mode pre .kr,
-html body.readability-mode pre .kt,
-html body.readability-mode pre .nf,
-html body.readability-mode pre .nt { 
+html body.light-mode pre .k, 
+html body.light-mode pre .kc,
+html body.light-mode pre .kd,
+html body.light-mode pre .kn,
+html body.light-mode pre .kp,
+html body.light-mode pre .kr,
+html body.light-mode pre .kt,
+html body.light-mode pre .nf,
+html body.light-mode pre .nt { 
   color: #0D47A1 !important;
   font-weight: bold;
 }
 
-html body.readability-mode pre .nv, 
-html body.readability-mode pre .vc,
-html body.readability-mode pre .vg,
-html body.readability-mode pre .vi,
-html body.readability-mode pre .na, 
-html body.readability-mode pre .nb,
-html body.readability-mode pre .bp {
+html body.light-mode pre .nv, 
+html body.light-mode pre .vc,
+html body.light-mode pre .vg,
+html body.light-mode pre .vi,
+html body.light-mode pre .na, 
+html body.light-mode pre .nb,
+html body.light-mode pre .bp {
   color: #4A148C !important;
 }
 
-html body.readability-mode pre .m, 
-html body.readability-mode pre .mf,
-html body.readability-mode pre .mh,
-html body.readability-mode pre .mi,
-html body.readability-mode pre .mo,
-html body.readability-mode pre .il {
+html body.light-mode pre .m, 
+html body.light-mode pre .mf,
+html body.light-mode pre .mh,
+html body.light-mode pre .mi,
+html body.light-mode pre .mo,
+html body.light-mode pre .il {
   color: #004D40 !important;
 }
 
-html body.readability-mode pre .o,
-html body.readability-mode pre .ow, 
-html body.readability-mode pre .p,
-html body.readability-mode pre .pi {
+html body.light-mode pre .o,
+html body.light-mode pre .ow, 
+html body.light-mode pre .p,
+html body.light-mode pre .pi {
   color: #000000 !important;
   font-weight: bold;
 }
 
-html body.readability-mode pre .n,
-html body.readability-mode pre .nx,
-html body.readability-mode pre .go {
+html body.light-mode pre .n,
+html body.light-mode pre .nx,
+html body.light-mode pre .go {
   color: #263238 !important;
 }
 
-/* --- OVERRIDE HEADINGS --- 
-   Using standard sans-serif with tighter tracking for a 'headline' feel.
-*/
-html body.readability-mode h1,
-html body.readability-mode h2,
-html body.readability-mode h3,
-html body.readability-mode h4,
-html body.readability-mode h5,
-html body.readability-mode h6,
-html body.readability-mode #main_content h1,
-html body.readability-mode #main_content h2,
-html body.readability-mode #main_content h3,
-html body.readability-mode .page-heading {
+/* Headings */
+html body.light-mode h1,
+html body.light-mode h2,
+html body.light-mode h3,
+html body.light-mode h4,
+html body.light-mode h5,
+html body.light-mode h6,
+html body.light-mode #main_content h1,
+html body.light-mode #main_content h2,
+html body.light-mode #main_content h3,
+html body.light-mode .page-heading {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif !important;
   color: #263238 !important; 
-  letter-spacing: -0.5px; /* Tighter headline spacing */
+  letter-spacing: -0.5px;
   font-weight: 700;
   border-bottom: none !important;
 }
 
-/* --- LINKS --- */
-html body.readability-mode a,
-html body.readability-mode #main_content a,
-html body.readability-mode .brand-link,
-html body.readability-mode .challenge-meta,
-html body.readability-mode .post-meta-date,
-html body.readability-mode .post-meta-category,
-html body.readability-mode .post-link,
-html body.readability-mode header h1 a, 
-html body.readability-mode header p a {
-  color: #006064 !important;
-  text-decoration: none;
-}
-
-html body.readability-mode a:hover,
-html body.readability-mode #main_content a:hover,
-html body.readability-mode .brand-link:hover {
-  text-decoration: underline;
-  color: #00838F !important;
-}
-
-/* --- BANNER IMAGE FIX --- */
-html body.readability-mode img[src*="shinris3n_banner_transparent.png"] {
+/* Images */
+html body.light-mode img[src*="shinris3n_banner_transparent.png"] {
   filter: invert(1) hue-rotate(180deg) brightness(0.6) contrast(2) drop-shadow(0 0 0px #000);
   opacity: 1.0;
 }
 
-/* Header Description */
-html body.readability-mode header h2 {
+html body.light-mode header h2 {
   color: #546E7A !important;
 }
 
-/* --- HEADER LAYOUT (Text Left, Logo Right) --- */
+html body.light-mode .header-brand-logo {
+  filter: invert(1) hue-rotate(180deg) brightness(0.6) contrast(1.2) drop-shadow(0 0 0px #000);
+  opacity: 0.8;
+}
 
-/* 1. Flex Container */
+/* =========================================
+   3. DARK MODE (DEEP VOID + GOLD)
+   ========================================= */
+html body.dark-mode {
+  background: #0d1117 !important; /* Deep Blue/Black */
+  background-image: none !important; 
+  color: #c9d1d9 !important;      /* Soft White/Grey */
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif !important;
+  line-height: 1.6;
+  font-size: 16px;
+}
+
+html body.dark-mode header {
+  background: ##001a00 !important;
+  border-bottom: 2px solid #30363d; 
+  font-family: "Bitstream Vera Sans Mono", "Consolas", Courier, monospace !important;
+}
+
+html body.dark-mode .container, 
+html body.dark-mode #main_content,
+html body.dark-mode .home {
+  background: transparent !important;
+  color: #c9d1d9 !important;
+}
+
+/* Links */
+html body.dark-mode a,
+html body.dark-mode #main_content a,
+html body.dark-mode .brand-link,
+html body.dark-mode header h1 a, 
+html body.dark-mode header p a {
+  color: #58a6ff !important; /* Tech Blue */
+  text-decoration: none;
+}
+html body.dark-mode a:hover {
+  text-decoration: underline;
+  color: #79c0ff !important; /* Lighter Blue */
+}
+
+/* Headings (SOFT GOLD) */
+html body.dark-mode h1,
+html body.dark-mode h2,
+html body.dark-mode h3,
+html body.dark-mode h4,
+html body.dark-mode .page-heading {
+  color: #e6c07b !important; /* Soft Terminal Gold */
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif !important;
+  letter-spacing: -0.5px;
+}
+
+/* Code Blocks */
+html body.dark-mode pre,
+html body.dark-mode #main_content pre {
+  background-color: #161b22 !important; /* Offset Dark */
+  border: 1px solid #30363d !important;
+  border-radius: 6px;
+  padding: 12px;
+  margin: 15px 0;
+  overflow: auto;
+  color: #c9d1d9 !important;
+}
+html body.dark-mode code {
+  background-color: rgba(110, 118, 129, 0.4) !important;
+  color: #f0f6fc !important;
+  border: none !important;
+}
+html body.dark-mode pre code {
+  background-color: transparent !important;
+  color: inherit !important;
+}
+
+/* Toggle Button Style */
+html body.dark-mode #theme-toggle {
+  background: rgba(13, 17, 23, 0.8) !important;
+  border: 1px solid #e6c07b !important; /* Gold Border */
+  color: #e6c07b !important;
+  box-shadow: none !important;
+}
+html body.dark-mode #theme-toggle:hover {
+  background: #161b22 !important;
+  color: #f0c674 !important;
+  border-color: #f0c674 !important;
+}
+
+/* List Styles */
+html body.dark-mode ul li::before { 
+  content: none !important; 
+  display: none !important;
+}
+
+html body.dark-mode ul { 
+  list-style-image: none !important;
+  list-style-type: disc !important;
+  padding-left: 40px !important; 
+  margin-left: 0 !important;
+}
+
+html body.dark-mode ul li { 
+  list-style-image: none !important;
+  list-style-type: disc !important;
+  color: #c9d1d9 !important; 
+  padding-left: 0 !important;
+}
+
+/* Header Logo */
+html body.dark-mode .header-brand-logo {
+  opacity: 0.9; 
+  filter: none !important;
+}
+
+/* =========================================
+   4. GLOBAL HEADER LAYOUT
+   ========================================= */
 .header-flex {
   display: flex;
-  justify-content: space-between; /* Pushes Text left, Logo right */
-  align-items: center;            /* Vertically centers them */
-  gap: 40px;                      /* Healthy gap so they don't touch */
+  justify-content: space-between;
+  align-items: center;
+  gap: 40px;
 }
 
-/* 2. Text Area */
 .header-text {
-  flex: 1; /* Allows text to take up available space */
+  flex: 1;
 }
 
-/* 3. Logo Area */
 .header-logo-wrapper {
-  flex-shrink: 0; /* Prevents logo from getting squished */
+  flex-shrink: 0;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
 .header-brand-logo {
-  /* SIZING: 140px usually matches the full height of the text block exactly. */
   max-height: 140px; 
   width: auto;      
-  
-  /* NINPWN Mode: Default presentation */
   opacity: 1.0;
   transition: all 0.3s ease;
 }
 
-/* --- MOBILE RESPONSIVENESS --- */
+/* Mobile Responsiveness */
 @media (max-width: 768px) {
   .header-flex {
-    flex-direction: column-reverse; /* Stack them on mobile */
+    flex-direction: column-reverse;
     text-align: center;
     gap: 20px;
   }
   
   .header-brand-logo {
-    max-height: 100px; /* Smaller on phone */
+    max-height: 100px;
     margin-bottom: 10px;
   }
-}
-
-/* --- READABILITY MODE LOGO FIX --- 
-   This ensures the logo matches the 'Slate' theme.
-   It inverts the colors so a white logo becomes Dark Grey/Blue.
-*/
-html body.readability-mode .header-brand-logo {
-  filter: invert(1) hue-rotate(180deg) brightness(0.6) contrast(1.2) drop-shadow(0 0 0px #000);
-  opacity: 0.8;
 }
